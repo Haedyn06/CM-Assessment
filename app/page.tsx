@@ -18,6 +18,8 @@ export default function Home() {
         <ShelfSection />
         <ProductSection />
         <TestimonialSection />
+        <TimelineSection />
+        <FAQSection />
       </main>
     </div>
   );
