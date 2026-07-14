@@ -1,0 +1,48 @@
+[
+  {
+    "id": "greeting",
+    "role": "ai",
+    "text": "Hey, what can I help you with?",
+    "autowrite": true
+  },
+  {
+    "id": "teach",
+    "role": "user",
+    "text": "I want to teach you our creative QA process. When a new order comes in, log into our CRM portal, pull the order details and line items, download the creative files, check them against our spec sheet, then post the results back to the order."
+  },
+  {
+    "id": "recording",
+    "role": "user",
+    "attachment": {
+      "label": "Screen Recording: Creative QA Process"
+    }
+  },
+  {
+    "id": "plan",
+    "role": "ai",
+    "text": "Great, I watched the recording and understand the workflow. Here's the plan:",
+    "steps": [
+      "Log into CRM portal",
+      "Navigate to Order and verify details",
+      "Find all Order Line Items",
+      "Download creative files for each line item",
+      "Analyze creative dimensions, format, and file size",
+      "Compare against creative spec sheet",
+      "Generate QA report",
+      "Post results back to each line item"
+    ],
+    "autowrite": true
+  },
+  {
+    "id": "confirm",
+    "role": "user",
+    "text": "Looks good, let's do it!"
+  },
+  {
+    "id": "action",
+    "role": "ai",
+    "text": "First, I'll log into the CRM portal and navigate to the order page...",
+    "showComputer": true,
+    "autowrite": true
+  }
+]

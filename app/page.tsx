@@ -7,9 +7,6 @@ import { TestimonialSection } from "@/components/sections/Testimonials";
 import { TimelineSection } from "@/components/sections/Timeline";
 import { FAQSection } from "@/components/sections/Faq";
 
-import Image from "next/image";
-
-
 export default function Home() {
   return (
     <div className="">
@@ -17,6 +14,7 @@ export default function Home() {
         <HeroSection />
         <ShelfSection />
         <ProductSection />
+        <ShowcaseSection />
         <TestimonialSection />
         <TimelineSection />
         <FAQSection />
