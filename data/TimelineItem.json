@@ -1,0 +1,30 @@
+[
+  {
+    "id": "today",
+    "label": "Today",
+    "title": "Initial consultation.",
+    "items": [
+      "Schedule a demo",
+      "Hop on with our team to map use cases and ROI",
+      "Go/no-go decision"
+    ]
+  },
+  {
+    "id": "day-1",
+    "label": "Day 1",
+    "title": "“Forward Deployed” IT.",
+    "items": [
+      "Convey specialists partner with your in-house experts to configure AI teammate identities and access",
+      "Department-level onboarding begins"
+    ]
+  },
+  {
+    "id": "day-30",
+    "label": "Day 30",
+    "title": "Delivering real value.",
+    "items": [
+      "AI teammates running critical workflows",
+      "Your organizational capacity begins to scale"
+    ]
+  }
+]

@@ -3,43 +3,10 @@
 import { IoCheckmark } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
 
-type TimelineStep = {
-  id: string;
-  label: string;
-  title: string;
-  items: string[];
-};
+import TimelineData from "@/data/TimelineItem.json";
+import type { TimelineItem } from "@/types/TimelineItem";
 
-const STEPS: TimelineStep[] = [
-  {
-    id: "today",
-    label: "Today",
-    title: "Initial consultation.",
-    items: [
-      "Schedule a demo",
-      "Hop on with our team to map use cases and ROI",
-      "Go/no-go decision",
-    ],
-  },
-  {
-    id: "day-1",
-    label: "Day 1",
-    title: "\u201cForward Deployed\u201d IT.",
-    items: [
-      "Convey specialists partner with your in-house experts to configure AI teammate identities and access",
-      "Department-level onboarding begins",
-    ],
-  },
-  {
-    id: "day-30",
-    label: "Day 30",
-    title: "Delivering real value.",
-    items: [
-      "AI teammates running critical workflows",
-      "Your organizational capacity begins to scale",
-    ],
-  },
-];
+const TimelineItems = TimelineData as TimelineItem[];
 
 function CornerFrame() {
   return (
@@ -83,7 +50,7 @@ export function TimelineSection() {
 
         <div className="timeline__board">
           <div className="timeline__labels" aria-hidden>
-            {STEPS.map((step) => (
+            {TimelineItems.map((step) => (
               <div key={step.id} className="timeline__label-slot">
                 <div className="timeline__label">
                   <CornerFrame />
@@ -95,7 +62,7 @@ export function TimelineSection() {
 
           <div className="timeline__rail" aria-hidden>
             <div className="timeline__line" />
-            {STEPS.map((step) => (
+            {TimelineItems.map((step) => (
               <span key={step.id} className="timeline__node-slot">
                 <span className="timeline__node" />
               </span>
@@ -103,7 +70,7 @@ export function TimelineSection() {
           </div>
 
           <ol className="timeline__steps">
-            {STEPS.map((step) => (
+            {TimelineItems.map((step) => (
               <li key={step.id} className="timeline__step">
                 <div className="timeline__label timeline__label--mobile">
                   <CornerFrame />
