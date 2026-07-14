@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { IoClose } from "react-icons/io5";
 
 type ProductVideoProps = {
   open: boolean;
@@ -12,6 +13,10 @@ type ProductVideoProps = {
 
 const EXIT_MS = 320;
 
+function subscribe() {
+  return () => {};
+}
+
 export function ProductVideo({
   open,
   src,
@@ -20,34 +25,35 @@ export function ProductVideo({
 }: ProductVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const onCloseRef = useRef(onClose);
-  const [mounted, setMounted] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [phase, setPhase] = useState<"enter" | "exit">("enter");
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+
+  const [visible, setVisible] = useState(open);
+  const [phase, setPhase] = useState<"enter" | "exit">(open ? "enter" : "exit");
+  const [prevOpen, setPrevOpen] = useState(open);
+
+  if (open !== prevOpen) {
+    setPrevOpen(open);
+    if (open) {
+      setVisible(true);
+      setPhase("enter");
+    } else if (visible) {
+      setPhase("exit");
+    }
+  }
 
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (phase !== "exit") return;
 
-  useEffect(() => {
-    if (open) {
-      setVisible(true);
-      setPhase("enter");
-      return;
-    }
-
-    if (!visible) return;
-
-    setPhase("exit");
     const timer = window.setTimeout(() => {
       setVisible(false);
     }, EXIT_MS);
 
     return () => window.clearTimeout(timer);
-  }, [open, visible]);
+  }, [phase]);
 
   useEffect(() => {
     if (!visible || phase !== "enter") return;
@@ -98,14 +104,7 @@ export function ProductVideo({
         aria-label="Close"
         onClick={onClose}
       >
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-          <path
-            d="M3 3l12 12M15 3L3 15"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-          />
-        </svg>
+        <IoClose size={22} aria-hidden />
       </button>
 
       <div className="product-video__frame">

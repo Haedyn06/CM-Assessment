@@ -1,0 +1,27 @@
+[
+  {
+    "id": "data",
+    "question": "How does Convey use my data?",
+    "answer": "You retain all ownership over your data, and it is never used for training. Convey also maintains zero data retention agreements with all our model providers."
+  },
+  {
+    "id": "security",
+    "question": "What security certifications does Convey have?",
+    "answer": "Convey is SOC 2 Type II certified, with regular penetration testing. Reports are available in our Trust Center."
+  },
+  {
+    "id": "systems",
+    "question": "My company runs on a lot of different, sometimes older systems. Will that be a problem?",
+    "answer": "Certainly not! Convey teammates can connect to any and all systems, whether programmatically, or by clicking around their computers just like you would."
+  },
+  {
+    "id": "use-cases",
+    "question": "What are the most common use cases for this platform?",
+    "answer": "Common use cases include: customer support automation, data entry and processing, scheduling and coordination, report generation, lead qualification, and workflow orchestration across multiple tools and systems. If you can teach it to a remote employee, you can train AI to own that task."
+  },
+  {
+    "id": "billing",
+    "question": "How does billing work?",
+    "answer": "Billing is based on your selected plan, which scales with the value you're getting from the platform. Contact sales to decide on the right plan for your team."
+  }
+]

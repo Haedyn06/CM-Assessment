@@ -12,15 +12,7 @@ export type TestimonialCardProps = {
   style?: CSSProperties;
 };
 
-export function TestimonialCard({
-  quote,
-  name,
-  title,
-  avatar,
-  background = "#d9ecee",
-  className = "",
-  style,
-}: TestimonialCardProps) {
+export function TestimonialCard({ quote, name, title, avatar, background = "#d9ecee", className = "", style }: TestimonialCardProps) {
   return (
     <article
       className={`testimonial-card${className ? ` ${className}` : ""}`}

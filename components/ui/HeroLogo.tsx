@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
+import { IoAdd } from "react-icons/io5";
 import { LogoQuotes } from "@/components/ui/LogoQuotes";
 
 export type HeroLogoQuote = {
@@ -59,7 +60,7 @@ export function HeroLogo({
       <div className="hero-logo__wrap">
         {showQuote && (
           <span className="hero-logo__plus" aria-hidden>
-            +
+            <IoAdd size={12} />
           </span>
         )}
 
@@ -116,9 +117,7 @@ export function HeroLogo({
           border: 1.5px solid #9ec4e4;
           background: #cfe3f5;
           color: #fff;
-          font-size: 0.65rem;
-          font-weight: 600;
-          line-height: 1;
+          line-height: 0;
           transform: translate(45%, calc(-85% - 4px));
           transition:
             transform 0.25s ease,

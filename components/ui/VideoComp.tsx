@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { IoPlay } from "react-icons/io5";
 
 export type VideoCompProps = {
   /** Video media source — swap freely per usage */
@@ -39,7 +40,14 @@ export function VideoComp({
   onPause,
 }: VideoCompProps) {
   const [playing, setPlaying] = useState(false);
+  const [mediaKey, setMediaKey] = useState(`${src}|${poster ?? ""}`);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const nextMediaKey = `${src}|${poster ?? ""}`;
+
+  if (mediaKey !== nextMediaKey) {
+    setMediaKey(nextMediaKey);
+    setPlaying(false);
+  }
 
   useEffect(() => {
     const video = videoRef.current;
@@ -52,9 +60,8 @@ export function VideoComp({
     }
   }, [playing, onPause]);
 
-  // Reset playback when the media source changes
+  // Reload media element when the source changes (DOM only — no setState)
   useEffect(() => {
-    setPlaying(false);
     const video = videoRef.current;
     if (!video) return;
     video.pause();
@@ -110,15 +117,7 @@ export function VideoComp({
             onClick={startPlayback}
           >
             <CornerDots />
-            <svg
-              width="10"
-              height="12"
-              viewBox="0 0 10 12"
-              fill="currentColor"
-              aria-hidden
-            >
-              <path d="M0 0v12l10-6L0 0Z" />
-            </svg>
+            <IoPlay size={12} aria-hidden />
             Play
           </button>
         </>

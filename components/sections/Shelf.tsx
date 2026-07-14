@@ -3,53 +3,19 @@
 import { useState } from "react";
 import { ShelfCard } from "@/components/ui/ShelfCard";
 
-type ShelfItem = {
-  id: string;
-  title: string;
-  logoLabel: string;
-  quote: string;
-  attribution: string;
-};
+import ShelfItemsData from "@/data/ShelfItem.json";
+import type { ShelfItem } from "@/types/ShelfItem";
 
-const ITEMS: ShelfItem[] = [
-  {
-    id: "savoya",
-    title: "Savoya",
-    logoLabel: "SAVOYA",
-    quote:"Convey is a cheat code that is giving us a real edge over our competitors. We saw ROI within weeks.",
-    attribution: "Dominic Miraglia, Chief Commercial Officer",
-  },
-  {
-    id: "samsara",
-    title: "Samsara",
-    logoLabel: "samsara",
-    quote: "This is a new skillset that accountants are going to be expected to have.",
-    attribution: "Scott Hume, Assistant Controller",
-  },
-  {
-    id: "chargepoint",
-    title: "ChargePoint",
-    logoLabel: "chargepoint+",
-    quote: "We deployed digital teammates across finance workflows and saw capacity open up within the first month.",
-    attribution: "Jordan Lee, Finance Director",
-  },
-  {
-    id: "ewing",
-    title: "Ewing Outdoor Supply",
-    logoLabel: "EWING OUTDOOR SUPPLY",
-    quote: "Our operators finally have room to focus on judgment calls instead of busywork in the background.",
-    attribution: "Alex Rivera, Operations Lead",
-  },
-];
+const ShelfItems = ShelfItemsData as ShelfItem[];
 
 // Test media served from /public (symlinked from /assets)
 const TEST_IMAGE = "/mountain.jpg";
 const TEST_VIDEO = "/grass.mp4";
 
 export function ShelfSection() {
-  const [activeId, setActiveId] = useState(ITEMS[0]!.id);
+  const [activeId, setActiveId] = useState(ShelfItems[0]!.id);
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const active = ITEMS.find((item) => item.id === activeId) ?? ITEMS[0]!;
+  const active = ShelfItems.find((item) => item.id === activeId) ?? ShelfItems[0]!;
 
   return (
     <section className="shelf">
@@ -62,7 +28,7 @@ export function ShelfSection() {
       </div>
 
       <div className="shelf__rail" role="list">
-        {ITEMS.map((item) => {
+        {ShelfItems.map((item) => {
           const isActive = item.id === activeId;
           const isPlaying = playingId === item.id;
 

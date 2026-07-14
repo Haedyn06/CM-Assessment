@@ -1,0 +1,120 @@
+.faq {
+  position: relative;
+  padding: 5rem 1.25rem 5.5rem;
+  background: #f3f3f1;
+  color: #1a1a1a;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (min-width: 640px) {
+  .faq {
+    padding: 5.5rem 2rem 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .faq {
+    padding: 6rem 3rem 6.5rem;
+  }
+}
+
+.faqInner {
+  display: grid;
+  gap: 2.5rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .faqInner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.7fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.faqAside {
+  padding-top: 0.15rem;
+}
+
+.faqTitle {
+  margin: 0 0 0.85rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #151515;
+}
+
+.faqLink {
+  display: inline-block;
+  font-size: 0.95rem;
+  color: #6a6a6a;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease;
+}
+
+.faqLink:hover {
+  color: #1f1f1f;
+}
+
+.faqList {
+  border-top: 1px solid #d7d7d7;
+}
+
+.faqItem {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.faqQuestion {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 3.75rem;
+  padding: 1.15rem 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2a2a2a;
+  line-height: 1.4;
+}
+
+.faqChevron {
+  flex-shrink: 0;
+  color: rgba(30, 30, 50, 0.4);
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.faqChevron.is-open {
+  transform: rotate(180deg);
+  color: rgba(30, 30, 50, 0.65);
+}
+
+.faqAnswer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.faqAnswer.is-open {
+  grid-template-rows: 1fr;
+}
+
+.faqAnsInner {
+  overflow: hidden;
+}
+
+.faqAnsInner p {
+  margin: 0;
+  padding: 0 1.75rem 1.2rem 0;
+  max-width: 42rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #6f6f6f;
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { IoCheckmark } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
 
 type TimelineStep = {
@@ -48,27 +49,6 @@ function CornerFrame() {
       <span />
       <span />
     </span>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      className="timeline-card__check"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M2.5 7.2 5.4 10l6.1-6.5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 
@@ -136,7 +116,11 @@ export function TimelineSection() {
                   <ul className="timeline-card__list">
                     {step.items.map((item) => (
                       <li key={item} className="timeline-card__item">
-                        <CheckIcon />
+                        <IoCheckmark
+                          className="timeline-card__check"
+                          size={16}
+                          aria-hidden
+                        />
                         <span>{item}</span>
                       </li>
                     ))}

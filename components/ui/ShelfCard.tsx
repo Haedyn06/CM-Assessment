@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { IoPlay } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
 
 type ShelfCardProps = {
@@ -15,17 +16,7 @@ type ShelfCardProps = {
   className?: string;
 };
 
-export function ShelfCard({
-  title,
-  logoLabel,
-  active,
-  playing,
-  imageSrc,
-  videoSrc,
-  onSelect,
-  onPlay,
-  className = "",
-}: ShelfCardProps) {
+export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc, onSelect, onPlay, className = ""}: ShelfCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -145,15 +136,7 @@ export function ShelfCard({
                 backdropFilter: "blur(10px)",
               }}
             >
-              <svg
-                width="9"
-                height="11"
-                viewBox="0 0 10 12"
-                fill="currentColor"
-                aria-hidden
-              >
-                <path d="M0 0v12l10-6L0 0Z" />
-              </svg>
+              <IoPlay size={12} aria-hidden />
               Play
             </Button>
           )}

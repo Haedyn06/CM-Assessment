@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { IoPlay } from "react-icons/io5";
 import { ProductVideo } from "@/components/ui/ProductVideo";
 import { Button } from "@/components/ui/Button";
 
@@ -33,9 +34,7 @@ export function ProductSection() {
           onClick={() => setVideoOpen(true)}
           style={{ borderRadius: "0.2rem", fontWeight: 500 }}
         >
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden >
-            <path d="M0 0v12l10-6L0 0Z" />
-          </svg>
+          <IoPlay size={12} aria-hidden />
           Work is changing
         </Button>
       </div>

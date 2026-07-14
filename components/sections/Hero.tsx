@@ -1,92 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { HeroLogo, type HeroLogoQuote } from "@/components/ui/HeroLogo";
+import { HeroLogo } from "@/components/ui/HeroLogo";
 import { VideoComp } from "@/components/ui/VideoComp";
 
-type LogoItem = {
-  id: string;
-  src: string;
-  alt: string;
-  hoverColor: string;
-  aspectRatio: number;
-  hasQuote?: boolean;
-  quote?: HeroLogoQuote;
-};
+import LogoItemsData from "@/data/LogoItem.json";
+import type { LogoItem } from "@/types/LogoItem";
 
-const LOGOS: LogoItem[] = [
-  {
-    id: "nbc",
-    src: "/logos/nbc.png",
-    alt: "NBCUniversal",
-    hoverColor: "#0b1f4a",
-    aspectRatio: 2016 / 752,
-  },
-  {
-    id: "samsara",
-    src: "/logos/samsara.png",
-    alt: "Samsara",
-    hoverColor: "#0b5fff",
-    aspectRatio: 3768 / 904,
-    hasQuote: true,
-    quote: {
-      quote: "Convey helps me free up my staff and create leverage for them to go work on higher value parts of the business... we're all in on Convey.",
-      name: "Scott Hume",
-      title: "Assistant Controller, Samsara",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face",
-    },
-  },
-  {
-    id: "unity",
-    src: "/logos/unity.png",
-    alt: "Unity",
-    hoverColor: "#222222",
-    aspectRatio: 676 / 246,
-  },
-  {
-    id: "televisa",
-    src: "/logos/televisa.png",
-    alt: "TelevisaUnivision",
-    hoverColor: "#6b2d8b",
-    aspectRatio: 2560 / 939,
-    hasQuote: true,
-    quote: {
-      quote: "I haven't had this much fun with work in a long time. The ability to think of an idea and create a solution without convincing an engineer is amazing.",
-      name: "Jeremy Varner",
-      title: "SVP Programmatic Operations, TelevisaUnivision",
-      avatar: "https://convey.dev/headshots/jeremyvarner.jpeg",
-    },
-  },
-  {
-    id: "faire",
-    src: "/logos/faire.png",
-    alt: "Faire",
-    hoverColor: "#111111",
-    aspectRatio: 1343 / 169,
-    hasQuote: true,
-    quote: {
-      quote: "We had team members spending hours each week pulling invoices from multiple shipping portals. With Convey, one of our team members was able to set up an automated workflow on their own ... no engineering support required.",
-      name: "Kunal Bajaj",
-      title: "Chief Accounting Officer, Faire",
-      avatar: "https://convey.dev/headshots/kunalbajaj.png",
-    },
-  },
-  {
-    id: "chargepoint",
-    src: "/logos/chargepoint.png",
-    alt: "ChargePoint",
-    hoverColor: "#1473e6",
-    aspectRatio: 721 / 134,
-    hasQuote: true,
-    quote: {
-      quote: "We deployed digital teammates across finance workflows and saw capacity open up within the first month.",
-      name: "Jordan Lee",
-      title: "Finance Director, ChargePoint",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face",
-    },
-  },
-];
+const LogoItems = LogoItemsData as LogoItem[];
 
 function CornerDots() {
   return (
@@ -144,7 +65,7 @@ export function HeroSection() {
       </div>
 
       <ul className="hero-logos">
-        {LOGOS.map((logo) => (
+        {LogoItems.map((logo) => (
           <HeroLogo key={logo.id} src={logo.src} alt={logo.alt}
             hoverColor={logo.hoverColor} aspectRatio={logo.aspectRatio}
             hasQuote={logo.hasQuote} quote={logo.quote} />

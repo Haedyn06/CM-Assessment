@@ -1,76 +1,13 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type PointerEvent as ReactPointerEvent,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { TestimonialCard } from "@/components/ui/TestimonialCard";
 
-type Testimonial = {
-  id: string;
-  quote: string;
-  name: string;
-  title: string;
-  avatar: string;
-  background: string;
-};
+import TestimonialItemsData from "@/data/TestimonialItem.json";
+import type { TestimonialItem } from "@/types/TestimonialItem";
 
-const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "jeremy",
-    quote:
-      "I haven't had this much fun with work in a long time. The ability to think of an idea and create a solution without convincing an engineer or product manager and doing it in a day instead of weeks is amazing. Even at a prior company where a good idea would get created in 3-6 months because we had 600 engineers... this is better!",
-    name: "Jeremy Varner",
-    title: "SVP Programmatic Operations, TelevisaUnivision",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
-    background: "#d7ecef",
-  },
-  {
-    id: "kunal",
-    quote:
-      "We had team members spending hours each week pulling invoices from multiple shipping portals. With Convey, one of our team members was able to set up an automated workflow on their own ... no engineering support required. It's helped streamline a recurring process and free up time for higher-value work.",
-    name: "Kunal Bajaj",
-    title: "Chief Accounting Officer, Faire",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face",
-    background: "#d9efe3",
-  },
-  {
-    id: "allie",
-    quote:
-      "I'm not an engineer. I come from HR. And I was able to easily build powerful agents. It feels more like teaching a remote worker than anything else.",
-    name: "Allie Tripaldi",
-    title: "General Manager",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&fit=crop&crop=face",
-    background: "#efe6c9",
-  },
-  {
-    id: "scott",
-    quote:
-      "Convey helps me free up my staff and create leverage for them to go work on higher value parts of the business... we're all in on Convey.",
-    name: "Scott Hume",
-    title: "Assistant Controller, Samsara",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face",
-    background: "#e4e0f2",
-  },
-  {
-    id: "dominic",
-    quote:
-      "Convey is a cheat code that is giving us a real edge over our competitors. We saw ROI within weeks.",
-    name: "Dominic Miraglia",
-    title: "Chief Commercial Officer, Savoya",
-    avatar:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=96&h=96&fit=crop&crop=face",
-    background: "#e8ddd4",
-  },
-];
+const TestimonialItems = TestimonialItemsData as TestimonialItem[];
 
 const GAP_PX = 16;
 
@@ -78,7 +15,7 @@ export function TestimonialSection() {
   const [index, setIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const maxIndex = TESTIMONIALS.length - 1;
+  const maxIndex = TestimonialItems.length - 1;
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const slideWidthRef = useRef(0);
@@ -178,11 +115,11 @@ export function TestimonialSection() {
             disabled={index === 0}
             aria-label="Previous testimonial"
           >
-            ←
+            <IoChevronBack size={18} aria-hidden />
           </button>
 
           <div className="testimonials__segments" role="tablist" aria-label="Jump to testimonial">
-            {TESTIMONIALS.map((item, i) => (
+            {TestimonialItems.map((item, i) => (
               <button
                 key={item.id}
                 type="button"
@@ -202,7 +139,7 @@ export function TestimonialSection() {
             disabled={index === maxIndex}
             aria-label="Next testimonial"
           >
-            →
+            <IoChevronForward size={18} aria-hidden />
           </button>
         </div>
       </div>
@@ -216,7 +153,7 @@ export function TestimonialSection() {
         onPointerCancel={endDrag}
       >
         <div className="testimonials__track" style={trackStyle}>
-          {TESTIMONIALS.map((item) => (
+          {TestimonialItems.map((item) => (
             <div key={item.id} className="testimonials__slide">
               <TestimonialCard
                 quote={item.quote}
