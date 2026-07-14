@@ -1,8 +1,9 @@
 /*
     - Hero
     - Shelf
+    - Product
     - Showcase
-    - Testimonials
+    - Testimonialss
     - Timeline
     - FAQ
 */

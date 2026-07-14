@@ -6,9 +6,8 @@ export function TimelineSection() {
 
 
     return (
-        <>
-        
-        
-        </>
+        <section>
+            
+        </section>
     );
 }

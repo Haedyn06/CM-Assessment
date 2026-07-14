@@ -1,6 +1,7 @@
 
 import { HeroSection } from "@/components/sections/Hero";
 import { ShelfSection } from "@/components/sections/Shelf";
+import { ProductSection } from "@/components/sections/Product";
 import { ShowcaseSection } from "@/components/sections/Showcase";
 import { TestimonialSection } from "@/components/sections/Testimonials";
 import { TimelineSection } from "@/components/sections/Timeline";
@@ -14,6 +15,9 @@ export default function Home() {
     <div className="">
       <main className="">
         <HeroSection />
+        <ShelfSection />
+        <ProductSection />
+        <TestimonialSection />
       </main>
     </div>
   );
