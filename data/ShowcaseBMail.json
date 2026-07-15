@@ -1,0 +1,30 @@
+[
+  {
+    "id": "larry-1",
+    "from": "larry",
+    "time": "7:14 AM",
+    "text": "Found a $14.2k budget overlap on Acme Corp, the 6/12 reallocation hit Meta but never pulled back in DV360. I can pause DV360 now or roll the overspend into July. What do you prefer?",
+    "autowrite": true
+  },
+  {
+    "id": "me-1",
+    "from": "me",
+    "time": "7:16 AM",
+    "text": "Pause the DV360 lines, I'd rather be conservative with client budget."
+  },
+  {
+    "id": "larry-2",
+    "from": "larry",
+    "time": "7:16 AM",
+    "text": "Got it, I'll pause the DV360 line items now and reconcile against the IO. Will confirm when it's done.",
+    "autowrite": true
+  },
+  {
+    "id": "larry-3",
+    "from": "larry",
+    "time": "just now",
+    "text": "Done ✓",
+    "autowrite": true,
+    "sentBanner": true
+  }
+]

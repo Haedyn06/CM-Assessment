@@ -1,14 +1,324 @@
 "use client";
 
+import { useState } from "react";
+import { ShowcaseBWindowA } from "@/components/ui/ShowcaseBWindowA";
+import { ShowcaseBWindowB } from "@/components/ui/ShowcaseBWindowB";
+
+function CornerMarks() {
+  return (
+    <span className="showcase-b__corners" aria-hidden>
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
+function EwingLogo() {
+  return (
+    <svg
+      className="showcase-b__ewing"
+      width="168"
+      height="22"
+      viewBox="0 0 168 22"
+      fill="none"
+      aria-label="Ewing Outdoor Supply"
+    >
+      <text
+        x="0"
+        y="16"
+        fill="#3a3a3a"
+        fontFamily="var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif"
+        fontSize="11"
+        fontWeight="700"
+        letterSpacing="0.08em"
+      >
+        EWING OUTDOOR SUPPLY
+      </text>
+    </svg>
+  );
+}
 
 export function ShowcaseBSection() {
+  const [front, setFront] = useState<"a" | "b">("b");
 
+  return (
+    <section className="showcase-b">
+      <div className="showcase-b__dots" aria-hidden />
 
+      <div className="showcase-b__inner">
+        <div className="showcase-b__stage">
+          <div
+            className={`showcase-b__layer showcase-b__layer--mail${
+              front === "a" ? " is-front" : ""
+            }`}
+            style={{ zIndex: front === "a" ? 3 : 1 }}
+          >
+            <ShowcaseBWindowA
+              focused={front === "a"}
+              onFocus={() => setFront("a")}
+            />
+          </div>
 
-    return (
-        <section>
+          <div
+            className={`showcase-b__layer showcase-b__layer--dash${
+              front === "b" ? " is-front" : ""
+            }`}
+            style={{ zIndex: front === "b" ? 3 : 1 }}
+          >
+            <ShowcaseBWindowB
+              focused={front === "b"}
+              onFocus={() => setFront("b")}
+            />
+          </div>
+        </div>
 
-            
-        </section>
-    );
+        <div className="showcase-b__copy">
+          <p className="showcase-b__badge">
+            <CornerMarks />
+            WORK WHILE YOU SLEEP
+          </p>
+
+          <h2 className="showcase-b__title">Built for Unsupervised Execution</h2>
+
+          <p className="showcase-b__text">
+            Convey Digital Teammates operate autonomously but reach out for help
+            when they need you
+          </p>
+
+          <blockquote className="showcase-b__quote">
+            <CornerMarks />
+            <EwingLogo />
+            <p>
+              &ldquo;I&apos;m not an engineer. I come from HR. And I was able to
+              easily build powerful agents. It feels more like teaching a remote
+              worker than anything else.&rdquo;
+            </p>
+            <footer>Allie Tripaldi • General Manager</footer>
+          </blockquote>
+        </div>
+      </div>
+
+      <style>{`
+        .showcase-b {
+          position: relative;
+          isolation: isolate;
+          padding: 4.25rem 1.25rem 4.75rem;
+          background: #f3f3f1;
+          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          color: #1a1a1a;
+          overflow: hidden;
+        }
+
+        @media (min-width: 640px) {
+          .showcase-b {
+            padding: 5.25rem 2rem 5.75rem;
+          }
+        }
+
+        @media (min-width: 1100px) {
+          .showcase-b {
+            padding: 5.75rem 3rem 6.25rem;
+          }
+        }
+
+        .showcase-b__dots {
+          pointer-events: none;
+          position: absolute;
+          inset: 10% 48% 10% 0;
+          z-index: 0;
+          opacity: 0.5;
+          background-image: radial-gradient(
+            circle,
+            rgba(130, 130, 130, 0.38) 1px,
+            transparent 1.2px
+          );
+          background-size: 16px 16px;
+          mask-image: radial-gradient(
+            ellipse 70% 70% at 40% 45%,
+            #000 15%,
+            transparent 75%
+          );
+        }
+
+        .showcase-b__inner {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          gap: 2.5rem;
+          align-items: center;
+          max-width: 74rem;
+          margin: 0 auto;
+        }
+
+        @media (min-width: 980px) {
+          .showcase-b__inner {
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+            gap: 3rem 2.5rem;
+          }
+        }
+
+        .showcase-b__stage {
+          position: relative;
+          width: 100%;
+          min-height: 26rem;
+          height: min(34rem, 70vh);
+        }
+
+        .showcase-b__layer {
+          position: absolute;
+          transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .showcase-b__layer--mail {
+          left: 0;
+          top: 12%;
+          width: min(56%, 21rem);
+          height: 78%;
+          transform: translateY(0);
+        }
+
+        .showcase-b__layer--dash {
+          right: 0;
+          top: 0;
+          width: min(86%, 34rem);
+          height: 100%;
+        }
+
+        .showcase-b__layer:not(.is-front) {
+          filter: saturate(0.95);
+        }
+
+        .showcase-b__layer.is-front {
+          filter: none;
+        }
+
+        .showcase-b__layer--mail.is-front {
+          transform: translateY(-0.35rem) scale(1.02);
+        }
+
+        .showcase-b__layer--dash.is-front {
+          transform: translateY(-0.2rem);
+        }
+
+        .showcase-b__copy {
+          max-width: 28rem;
+          justify-self: start;
+        }
+
+        @media (min-width: 980px) {
+          .showcase-b__copy {
+            justify-self: end;
+            padding-left: 0.5rem;
+          }
+        }
+
+        .showcase-b__badge {
+          position: relative;
+          display: inline-block;
+          margin: 0 0 1.35rem;
+          padding: 0.42rem 0.7rem;
+          border-radius: 0.15rem;
+          background: #121212;
+          color: #f6f6f6;
+          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-size: 0.62rem;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          line-height: 1;
+        }
+
+        .showcase-b__corners {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
+        .showcase-b__corners span {
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background: currentColor;
+        }
+
+        .showcase-b__badge .showcase-b__corners span {
+          background: #f6f6f6;
+        }
+
+        .showcase-b__corners span:nth-child(1) { top: 3px; left: 3px; }
+        .showcase-b__corners span:nth-child(2) { top: 3px; right: 3px; }
+        .showcase-b__corners span:nth-child(3) { bottom: 3px; left: 3px; }
+        .showcase-b__corners span:nth-child(4) { bottom: 3px; right: 3px; }
+
+        .showcase-b__title {
+          margin: 0 0 1.05rem;
+          max-width: 12ch;
+          font-size: clamp(2.25rem, 4.4vw, 3.4rem);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          line-height: 1.02;
+          color: #141414;
+        }
+
+        .showcase-b__text {
+          margin: 0 0 2rem;
+          max-width: 28rem;
+          font-size: 1.02rem;
+          line-height: 1.6;
+          color: #5a5a5a;
+        }
+
+        .showcase-b__quote {
+          position: relative;
+          margin: 0;
+          padding: 1.35rem 1.3rem 1.25rem;
+          border: 1px solid #d4d4d2;
+          background: transparent;
+        }
+
+        .showcase-b__quote .showcase-b__corners span {
+          background: #2a2a2a;
+        }
+
+        .showcase-b__quote .showcase-b__corners span:nth-child(1) { top: 4px; left: 4px; }
+        .showcase-b__quote .showcase-b__corners span:nth-child(2) { top: 4px; right: 4px; }
+        .showcase-b__quote .showcase-b__corners span:nth-child(3) { bottom: 4px; left: 4px; }
+        .showcase-b__quote .showcase-b__corners span:nth-child(4) { bottom: 4px; right: 4px; }
+
+        .showcase-b__ewing {
+          display: block;
+          margin-bottom: 0.95rem;
+        }
+
+        .showcase-b__quote p {
+          margin: 0 0 1rem;
+          font-size: 0.98rem;
+          line-height: 1.55;
+          color: #2e2e2e;
+        }
+
+        .showcase-b__quote footer {
+          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-size: 0.76rem;
+          color: #6a6a6a;
+        }
+
+        @media (max-width: 979px) {
+          .showcase-b__stage {
+            min-height: 22rem;
+            height: min(30rem, 68vh);
+          }
+
+          .showcase-b__layer--mail {
+            width: min(58%, 18rem);
+          }
+
+          .showcase-b__layer--dash {
+            width: min(90%, 100%);
+          }
+        }
+      `}</style>
+    </section>
+  );
 }
