@@ -9,7 +9,7 @@ export function ProductSection() {
   const [videoOpen, setVideoOpen] = useState(false);
 
   return (
-    <section className="product">
+    <section id="product" className="product">
       <div className="product__glow product__glow--left" aria-hidden />
       <div className="product__dots" aria-hidden />
 
@@ -45,6 +45,7 @@ export function ProductSection() {
         .product {
           position: relative;
           overflow: hidden;
+          scroll-margin-top: 4.5rem;
           padding: 5.5rem 1.25rem 5rem;
           background:
             radial-gradient(

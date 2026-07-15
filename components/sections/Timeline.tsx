@@ -2,6 +2,7 @@
 
 import { IoCheckmark } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
+import { useDemoForm } from "@/components/ui/DemoForm";
 
 import TimelineData from "@/data/TimelineItem.json";
 import type { TimelineItem } from "@/types/TimelineItem";
@@ -20,6 +21,8 @@ function CornerFrame() {
 }
 
 export function TimelineSection() {
+  const { openDemoForm } = useDemoForm();
+
   return (
     <section className="timeline">
       <div className="timeline__inner">
@@ -38,6 +41,7 @@ export function TimelineSection() {
             hoverBorderColor="#2a2a2a"
             dotColor="#1a1a1a"
             hoverDotColor="#111111"
+            onClick={openDemoForm}
             style={{
               borderRadius: "0.35rem",
               minHeight: "2.75rem",

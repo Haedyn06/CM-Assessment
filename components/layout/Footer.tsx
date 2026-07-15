@@ -5,6 +5,7 @@ import {
   IoMailOutline,
 } from "react-icons/io5";
 import { RiTwitterXFill } from "react-icons/ri";
+import { useDemoForm } from "@/components/ui/DemoForm";
 
 const RESOURCES = [
   { href: "#enterprise", label: "Enterprise" },
@@ -14,8 +15,8 @@ const RESOURCES = [
 ] as const;
 
 const CONNECT = [
-  { href: "#contact", label: "Contact Sales" },
-  { href: "#careers", label: "Careers" },
+  { id: "contact", label: "Contact Sales", action: "demo" as const },
+  { id: "careers", label: "Careers", href: "#careers" },
 ] as const;
 
 function ConveyWordmark() {
@@ -73,6 +74,8 @@ function ConveyWordmark() {
 }
 
 export function Footer() {
+  const { openDemoForm } = useDemoForm();
+
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -120,8 +123,14 @@ export function Footer() {
               <h3>CONNECT</h3>
               <ul>
                 {CONNECT.map((item) => (
-                  <li key={item.href}>
-                    <a href={item.href}>{item.label}</a>
+                  <li key={item.id}>
+                    {"action" in item && item.action === "demo" ? (
+                      <button type="button" onClick={openDemoForm}>
+                        {item.label}
+                      </button>
+                    ) : (
+                      <a href={"href" in item ? item.href : "#"}>{item.label}</a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -243,7 +252,19 @@ export function Footer() {
           transition: color 0.2s ease;
         }
 
-        .footer__col a:hover {
+        .footer__col button {
+          padding: 0;
+          border: 0;
+          background: transparent;
+          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-size: 0.88rem;
+          color: #f0f0f0;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+
+        .footer__col a:hover,
+        .footer__col button:hover {
           color: #9fd9d4;
         }
 

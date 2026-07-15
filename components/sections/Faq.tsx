@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
+import { useDemoForm } from "@/components/ui/DemoForm";
 
 import FaqData from "@/data/FaqItem.json";
 import type { FaqItem } from "@/types/FaqItem";
@@ -12,6 +13,7 @@ const FaqItems = FaqData as FaqItem[];
 export function FAQSection() {
   const baseId = useId();
   const [openId, setOpenId] = useState<string | null>(null);
+  const { openDemoForm } = useDemoForm();
 
   return (
     <section className="faq">
@@ -20,9 +22,9 @@ export function FAQSection() {
         {/* Title */}
         <div className="faqAside">
           <h2 className="faqTitle">FAQs</h2>
-          <a className="faqLink" href="#contact">
+          <button type="button" className="faqLink" onClick={openDemoForm}>
             Can&apos;t find your answers?
-          </a>
+          </button>
         </div>
 
         {/* Faq List */}

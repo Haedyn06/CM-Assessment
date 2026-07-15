@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { IoCheckmark } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
+import { useDemoForm } from "@/components/ui/DemoForm";
 import { ShowcaseCWindowA } from "@/components/ui/ShowcaseCWindowA";
 import { ShowcaseCWindowB } from "@/components/ui/ShowcaseCWindowB";
 import { ShowcaseCWindowC } from "@/components/ui/ShowcaseCWindowC";
@@ -33,6 +34,7 @@ function zFor(id: Front, front: Front, base: number) {
 
 export function ShowcaseCSection() {
   const [front, setFront] = useState<Front>("a");
+  const { openDemoForm } = useDemoForm();
 
   return (
     <section className="showcase-c">
@@ -60,6 +62,7 @@ export function ShowcaseCSection() {
               borderColor="#d8d8d6"
               hoverBorderColor="#c8c8c6"
               hoverColor="#111111"
+              onClick={openDemoForm}
             >
               Explore Enterprise
             </Button>

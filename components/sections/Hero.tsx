@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { HeroLogo } from "@/components/ui/HeroLogo";
 import { VideoComp } from "@/components/ui/VideoComp";
+import { useDemoForm } from "@/components/ui/DemoForm";
 
 import LogoItemsData from "@/data/LogoItem.json";
 import type { LogoItem } from "@/types/LogoItem";
@@ -22,6 +23,7 @@ function CornerDots() {
 
 export function HeroSection() {
   const [email, setEmail] = useState("");
+  const { openDemoForm } = useDemoForm();
 
   return (
     <section className="hero">
@@ -43,7 +45,13 @@ export function HeroSection() {
             Join leading enterprises and create your own digital teammates to 100x your output.
           </p>
 
-          <form className="hero-cta" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="hero-cta"
+            onSubmit={(e) => {
+              e.preventDefault();
+              openDemoForm();
+            }}
+          >
             <label className="sr-only" htmlFor="hero-email">Work email</label>
             
             <input className="hero-cta__input" id="hero-email" type="email" value={email}

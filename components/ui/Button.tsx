@@ -252,6 +252,7 @@ export function Button({
       type={type}
       className={classes}
       style={{ ...vars, ...style }}
+      {...rest}
       onMouseEnter={(e) => {
         startFill();
         onMouseEnter?.(e);
@@ -268,7 +269,6 @@ export function Button({
         startEmpty();
         onBlur?.(e);
       }}
-      {...rest}
     >
       {content}
     </button>

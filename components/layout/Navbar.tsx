@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { useDemoForm } from "@/components/ui/DemoForm";
 
 type FillPhase = "idle" | "in" | "out";
 
@@ -11,6 +12,46 @@ const LINKS = [
   { href: "#enterprise", label: "Enterprise" },
   { href: "#company", label: "Company" },
 ] as const;
+
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+let scrollFrame = 0;
+
+function animateScrollTo(targetY: number, duration = 1100) {
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  if (Math.abs(distance) < 1) return;
+
+  window.cancelAnimationFrame(scrollFrame);
+  const start = performance.now();
+
+  const step = (now: number) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+    if (progress < 1) {
+      scrollFrame = window.requestAnimationFrame(step);
+    }
+  };
+
+  scrollFrame = window.requestAnimationFrame(step);
+}
+
+function scrollToHash(hash: string) {
+  const id = hash.replace(/^#/, "");
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const nav = document.querySelector(".nav");
+  const navHeight = nav instanceof HTMLElement ? nav.offsetHeight : 0;
+  const top =
+    el.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+
+  animateScrollTo(Math.max(0, top), 1200);
+  window.history.pushState(null, "", hash);
+}
 
 function NavLink({ href, label }: { href: string; label: string }) {
   const [phase, setPhase] = useState<FillPhase>("idle");
@@ -37,12 +78,19 @@ function NavLink({ href, label }: { href: string; label: string }) {
     }, 420);
   };
 
+  const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!href.startsWith("#")) return;
+    e.preventDefault();
+    scrollToHash(href);
+  };
+
   return (
     <a
       href={href}
       className={`nav__link${phase === "in" ? " is-fill-in" : ""}${
         phase === "out" ? " is-fill-out" : ""
       }`}
+      onClick={onClick}
       onMouseEnter={startFill}
       onMouseLeave={startEmpty}
       onFocus={startFill}
@@ -61,6 +109,8 @@ function NavLink({ href, label }: { href: string; label: string }) {
 }
 
 export function Navbar() {
+  const { openDemoForm } = useDemoForm();
+
   return (
     <header className="nav">
       <div className="nav__inner">
@@ -82,6 +132,7 @@ export function Navbar() {
             hoverBorderColor="rgba(0,0,0,0.18)"
             hoverColor="#111111"
             className="nav__contact"
+            onClick={openDemoForm}
             style={{
               minHeight: "2.15rem",
               padding: "0.55rem 0.95rem",
