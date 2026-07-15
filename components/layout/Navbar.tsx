@@ -2,6 +2,7 @@
 
 import { useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/Button";
 import { useDemoForm } from "@/components/ui/DemoForm";
 
@@ -142,6 +143,13 @@ export function Navbar() {
           >
             Contact sales
           </Button>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "nav__user",
+              },
+            }}
+          />
         </div>
       </div>
 
@@ -273,10 +281,18 @@ export function Navbar() {
 
         .nav__cta {
           justify-self: end;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
         }
 
         .nav__contact {
           font-weight: 500 !important;
+        }
+
+        .nav__user {
+          width: 2rem !important;
+          height: 2rem !important;
         }
       `}</style>
     </header>

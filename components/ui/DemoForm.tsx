@@ -14,6 +14,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
+import { useUser } from "@clerk/nextjs";
 import { IoClose } from "react-icons/io5";
 import LogoItemsData from "@/data/LogoItem.json";
 import type { LogoItem } from "@/types/LogoItem";
@@ -50,20 +51,45 @@ function DemoFormModal({
 }) {
   const titleId = useId();
   const onCloseRef = useRef(onClose);
+  const { user, isLoaded } = useUser();
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
   const [rendered, setRendered] = useState(false);
   const [closing, setClosing] = useState(false);
   const [prevOpen, setPrevOpen] = useState(open);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
+  const [website, setWebsite] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "saving" | "ok" | "error">(
+    "idle",
+  );
+  const [error, setError] = useState("");
+  const [seeded, setSeeded] = useState(false);
+
+  const sessionEmail =
+    user?.primaryEmailAddress?.emailAddress ??
+    user?.emailAddresses[0]?.emailAddress ??
+    "";
 
   if (open !== prevOpen) {
     setPrevOpen(open);
     if (open) {
       setRendered(true);
       setClosing(false);
+      setStatus("idle");
+      setError("");
+      setSeeded(false);
     } else if (rendered) {
       setClosing(true);
     }
+  }
+
+  if (open && isLoaded && user && !seeded) {
+    setSeeded(true);
+    setFirstName(user.firstName ?? "");
+    setLastName(user.lastName ?? "");
   }
 
   useEffect(() => {
@@ -100,8 +126,42 @@ function DemoFormModal({
 
   if (!mounted || !rendered) return null;
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (status === "saving") return;
+
+    setStatus("saving");
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          company,
+          website,
+          message,
+        }),
+      });
+
+      const data = (await res.json()) as { error?: string };
+
+      if (!res.ok) {
+        setStatus("error");
+        setError(data.error ?? "Unable to submit form");
+        return;
+      }
+
+      setStatus("ok");
+      setCompany("");
+      setWebsite("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+      setError("Network error. Please try again.");
+    }
   };
 
   const phase = closing ? "exit" : "enter";
@@ -144,9 +204,16 @@ function DemoFormModal({
               <input
                 type="email"
                 name="email"
-                placeholder="example@convey.dev"
-                autoComplete="email"
+                value={sessionEmail}
+                readOnly
+                tabIndex={-1}
+                aria-readonly="true"
+                className="demo-form__input--locked"
+                title="Email comes from your signed-in Clerk account"
               />
+              <small className="demo-form__note">
+                Pulled from your Clerk session (used as userID)
+              </small>
             </label>
 
             <div className="demo-form__row">
@@ -155,8 +222,11 @@ function DemoFormModal({
                 <input
                   type="text"
                   name="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder="First name"
                   autoComplete="given-name"
+                  required
                 />
               </label>
               <label className="demo-form__field">
@@ -164,24 +234,67 @@ function DemoFormModal({
                 <input
                   type="text"
                   name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last name"
                   autoComplete="family-name"
+                  required
                 />
               </label>
             </div>
+
+            <label className="demo-form__field">
+              <span>Company</span>
+              <input
+                type="text"
+                name="company"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                placeholder="Acme Inc."
+                autoComplete="organization"
+              />
+            </label>
 
             <label className="demo-form__field">
               <span>Company Website</span>
               <input
                 type="text"
                 name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
                 placeholder="convey.dev"
                 autoComplete="url"
               />
             </label>
 
-            <button type="submit" className="demo-form__submit">
-              Book a Demo
+            <label className="demo-form__field">
+              <span>How can we help?</span>
+              <textarea
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell us about your team and use case"
+                rows={3}
+              />
+            </label>
+
+            {status === "error" ? (
+              <p className="demo-form__feedback demo-form__feedback--error">
+                {error}
+              </p>
+            ) : null}
+            {status === "ok" ? (
+              <p className="demo-form__feedback demo-form__feedback--ok">
+                Thanks — your request was saved. We&apos;ll be in touch.
+              </p>
+            ) : null}
+
+            <button
+              type="submit"
+              className="demo-form__submit"
+              disabled={status === "saving" || !sessionEmail}
+            >
+              {status === "saving" ? "Submitting…" : "Book a Demo"}
             </button>
           </form>
 
@@ -370,7 +483,8 @@ function DemoFormModal({
           color: #1f1f1f;
         }
 
-        .demo-form__field input {
+        .demo-form__field input,
+        .demo-form__field textarea {
           width: 100%;
           padding: 0.78rem 0.85rem;
           border: 1px solid #e0e0e2;
@@ -380,15 +494,43 @@ function DemoFormModal({
           font-family: var(--font-geist-mono), ui-monospace, monospace;
           font-size: 0.88rem;
           outline: none;
+          resize: vertical;
         }
 
-        .demo-form__field input::placeholder {
+        .demo-form__field input::placeholder,
+        .demo-form__field textarea::placeholder {
           color: #9aa3b2;
         }
 
-        .demo-form__field input:focus {
+        .demo-form__field input:focus,
+        .demo-form__field textarea:focus {
           border-color: #b8b8be;
           background: #f7f7f8;
+        }
+
+        .demo-form__input--locked {
+          background: #e8e8ea !important;
+          color: #555 !important;
+          cursor: not-allowed;
+        }
+
+        .demo-form__note {
+          font-size: 0.7rem;
+          color: #8a8a8a;
+        }
+
+        .demo-form__feedback {
+          margin: 0;
+          font-size: 0.85rem;
+          text-align: center;
+        }
+
+        .demo-form__feedback--error {
+          color: #b42318;
+        }
+
+        .demo-form__feedback--ok {
+          color: #027a48;
         }
 
         .demo-form__submit {
@@ -396,7 +538,7 @@ function DemoFormModal({
           align-items: center;
           justify-content: center;
           justify-self: center;
-          margin-top: 0.65rem;
+          margin-top: 0.35rem;
           min-width: 9.5rem;
           padding: 0.72rem 1.35rem;
           border: 0;
@@ -408,8 +550,13 @@ function DemoFormModal({
           cursor: pointer;
         }
 
-        .demo-form__submit:hover {
+        .demo-form__submit:hover:not(:disabled) {
           background: #2a2a2a;
+        }
+
+        .demo-form__submit:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
         }
 
         .demo-form__trust {
