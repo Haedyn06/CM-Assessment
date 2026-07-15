@@ -4,4 +4,6 @@ export type ShelfItem = {
   logoLabel: string;
   quote: string;
   attribution: string;
+  imageSrc: string;
+  videoSrc: string;
 };

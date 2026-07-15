@@ -9,10 +9,6 @@ import "@/styles/Shelf.css";
 
 const ShelfItems = ShelfItemsData as ShelfItem[];
 
-// Test media served from /public (symlinked from /assets)
-const TEST_IMAGE = "/mountain.jpg";
-const TEST_VIDEO = "/grass.mp4";
-
 export function ShelfSection() {
   const [activeId, setActiveId] = useState(ShelfItems[0]!.id);
   const [playingId, setPlayingId] = useState<string | null>(null);
@@ -44,8 +40,8 @@ export function ShelfSection() {
                 logoLabel={item.logoLabel}
                 active={isActive}
                 playing={isPlaying}
-                imageSrc={TEST_IMAGE}
-                videoSrc={TEST_VIDEO}
+                imageSrc={item.imageSrc}
+                videoSrc={item.videoSrc}
                 onSelect={() => {
                   setActiveId(item.id);
                   setPlayingId(null);

@@ -3,6 +3,8 @@
     "id": "savoya",
     "title": "Savoya",
     "logoLabel": "SAVOYA",
+    "imageSrc": "/mountain.jpg",
+    "videoSrc": "/grass.mp4",
     "quote": "Convey is a cheat code that is giving us a real edge over our competitors. We saw ROI within weeks.",
     "attribution": "Dominic Miraglia, Chief Commercial Officer"
   },
@@ -10,6 +12,8 @@
     "id": "samsara",
     "title": "Samsara",
     "logoLabel": "samsara",
+    "imageSrc": "/mountainB.jpg",
+    "videoSrc": "/grass.mp4",
     "quote": "This is a new skillset that accountants are going to be expected to have.",
     "attribution": "Scott Hume, Assistant Controller"
   },
@@ -17,6 +21,8 @@
     "id": "chargepoint",
     "title": "ChargePoint",
     "logoLabel": "chargepoint+",
+    "imageSrc": "/mountain.jpg",
+    "videoSrc": "/grass.mp4",
     "quote": "We deployed digital teammates across finance workflows and saw capacity open up within the first month.",
     "attribution": "Jordan Lee, Finance Director"
   },
@@ -24,6 +30,8 @@
     "id": "ewing",
     "title": "Ewing Outdoor Supply",
     "logoLabel": "EWING OUTDOOR SUPPLY",
+    "imageSrc": "/mountain.jpg",
+    "videoSrc": "/grass.mp4",
     "quote": "Our operators finally have room to focus on judgment calls instead of busywork in the background.",
     "attribution": "Alex Rivera, Operations Lead"
   }
