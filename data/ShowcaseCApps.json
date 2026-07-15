@@ -1,0 +1,99 @@
+{
+  "connected": [
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "letter": "S",
+      "color": "#00A1E0",
+      "credentials": "API, Agent Credentials",
+      "note": "Read & Write"
+    },
+    {
+      "id": "freewheel",
+      "name": "Freewheel",
+      "letter": "F",
+      "color": "#1a1a1a",
+      "credentials": "Agent Credentials",
+      "note": "Read & Write"
+    },
+    {
+      "id": "gcm",
+      "name": "Campaign Manager",
+      "letter": "C",
+      "color": "#4285F4",
+      "credentials": "Agent Credentials",
+      "note": "Read & Write"
+    },
+    {
+      "id": "netsuite",
+      "name": "NetSuite",
+      "letter": "N",
+      "color": "#1a1a1a",
+      "credentials": "Agent Credentials, API",
+      "note": "Invoice Module Only"
+    },
+    {
+      "id": "looker",
+      "name": "Looker",
+      "letter": "L",
+      "color": "#4285F4",
+      "credentials": "Agent Credentials, API",
+      "note": "Read Only"
+    },
+    {
+      "id": "wideorbit",
+      "name": "WideOrbit",
+      "letter": "W",
+      "color": "#1a1a1a",
+      "credentials": "Agent Credentials",
+      "note": "Read & Write"
+    },
+    {
+      "id": "onedrive",
+      "name": "OneDrive",
+      "letter": "O",
+      "color": "#0078D4",
+      "credentials": "OAuth",
+      "note": "Access to 17 Folders"
+    },
+    {
+      "id": "outlook",
+      "name": "Outlook Calendar",
+      "letter": "17",
+      "color": "#0078D4",
+      "credentials": "OAuth",
+      "note": "Read & Write"
+    },
+    {
+      "id": "teams",
+      "name": "Teams",
+      "letter": "T",
+      "color": "#6264A7",
+      "credentials": "OAuth",
+      "note": "Read & Write"
+    }
+  ],
+  "recommended": [
+    {
+      "id": "powerpoint",
+      "name": "Powerpoint",
+      "letter": "P",
+      "color": "#C43E1C",
+      "useCase": "Teach your Agent how to generate on-brand slides"
+    },
+    {
+      "id": "salesforce-rec",
+      "name": "Salesforce",
+      "letter": "S",
+      "color": "#00A1E0",
+      "useCase": "Build a next best action engine for your AEs"
+    },
+    {
+      "id": "workday",
+      "name": "Workday",
+      "letter": "W",
+      "color": "#0875E1",
+      "useCase": "Automate employee onboarding and offboarding"
+    }
+  ]
+}

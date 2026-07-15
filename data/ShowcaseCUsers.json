@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mary",
+    "email": "mary@acme.com",
+    "role": "Admin",
+    "agents": ["Larry", "Sally", "Ozzy"]
+  },
+  {
+    "id": "caro",
+    "email": "carojb@acme.com",
+    "role": "User",
+    "agents": ["Larry", "Sally"]
+  }
+]

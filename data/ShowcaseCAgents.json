@@ -1,0 +1,34 @@
+[
+  {
+    "id": "larry",
+    "name": "Larry the Agent",
+    "alias": "larry@acme.com",
+    "team": "General Assistant",
+    "initials": "LA",
+    "tone": "#5b6ee1"
+  },
+  {
+    "id": "ralph",
+    "name": "Rev Ops Ralph",
+    "alias": "ralph@acme.com",
+    "team": "Revenue Operations",
+    "initials": "RR",
+    "tone": "#2f9d5a"
+  },
+  {
+    "id": "frank",
+    "name": "Finance Frank",
+    "alias": "frank@acme.com",
+    "team": "Finance & Accounting",
+    "initials": "FF",
+    "tone": "#c45c26"
+  },
+  {
+    "id": "ozzy",
+    "name": "Ozzy",
+    "alias": "ozzy@acme.com",
+    "team": "Operations",
+    "initials": "OZ",
+    "tone": "#7a62c4"
+  }
+]
