@@ -6,7 +6,7 @@ import { useDemoForm } from "@/components/ui/DemoForm";
 
 import FaqData from "@/data/FaqItem.json";
 import type { FaqItem } from "@/types/FaqItem";
-import "@/styles/faqStyle.css";
+import "@/styles/Faq.css";
 
 const FaqItems = FaqData as FaqItem[];
 
