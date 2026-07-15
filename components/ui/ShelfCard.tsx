@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { IoPlay } from "react-icons/io5";
-import { Button } from "@/components/ui/Button";
 
 type ShelfCardProps = {
   title: string;
@@ -56,11 +55,8 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
   };
 
   return (
-    <div
-      role="button"
-      tabIndex={playing ? -1 : 0}
-      className={`shelf-card${active ? " is-active" : ""}${playing ? " is-playing" : ""}${className ? ` ${className}` : ""}`}
-      onClick={handleClick}
+    <div role="button" tabIndex={playing ? -1 : 0} onClick={handleClick}
+      className={`shelfCard${active ? " isActive" : ""}${playing ? " isPlaying" : ""}${className ? ` ${className}` : ""}`}
       onKeyDown={(e) => {
         if (playing) return;
         if (e.key === "Enter" || e.key === " ") {
@@ -70,23 +66,16 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
       }}
       aria-pressed={active}
       aria-label={
-        active
-          ? playing
-            ? `${title} video`
-            : `Play ${title} video`
+        active ? playing ? `${title} video`
+          : `Play ${title} video`
           : `Expand ${title} customer story`
       }
     >
-      <div className="shelf-card__media">
+      <div className="shelfCardMedia">
         {imageSrc ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageSrc}
-            alt=""
-            className={`shelf-card__image${playing ? " is-hidden" : ""}`}
-          />
+          <img src={imageSrc} alt="" className={`shelfCardImage${playing ? " isHidden" : ""}`} />
         ) : (
-          <div className="shelf-card__placeholder">
+          <div className="shelfCardPlaceholder">
             <span>Media placeholder</span>
           </div>
         )}
@@ -94,66 +83,37 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
         {videoSrc && (
           <video
             ref={videoRef}
-            className={`shelf-card__video${playing ? " is-visible" : ""}`}
-            src={videoSrc}
-            playsInline
-            controls={playing}
-            controlsList="nodownload"
-            preload="auto"
-            onClick={(e) => {
-              // Keep native control clicks from bubbling to the card
-              if (playing) e.stopPropagation();
-            }}
+            className={`shelfCardVideo${playing ? " isVisible" : ""}`}
+            src={videoSrc} playsInline controls={playing} controlsList="nodownload" preload="auto"
+            onClick={(e) => { if (playing) e.stopPropagation() }}
           />
         )}
 
-        {!playing && <div className="shelf-card__shade" aria-hidden />}
+        {!playing && <div className="shelfCardShade" aria-hidden />}
       </div>
 
       {active ? (
         <>
           {!playing && (
-            <Button
-              decorative
-              className="shelf-card__play"
-              color="#111111"
-              background="rgba(255, 255, 255, 0.55)"
-              hoverBackground="rgba(255, 255, 255, 0.72)"
-              hoverColor="#111111"
-              borderColor="rgba(255, 255, 255, 0.45)"
-              hoverBorderColor="rgba(255, 255, 255, 0.55)"
-              dotColor="#111111"
-              hoverDotColor="#111111"
-              style={{
-                position: "absolute",
-                left: "1rem",
-                bottom: "1rem",
-                zIndex: 2,
-                minHeight: "auto",
-                padding: "0.55rem 0.85rem",
-                fontSize: "0.75rem",
-                fontWeight: 500,
-                backdropFilter: "blur(10px)",
-              }}
-            >
+            <span className="shelfCardPlay" aria-hidden>
               <IoPlay size={12} aria-hidden />
               Play
-            </Button>
+            </span>
           )}
           {!playing && (
-            <span className="shelf-card__brand shelf-card__brand--active">
+            <span className="shelfCardBrand shelfCardBrandActive">
               {logoLabel}
             </span>
           )}
         </>
       ) : (
-        <span className="shelf-card__brand shelf-card__brand--collapsed">
+        <span className="shelfCardBrand shelfCardBrandCollapsed">
           {logoLabel}
         </span>
       )}
 
       <style>{`
-        .shelf-card {
+        .shelfCard {
           position: relative;
           display: block;
           width: 100%;
@@ -169,21 +129,21 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
           transition: box-shadow 0.35s ease;
         }
 
-        .shelf-card.is-active {
+        .shelfCard.isActive {
           box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.35);
         }
 
-        .shelf-card.is-playing {
+        .shelfCard.isPlaying {
           cursor: default;
         }
 
-        .shelf-card__media {
+        .shelfCardMedia {
           position: absolute;
           inset: 0;
         }
 
-        .shelf-card__image,
-        .shelf-card__video {
+        .shelfCardImage,
+        .shelfCardVideo {
           position: absolute;
           inset: 0;
           width: 100%;
@@ -191,51 +151,51 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
           object-fit: cover;
         }
 
-        .shelf-card__image {
+        .shelfCardImage {
           transition: opacity 0.3s ease;
         }
 
-        .shelf-card__image.is-hidden {
+        .shelfCardImage.isHidden {
           opacity: 0;
         }
 
-        .shelf-card__video {
+        .shelfCardVideo {
           opacity: 0;
           pointer-events: none;
           transition: opacity 0.3s ease;
           background: #000;
         }
 
-        .shelf-card__video.is-visible {
+        .shelfCardVideo.isVisible {
           opacity: 1;
           pointer-events: auto;
           z-index: 3;
         }
 
-        .shelf-card__video.is-visible::-webkit-media-controls-panel {
+        .shelfCardVideo.isVisible::-webkit-media-controls-panel {
           background-image: linear-gradient(
             transparent,
             rgba(0, 0, 0, 0.55)
           );
         }
 
-        .shelf-card__placeholder {
+        .shelfCardPlaceholder {
           display: grid;
           place-items: center;
           width: 100%;
           height: 100%;
           background:
             linear-gradient(145deg, #e7e7e3 0%, #d2d2cc 55%, #c4c4bc 100%);
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.7rem;
           color: #8a8a8a;
         }
 
-        .shelf-card:not(.is-active) .shelf-card__placeholder span {
+        .shelfCard:not(.isActive) .shelfCardPlaceholder span {
           display: none;
         }
 
-        .shelf-card__shade {
+        .shelfCardShade {
           position: absolute;
           inset: 0;
           background: linear-gradient(
@@ -248,7 +208,7 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
           pointer-events: none;
         }
 
-        .shelf-card:not(.is-active) .shelf-card__shade {
+        .shelfCard:not(.isActive) .shelfCardShade {
           background: linear-gradient(
             to top,
             rgba(0, 0, 0, 0.62) 0%,
@@ -257,21 +217,38 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
           );
         }
 
-        .shelf-card__play {
-          opacity: 0 !important;
-          transform: translateY(6px) !important;
+        .shelfCardPlay {
+          position: absolute;
+          left: 1rem;
+          bottom: 1rem;
+          z-index: 2;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          padding: 0.55rem 0.85rem;
+          border: 1px solid rgba(255, 255, 255, 0.45);
+          border-radius: 0.4rem;
+          background: rgba(255, 255, 255, 0.55);
+          color: #111;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
+          font-size: 0.75rem;
+          font-weight: 500;
+          line-height: 1;
+          backdrop-filter: blur(10px);
+          opacity: 0;
+          transform: translateY(6px);
           transition:
             opacity 0.35s ease 0.12s,
-            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.12s !important;
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
           pointer-events: none;
         }
 
-        .shelf-card.is-active .shelf-card__play {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
+        .shelfCard.isActive .shelfCardPlay {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .shelf-card__brand {
+        .shelfCardBrand {
           position: absolute;
           z-index: 2;
           font-weight: 650;
@@ -281,7 +258,7 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
           text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
         }
 
-        .shelf-card__brand--active {
+        .shelfCardBrandActive {
           right: 1.15rem;
           bottom: 1.2rem;
           font-size: 0.95rem;
@@ -292,12 +269,12 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
             transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.16s;
         }
 
-        .shelf-card.is-active .shelf-card__brand--active {
+        .shelfCard.isActive .shelfCardBrandActive {
           opacity: 1;
           transform: translateY(0);
         }
 
-        .shelf-card__brand--collapsed {
+        .shelfCardBrandCollapsed {
           left: 50%;
           bottom: 1.25rem;
           font-size: 0.78rem;
@@ -306,17 +283,17 @@ export function ShelfCard({title, logoLabel, active, playing, imageSrc, videoSrc
         }
 
         @media (max-width: 720px) {
-          .shelf-card__brand--collapsed {
+          .shelfCardBrandCollapsed {
             font-size: 0.68rem;
           }
 
-          .shelf-card__play {
+          .shelfCardPlay {
             left: 0.7rem !important;
             bottom: 0.7rem !important;
             padding: 0.45rem 0.7rem !important;
           }
 
-          .shelf-card__brand--active {
+          .shelfCardBrandActive {
             right: 0.8rem;
             bottom: 0.85rem;
             font-size: 0.8rem;

@@ -15,27 +15,26 @@ export type TestimonialCardProps = {
 export function TestimonialCard({ quote, name, title, avatar, background = "#d9ecee", className = "", style }: TestimonialCardProps) {
   return (
     <article
-      className={`testimonial-card${className ? ` ${className}` : ""}`}
+      className={`testimonialCard${className ? ` ${className}` : ""}`}
       style={{ background, ...style }}
     >
-      <span className="testimonial-card__dot testimonial-card__dot--tl" aria-hidden />
-      <span className="testimonial-card__dot testimonial-card__dot--tr" aria-hidden />
-      <span className="testimonial-card__dot testimonial-card__dot--bl" aria-hidden />
-      <span className="testimonial-card__dot testimonial-card__dot--br" aria-hidden />
+      <span className="testimonialCardDot testimonialCardDotTl" aria-hidden />
+      <span className="testimonialCardDot testimonialCardDotTr" aria-hidden />
+      <span className="testimonialCardDot testimonialCardDotBl" aria-hidden />
+      <span className="testimonialCardDot testimonialCardDotBr" aria-hidden />
 
-      <p className="testimonial-card__quote">&ldquo;{quote}&rdquo;</p>
+      <p className="testimonialCardQuote">&ldquo;{quote}&rdquo;</p>
 
-      <div className="testimonial-card__author">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={avatar} alt="" className="testimonial-card__avatar" />
+      <div className="testimonialCardAuthor">
+        <img src={avatar} alt="" className="testimonialCardAvatar" />
         <div>
-          <div className="testimonial-card__name">{name}</div>
-          <div className="testimonial-card__role">{title}</div>
+          <div className="testimonialCardName">{name}</div>
+          <div className="testimonialCardRole">{title}</div>
         </div>
       </div>
 
       <style>{`
-        .testimonial-card {
+        .testimonialCard {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -45,10 +44,10 @@ export function TestimonialCard({ quote, name, title, avatar, background = "#d9e
           padding: 1.6rem 1.5rem 1.35rem;
           border-radius: 0.15rem;
           color: #1a1a1a;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
         }
 
-        .testimonial-card__dot {
+        .testimonialCardDot {
           position: absolute;
           width: 3px;
           height: 3px;
@@ -56,12 +55,12 @@ export function TestimonialCard({ quote, name, title, avatar, background = "#d9e
           pointer-events: none;
         }
 
-        .testimonial-card__dot--tl { top: 8px; left: 8px; }
-        .testimonial-card__dot--tr { top: 8px; right: 8px; }
-        .testimonial-card__dot--bl { bottom: 8px; left: 8px; }
-        .testimonial-card__dot--br { bottom: 8px; right: 8px; }
+        .testimonialCardDotTl { top: 8px; left: 8px; }
+        .testimonialCardDotTr { top: 8px; right: 8px; }
+        .testimonialCardDotBl { bottom: 8px; left: 8px; }
+        .testimonialCardDotBr { bottom: 8px; right: 8px; }
 
-        .testimonial-card__quote {
+        .testimonialCardQuote {
           margin: 0;
           font-size: 0.92rem;
           line-height: 1.55;
@@ -69,14 +68,14 @@ export function TestimonialCard({ quote, name, title, avatar, background = "#d9e
           color: #1f1f1f;
         }
 
-        .testimonial-card__author {
+        .testimonialCardAuthor {
           display: flex;
           align-items: center;
           gap: 0.75rem;
           margin-top: 1.75rem;
         }
 
-        .testimonial-card__avatar {
+        .testimonialCardAvatar {
           width: 2.4rem;
           height: 2.4rem;
           border-radius: 0.3rem;
@@ -84,14 +83,14 @@ export function TestimonialCard({ quote, name, title, avatar, background = "#d9e
           flex-shrink: 0;
         }
 
-        .testimonial-card__name {
+        .testimonialCardName {
           font-size: 0.8rem;
           font-weight: 700;
           color: #1a1a1a;
           line-height: 1.25;
         }
 
-        .testimonial-card__role {
+        .testimonialCardRole {
           margin-top: 0.15rem;
           font-size: 0.72rem;
           line-height: 1.35;

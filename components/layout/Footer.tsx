@@ -19,11 +19,11 @@ const CONNECT = [
   { id: "careers", label: "Careers", href: "#careers" },
 ] as const;
 
-function ConveyWordmark() {
+function BearWordmark() {
   return (
     <svg
-      className="footer__wordmark"
-      viewBox="0 0 1200 220"
+      className="footerWordmark"
+      viewBox="0 0 760 220"
       fill="none"
       aria-hidden
     >
@@ -33,38 +33,74 @@ function ConveyWordmark() {
         strokeLinejoin="miter"
         strokeLinecap="square"
       >
-        {/* C */}
-        <path d="M70 40 H175 V65 H105 V155 H175 V180 H70 V40 Z" />
-        {/* O */}
-        <path d="M210 40 H330 V180 H210 V40 Z" />
-        <path d="M245 75 H295 V145 H245 V75 Z" />
-        {/* N */}
-        <path d="M365 180 V40 H400 L470 130 V40 H505 V180 H470 L400 90 V180 H365 Z" />
-        {/* V */}
-        <path d="M540 40 H580 L640 140 L700 40 H740 L655 180 H625 L540 40 Z" />
+        {/* B */}
+        <path d="M70 40 H200 V180 H70 V40 Z" />
+        <path d="M105 65 H165 V95 H105 V65 Z" />
+        <path d="M105 120 H165 V155 H105 V120 Z" />
         {/* E */}
-        <path d="M775 40 H910 V65 H810 V95 H895 V120 H810 V155 H910 V180 H775 V40 Z" />
-        {/* Y */}
-        <path d="M945 40 H985 L1045 110 L1105 40 H1145 L1065 130 V180 H1025 V130 L945 40 Z" />
+        <path d="M230 40 H365 V65 H265 V95 H350 V120 H265 V155 H365 V180 H230 V40 Z" />
+        {/* A */}
+        <path d="M400 180 H440 L480 70 L520 180 H560 L505 40 H455 L400 180 Z" />
+        <path d="M448 120 H512 V145 H448 V120 Z" />
+        {/* R */}
+        <path d="M590 40 H720 V105 H655 V105 L740 180 H690 L620 120 H625 V180 H590 V40 Z" />
+        <path d="M625 65 H685 V105 H625 V65 Z" />
       </g>
 
-      {/* Anchor nodes */}
       <g fill="#d8d8d8">
         {[
-          // C
-          [70, 40], [175, 40], [175, 65], [105, 65], [105, 155], [175, 155], [175, 180], [70, 180],
-          // O outer
-          [210, 40], [330, 40], [330, 180], [210, 180],
-          // O inner
-          [245, 75], [295, 75], [295, 145], [245, 145],
-          // N
-          [365, 40], [400, 40], [470, 130], [470, 40], [505, 40], [505, 180], [470, 180], [400, 90], [400, 180], [365, 180],
-          // V
-          [540, 40], [580, 40], [640, 140], [700, 40], [740, 40], [655, 180], [625, 180],
+          // B
+          [70, 40],
+          [200, 40],
+          [200, 180],
+          [70, 180],
+          [105, 65],
+          [165, 65],
+          [165, 95],
+          [105, 95],
+          [105, 120],
+          [165, 120],
+          [165, 155],
+          [105, 155],
           // E
-          [775, 40], [910, 40], [910, 65], [810, 65], [810, 95], [895, 95], [895, 120], [810, 120], [810, 155], [910, 155], [910, 180], [775, 180],
-          // Y
-          [945, 40], [985, 40], [1045, 110], [1105, 40], [1145, 40], [1065, 130], [1065, 180], [1025, 180], [1025, 130],
+          [230, 40],
+          [365, 40],
+          [365, 65],
+          [265, 65],
+          [265, 95],
+          [350, 95],
+          [350, 120],
+          [265, 120],
+          [265, 155],
+          [365, 155],
+          [365, 180],
+          [230, 180],
+          // A
+          [400, 180],
+          [440, 180],
+          [480, 70],
+          [520, 180],
+          [560, 180],
+          [505, 40],
+          [455, 40],
+          [448, 120],
+          [512, 120],
+          [512, 145],
+          [448, 145],
+          // R
+          [590, 40],
+          [720, 40],
+          [720, 105],
+          [655, 105],
+          [740, 180],
+          [690, 180],
+          [620, 120],
+          [625, 180],
+          [590, 180],
+          [625, 65],
+          [685, 65],
+          [685, 105],
+          [625, 105],
         ].map(([cx, cy], i) => (
           <circle key={i} cx={cx} cy={cy} r="2.2" />
         ))}
@@ -78,15 +114,15 @@ export function Footer() {
 
   return (
     <footer className="footer">
-      <div className="footer__inner">
-        <div className="footer__top">
-          <div className="footer__brand">
-            <p className="footer__logo">convey.</p>
-            <p className="footer__tagline">
+      <div className="footerInner">
+        <div className="footerTop">
+          <div className="footerBrand">
+            <p className="footerLogo">bear.</p>
+            <p className="footerTagline">
               The future belongs to the 100x operator.
             </p>
-            <div className="footer__socials" aria-label="Social links">
-              <a href="mailto:hello@convey.dev" aria-label="Email">
+            <div className="footerSocials" aria-label="Social links">
+              <a href="mailto:hello@bear.dev" aria-label="Email">
                 <IoMailOutline size={18} />
               </a>
               <a
@@ -108,8 +144,8 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="footer__cols">
-            <div className="footer__col">
+          <div className="footerCols">
+            <div className="footerCol">
               <h3>RESOURCES</h3>
               <ul>
                 {RESOURCES.map((item) => (
@@ -119,7 +155,7 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            <div className="footer__col">
+            <div className="footerCol">
               <h3>CONNECT</h3>
               <ul>
                 {CONNECT.map((item) => (
@@ -138,11 +174,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="footer__mark">
-          <ConveyWordmark />
+        <div className="footerMark">
+          <BearWordmark />
         </div>
 
-        <p className="footer__copy">© 2026 Convey AI</p>
+        <p className="footerCopy">© 2026 Bear AI</p>
       </div>
 
       <style>{`
@@ -150,11 +186,11 @@ export function Footer() {
           position: relative;
           background: #050505;
           color: #f4f4f4;
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           overflow: hidden;
         }
 
-        .footer__inner {
+        .footerInner {
           position: relative;
           max-width: 74rem;
           margin: 0 auto;
@@ -162,25 +198,25 @@ export function Footer() {
         }
 
         @media (min-width: 640px) {
-          .footer__inner {
+          .footerInner {
             padding: 4.5rem 2rem 2rem;
           }
         }
 
         @media (min-width: 1100px) {
-          .footer__inner {
+          .footerInner {
             padding: 5rem 3rem 2.25rem;
           }
         }
 
-        .footer__top {
+        .footerTop {
           display: flex;
           flex-direction: column;
           gap: 2.5rem;
         }
 
         @media (min-width: 800px) {
-          .footer__top {
+          .footerTop {
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
@@ -188,7 +224,7 @@ export function Footer() {
           }
         }
 
-        .footer__logo {
+        .footerLogo {
           margin: 0 0 0.85rem;
           font-size: 1.55rem;
           font-weight: 750;
@@ -197,7 +233,7 @@ export function Footer() {
           line-height: 1;
         }
 
-        .footer__tagline {
+        .footerTagline {
           margin: 0 0 1.35rem;
           max-width: 18rem;
           font-size: 0.95rem;
@@ -205,38 +241,38 @@ export function Footer() {
           color: #8a8a8a;
         }
 
-        .footer__socials {
+        .footerSocials {
           display: flex;
           align-items: center;
           gap: 0.95rem;
         }
 
-        .footer__socials a {
+        .footerSocials a {
           display: grid;
           place-items: center;
           color: #b0b0b0;
           transition: color 0.2s ease;
         }
 
-        .footer__socials a:hover {
+        .footerSocials a:hover {
           color: #fff;
         }
 
-        .footer__cols {
+        .footerCols {
           display: flex;
           gap: 3.5rem;
         }
 
-        .footer__col h3 {
+        .footerCol h3 {
           margin: 0 0 1rem;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.7rem;
           font-weight: 500;
           letter-spacing: 0.12em;
           color: #7a7a7a;
         }
 
-        .footer__col ul {
+        .footerCol ul {
           list-style: none;
           margin: 0;
           padding: 0;
@@ -244,38 +280,38 @@ export function Footer() {
           gap: 0.7rem;
         }
 
-        .footer__col a {
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+        .footerCol a {
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.88rem;
           color: #f0f0f0;
           text-decoration: none;
           transition: color 0.2s ease;
         }
 
-        .footer__col button {
+        .footerCol button {
           padding: 0;
           border: 0;
           background: transparent;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.88rem;
           color: #f0f0f0;
           cursor: pointer;
           transition: color 0.2s ease;
         }
 
-        .footer__col a:hover,
-        .footer__col button:hover {
+        .footerCol a:hover,
+        .footerCol button:hover {
           color: #9fd9d4;
         }
 
-        .footer__mark {
+        .footerMark {
           position: relative;
           margin: 3.5rem 0 1.5rem;
           pointer-events: none;
           user-select: none;
         }
 
-        .footer__wordmark {
+        .footerWordmark {
           display: block;
           width: 100%;
           height: auto;
@@ -283,16 +319,16 @@ export function Footer() {
         }
 
         @media (min-width: 800px) {
-          .footer__mark {
+          .footerMark {
             margin: 4.5rem 0 1.75rem;
           }
 
-          .footer__wordmark {
+          .footerWordmark {
             max-height: 14rem;
           }
         }
 
-        .footer__copy {
+        .footerCopy {
           margin: 0;
           font-size: 0.8rem;
           color: #7a7a7a;

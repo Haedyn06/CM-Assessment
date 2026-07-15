@@ -10,9 +10,9 @@ import { FAQSection } from "@/components/sections/Faq";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="page">
       <Navbar />
-      <main className="">
+      <main className="pageMain">
         <HeroSection />
         <ShelfSection />
         <ProductSection />

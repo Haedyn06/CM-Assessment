@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  IoChevronBack,
-  IoChevronForward,
-  IoLockClosedOutline,
-  IoRefreshOutline,
-} from "react-icons/io5";
+import { IoChevronBack, IoChevronForward, IoLockClosedOutline, IoRefreshOutline } from "react-icons/io5";
+import { CursorIcon } from "@/components/ui/CursorIcon";
 
 const FULL_URL = "crm.acme.com/orders";
 const URL_CHAR_MS = 55;
@@ -14,10 +10,10 @@ const CURSOR_HOLD_MS = 520;
 const LOOP_PAUSE_MS = 900;
 
 const LINE_ITEMS = [
-  { id: "OLI-5550868", platform: "Display", product: "Audience", status: "Active" as const },
-  { id: "OLI-5550871", platform: "Video", product: "Pre-Roll", status: "Active" as const },
-  { id: "OLI-5550890", platform: "CTV", product: "Select", status: "Pending" as const },
-  { id: "OLI-5550912", platform: "Display", product: "Retarget", status: "Pending" as const },
+  { id: "oLI5550868", platform: "Display", product: "Audience", status: "Active" as const },
+  { id: "oLI5550871", platform: "Video", product: "preRoll", status: "Active" as const },
+  { id: "oLI5550890", platform: "CTV", product: "Select", status: "Pending" as const },
+  { id: "oLI5550912", platform: "Display", product: "Retarget", status: "Pending" as const },
 ];
 
 /** Cursor waypoints across the CRM page (percent of content box) */
@@ -31,7 +27,6 @@ const CURSOR_PATH: Array<{ x: number; y: number }> = [
 ];
 
 type ShowAPageProps = {
-  /** When true, runs the type → navigate → cursor loop */
   active?: boolean;
   className?: string;
 };
@@ -40,27 +35,6 @@ function sleep(ms: number) {
   return new Promise<void>((resolve) => {
     window.setTimeout(resolve, ms);
   });
-}
-
-function CursorIcon() {
-  return (
-    <svg
-      className="sap__cursor-icon"
-      width="18"
-      height="22"
-      viewBox="0 0 18 22"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M1 1L1 16.5L5.2 12.8L8.1 20.2L10.6 19.2L7.6 11.9H13.8L1 1Z"
-        fill="#2a2a2a"
-        stroke="#fff"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps) {
@@ -131,69 +105,70 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
 
   return (
     <div className={`sap${className ? ` ${className}` : ""}`} aria-hidden>
-      <div className="sap__titlebar">
-        <span className="sap__traffic">
+      <div className="sapTitlebar">
+        <span className="sapTraffic">
           <span />
           <span />
           <span />
         </span>
-        <span className="sap__title">
-          <span className="sap__avatar">LA</span>
+        <span className="sapTitle">
+          <span className="sapAvatar">LA</span>
           AI Larry&apos;s computer
         </span>
       </div>
 
-      <div className="sap__browser-bar">
-        <span className="sap__nav">
+      <div className="sapBrowserBar">
+        <span className="sapNav">
           <IoChevronBack size={12} />
           <IoChevronForward size={12} />
           <IoRefreshOutline size={12} />
         </span>
-        <div className="sap__url">
+        <div className="sapUrl">
           <IoLockClosedOutline size={11} />
-          <span className="sap__url-text">
+          <span className="sapUrlText">
             {urlText}
-            {!showContent ? <span className="sap__url-caret" /> : null}
+            {!showContent ? <span className="sapUrlCaret" /> : null}
           </span>
         </div>
       </div>
 
-      <div className={`sap__page${showContent ? " is-loaded" : ""}`}>
+      <div className={`sapPage${showContent ? " isLoaded" : ""}`}>
         {showContent ? (
-          <div className="sap__crm">
-            <p className="sap__crumbs">
-              Orders <span>/</span> ORD-2024-4891
-            </p>
-            <div className="sap__crm-head">
+          <div className="sapCrm">
+            <p className="sapCrumbs">Orders <span>/</span> ORD-2024-4891</p>
+            <div className="sapCrmHead">
               <h4>Order: Spring Campaign — Acme Corp</h4>
-              <span className="sap__badge sap__badge--active">Active</span>
+              <span className="sapBadge sapBadgeActive">Active</span>
             </div>
 
-            <div className="sap__meta">
+            <div className="sapMeta">
               <div>
                 <span>ORDER NAME</span>
                 <strong>Spring Campaign 2024</strong>
               </div>
+
               <div>
                 <span>CAMPAIGN MANAGER</span>
                 <strong>Jane Smith</strong>
               </div>
+              
               <div>
                 <span>BUSINESS DIVISION</span>
                 <strong>Local</strong>
               </div>
+              
               <div>
                 <span>ORDER DATE</span>
                 <strong>Mar 15, 2024</strong>
               </div>
             </div>
 
-            <div className="sap__table-head">
+            <div className="sapTableHead">
               <span>Order Line Items (4)</span>
-              <span className="sap__view-all">View All</span>
+              <span className="sapViewAll">View All</span>
             </div>
 
-            <table className="sap__table">
+            <table className="sapTable">
               <thead>
                 <tr>
                   <th>Line Item</th>
@@ -205,12 +180,12 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
               <tbody>
                 {LINE_ITEMS.map((item) => (
                   <tr key={item.id}>
-                    <td className="sap__link">{item.id}</td>
+                    <td className="sapLink">{item.id}</td>
                     <td>{item.platform}</td>
                     <td>{item.product}</td>
                     <td>
                       <span
-                        className={`sap__badge sap__badge--${item.status.toLowerCase()}`}
+                        className={`sapBadge sapBadge${item.status[0]!.toUpperCase()}${item.status.slice(1).toLowerCase()}`}
                       >
                         {item.status}
                       </span>
@@ -221,19 +196,14 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
             </table>
 
             {showCursor ? (
-              <span
-                className="sap__cursor"
-                style={{
-                  left: `${cursorPos.x}%`,
-                  top: `${cursorPos.y}%`,
-                }}
-              >
+              <span className="sapCursor" 
+                style={{ left: `${cursorPos.x}%`, top: `${cursorPos.y}%` }} >
                 <CursorIcon />
               </span>
             ) : null}
           </div>
         ) : (
-          <div className="sap__blank" />
+          <div className="sapBlank" />
         )}
       </div>
 
@@ -246,12 +216,12 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           border: 1px solid #d8d8d6;
           background: #ececeb;
           box-shadow: 0 10px 28px -16px rgba(0, 0, 0, 0.28);
-          animation: sap-pop 0.35s ease both;
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          animation: sapPop 0.35s ease both;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1d1d1d;
         }
 
-        .sap__titlebar {
+        .sapTitlebar {
           position: relative;
           display: flex;
           align-items: center;
@@ -261,21 +231,21 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           background: #e4e4e2;
         }
 
-        .sap__traffic {
+        .sapTraffic {
           position: absolute;
           left: 0.65rem;
           display: flex;
           gap: 0.28rem;
         }
 
-        .sap__traffic span {
+        .sapTraffic span {
           width: 0.45rem;
           height: 0.45rem;
           border-radius: 999px;
           background: #c7c7c5;
         }
 
-        .sap__title {
+        .sapTitle {
           display: inline-flex;
           align-items: center;
           gap: 0.4rem;
@@ -284,7 +254,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           color: #444;
         }
 
-        .sap__avatar {
+        .sapAvatar {
           display: grid;
           place-items: center;
           width: 1.1rem;
@@ -296,7 +266,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           font-weight: 600;
         }
 
-        .sap__browser-bar {
+        .sapBrowserBar {
           display: flex;
           align-items: center;
           gap: 0.55rem;
@@ -304,14 +274,14 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           background: #ececeb;
         }
 
-        .sap__nav {
+        .sapNav {
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
           color: #8a8a88;
         }
 
-        .sap__url {
+        .sapUrl {
           display: flex;
           align-items: center;
           gap: 0.35rem;
@@ -325,7 +295,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           font-size: 0.68rem;
         }
 
-        .sap__url-text {
+        .sapUrlText {
           display: inline-flex;
           align-items: center;
           min-width: 0;
@@ -333,43 +303,43 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           white-space: nowrap;
         }
 
-        .sap__url-caret {
+        .sapUrlCaret {
           display: inline-block;
           width: 1px;
           height: 0.85em;
           margin-left: 1px;
           background: #444;
-          animation: sap-blink 0.85s steps(1) infinite;
+          animation: sapBlink 0.85s steps(1) infinite;
         }
 
-        .sap__page {
+        .sapPage {
           min-height: 11.5rem;
           background: #fff;
         }
 
-        .sap__blank {
+        .sapBlank {
           min-height: 11.5rem;
           background: #fff;
         }
 
-        .sap__crm {
+        .sapCrm {
           position: relative;
           padding: 0.7rem 0.75rem 0.85rem;
           background: #fff;
-          animation: sap-fade 0.4s ease both;
+          animation: sapFade 0.4s ease both;
         }
 
-        .sap__crumbs {
+        .sapCrumbs {
           margin: 0 0 0.45rem;
           font-size: 0.65rem;
           color: #4a7ec7;
         }
 
-        .sap__crumbs span {
+        .sapCrumbs span {
           color: #9aa3b0;
         }
 
-        .sap__crm-head {
+        .sapCrmHead {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -377,7 +347,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           margin-bottom: 0.7rem;
         }
 
-        .sap__crm-head h4 {
+        .sapCrmHead h4 {
           margin: 0;
           font-size: 0.78rem;
           font-weight: 650;
@@ -385,7 +355,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           color: #151515;
         }
 
-        .sap__badge {
+        .sapBadge {
           display: inline-flex;
           align-items: center;
           padding: 0.12rem 0.45rem;
@@ -396,22 +366,22 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           line-height: 1.3;
         }
 
-        .sap__badge--active {
+        .sapBadgeActive {
           background: #2f9d5a;
         }
 
-        .sap__badge--pending {
+        .sapBadgePending {
           background: #d89a2b;
         }
 
-        .sap__meta {
+        .sapMeta {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0.55rem 0.75rem;
           margin-bottom: 0.85rem;
         }
 
-        .sap__meta span {
+        .sapMeta span {
           display: block;
           margin-bottom: 0.12rem;
           font-size: 0.55rem;
@@ -420,13 +390,13 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           color: #8a8a88;
         }
 
-        .sap__meta strong {
+        .sapMeta strong {
           font-size: 0.68rem;
           font-weight: 550;
           color: #222;
         }
 
-        .sap__table-head {
+        .sapTableHead {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -436,19 +406,19 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           color: #333;
         }
 
-        .sap__view-all {
+        .sapViewAll {
           color: #3b7ddd;
           font-size: 0.65rem;
           font-weight: 500;
         }
 
-        .sap__table {
+        .sapTable {
           width: 100%;
           border-collapse: collapse;
           font-size: 0.62rem;
         }
 
-        .sap__table th {
+        .sapTable th {
           padding: 0.35rem 0.25rem;
           border-bottom: 1px solid #ececeb;
           text-align: left;
@@ -456,18 +426,18 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           color: #7a7a78;
         }
 
-        .sap__table td {
+        .sapTable td {
           padding: 0.4rem 0.25rem;
           border-bottom: 1px solid #f1f1f0;
           color: #333;
         }
 
-        .sap__link {
+        .sapLink {
           color: #3b7ddd;
           font-weight: 500;
         }
 
-        .sap__cursor {
+        .sapCursor {
           position: absolute;
           z-index: 2;
           pointer-events: none;
@@ -476,11 +446,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           transform: translate(-10%, -10%);
         }
 
-        .sap__cursor-icon {
-          display: block;
-        }
-
-        @keyframes sap-pop {
+        @keyframes sapPop {
           from {
             opacity: 0;
             transform: translateY(8px) scale(0.98);
@@ -491,7 +457,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           }
         }
 
-        @keyframes sap-fade {
+        @keyframes sapFade {
           from {
             opacity: 0;
             transform: translateY(6px);
@@ -502,7 +468,7 @@ export function ShowcaseAPage({ active = true, className = "" }: ShowAPageProps)
           }
         }
 
-        @keyframes sap-blink {
+        @keyframes sapBlink {
           50% { opacity: 0; }
         }
       `}</style>

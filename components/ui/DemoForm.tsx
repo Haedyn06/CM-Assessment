@@ -136,7 +136,7 @@ function DemoFormModal({
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "contentType": "application/json" },
         body: JSON.stringify({
           firstName,
           lastName,
@@ -167,39 +167,39 @@ function DemoFormModal({
   const phase = closing ? "exit" : "enter";
 
   return createPortal(
-    <div className={`demo-form demo-form--${phase}`} role="presentation">
+    <div className={`demoForm demoForm${phase[0]!.toUpperCase()}${phase.slice(1)}`} role="presentation">
       <button
         type="button"
-        className="demo-form__backdrop"
+        className="demoFormBackdrop"
         aria-label="Close demo form"
         onClick={onClose}
       />
 
       <div
-        className="demo-form__panel"
+        className="demoFormPanel hideScrollbar"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
       >
         <button
           type="button"
-          className="demo-form__close"
+          className="demoFormClose"
           aria-label="Close"
           onClick={onClose}
         >
           <IoClose size={22} />
         </button>
 
-        <div className="demo-form__inner">
-          <h2 id={titleId} className="demo-form__title">
-            Let&apos;s get you connected with a Convey expert.
+        <div className="demoFormInner">
+          <h2 id={titleId} className="demoFormTitle">
+            Let&apos;s get you connected with a Bear expert.
           </h2>
-          <p className="demo-form__sub">
-            See the full power of Convey digital teammates in a 30 minute demo.
+          <p className="demoFormSub">
+            See the full power of Bear digital teammates in a 30 minute demo.
           </p>
 
-          <form className="demo-form__form" onSubmit={onSubmit}>
-            <label className="demo-form__field">
+          <form className="demoFormForm" onSubmit={onSubmit}>
+            <label className="demoFormField">
               <span>Business Email</span>
               <input
                 type="email"
@@ -208,16 +208,16 @@ function DemoFormModal({
                 readOnly
                 tabIndex={-1}
                 aria-readonly="true"
-                className="demo-form__input--locked"
+                className="demoFormInputLocked"
                 title="Email comes from your signed-in Clerk account"
               />
-              <small className="demo-form__note">
+              <small className="demoFormNote">
                 Pulled from your Clerk session (used as userID)
               </small>
             </label>
 
-            <div className="demo-form__row">
-              <label className="demo-form__field">
+            <div className="demoFormRow">
+              <label className="demoFormField">
                 <span>First Name</span>
                 <input
                   type="text"
@@ -225,11 +225,11 @@ function DemoFormModal({
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="First name"
-                  autoComplete="given-name"
+                  autoComplete="givenName"
                   required
                 />
               </label>
-              <label className="demo-form__field">
+              <label className="demoFormField">
                 <span>Last Name</span>
                 <input
                   type="text"
@@ -237,13 +237,13 @@ function DemoFormModal({
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last name"
-                  autoComplete="family-name"
+                  autoComplete="familyName"
                   required
                 />
               </label>
             </div>
 
-            <label className="demo-form__field">
+            <label className="demoFormField">
               <span>Company</span>
               <input
                 type="text"
@@ -255,19 +255,19 @@ function DemoFormModal({
               />
             </label>
 
-            <label className="demo-form__field">
+            <label className="demoFormField">
               <span>Company Website</span>
               <input
                 type="text"
                 name="website"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
-                placeholder="convey.dev"
+                placeholder="bear.dev"
                 autoComplete="url"
               />
             </label>
 
-            <label className="demo-form__field">
+            <label className="demoFormField">
               <span>How can we help?</span>
               <textarea
                 name="message"
@@ -279,37 +279,37 @@ function DemoFormModal({
             </label>
 
             {status === "error" ? (
-              <p className="demo-form__feedback demo-form__feedback--error">
+              <p className="demoFormFeedback demoFormFeedbackError">
                 {error}
               </p>
             ) : null}
             {status === "ok" ? (
-              <p className="demo-form__feedback demo-form__feedback--ok">
+              <p className="demoFormFeedback demoFormFeedbackOk">
                 Thanks — your request was saved. We&apos;ll be in touch.
               </p>
             ) : null}
 
             <button
               type="submit"
-              className="demo-form__submit"
+              className="demoFormSubmit"
               disabled={status === "saving" || !sessionEmail}
             >
               {status === "saving" ? "Submitting…" : "Book a Demo"}
             </button>
           </form>
 
-          <div className="demo-form__trust">
-            <p className="demo-form__trust-label">
+          <div className="demoFormTrust">
+            <p className="demoFormTrustLabel">
               TRUSTED BY LEADING BUSINESSES
             </p>
-            <ul className="demo-form__logos">
+            <ul className="demoFormLogos">
               {LogoItems.map((logo) => (
                 <li key={logo.id}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {/* eslint-disable-next-line @next/next/noImgElement */}
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="demo-form__logo"
+                    className="demoFormLogo"
                   />
                 </li>
               ))}
@@ -319,7 +319,7 @@ function DemoFormModal({
       </div>
 
       <style>{`
-        .demo-form {
+        .demoForm {
           position: fixed;
           inset: 0;
           z-index: 1000;
@@ -328,11 +328,11 @@ function DemoFormModal({
           padding: 1.25rem;
         }
 
-        .demo-form--exit {
+        .demoFormExit {
           pointer-events: none;
         }
 
-        .demo-form__backdrop {
+        .demoFormBackdrop {
           position: absolute;
           inset: 0;
           border: 0;
@@ -345,15 +345,15 @@ function DemoFormModal({
           opacity: 1;
         }
 
-        .demo-form--enter .demo-form__backdrop {
-          animation: demo-form-fade-in ${ANIM_MS}ms ease both;
+        .demoFormEnter .demoFormBackdrop {
+          animation: demoFormFadeIn ${ANIM_MS}ms ease both;
         }
 
-        .demo-form--exit .demo-form__backdrop {
-          animation: demo-form-fade-out ${ANIM_MS}ms ease both;
+        .demoFormExit .demoFormBackdrop {
+          animation: demoFormFadeOut ${ANIM_MS}ms ease both;
         }
 
-        .demo-form__panel {
+        .demoFormPanel {
           position: relative;
           z-index: 1;
           width: min(100%, 34rem);
@@ -362,30 +362,31 @@ function DemoFormModal({
           border-radius: 0.85rem;
           background: linear-gradient(180deg, #f7f7f8 0%, #ececf0 100%);
           box-shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.55);
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
           opacity: 1;
           transform: none;
         }
 
-        .demo-form--enter .demo-form__panel {
-          animation: demo-form-pop-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        .demoFormEnter .demoFormPanel {
+          animation: demoFormPopIn 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .demo-form--exit .demo-form__panel {
-          animation: demo-form-pop-out ${ANIM_MS}ms cubic-bezier(0.4, 0, 1, 1) both;
+        .demoFormExit .demoFormPanel {
+          animation: demoFormPopOut ${ANIM_MS}ms cubic-bezier(0.4, 0, 1, 1) both;
         }
 
-        @keyframes demo-form-fade-in {
+        @keyframes demoFormFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
 
-        @keyframes demo-form-fade-out {
+        @keyframes demoFormFadeOut {
           from { opacity: 1; }
           to { opacity: 0; }
         }
 
-        @keyframes demo-form-pop-in {
+        @keyframes demoFormPopIn {
           from {
             opacity: 0;
             transform: translateY(18px) scale(0.94);
@@ -396,7 +397,7 @@ function DemoFormModal({
           }
         }
 
-        @keyframes demo-form-pop-out {
+        @keyframes demoFormPopOut {
           from {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -407,7 +408,7 @@ function DemoFormModal({
           }
         }
 
-        .demo-form__close {
+        .demoFormClose {
           position: absolute;
           top: 0.85rem;
           right: 0.85rem;
@@ -423,24 +424,24 @@ function DemoFormModal({
           cursor: pointer;
         }
 
-        .demo-form__close:hover {
+        .demoFormClose:hover {
           background: rgba(0, 0, 0, 0.06);
           color: #111;
         }
 
-        .demo-form__inner {
+        .demoFormInner {
           padding: 2.4rem 1.75rem 2rem;
           text-align: center;
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
         }
 
         @media (min-width: 640px) {
-          .demo-form__inner {
+          .demoFormInner {
             padding: 2.75rem 2.5rem 2.25rem;
           }
         }
 
-        .demo-form__title {
+        .demoFormTitle {
           margin: 0 auto 0.75rem;
           max-width: 18ch;
           font-size: clamp(1.55rem, 3.4vw, 1.95rem);
@@ -450,7 +451,7 @@ function DemoFormModal({
           color: #141414;
         }
 
-        .demo-form__sub {
+        .demoFormSub {
           margin: 0 auto 1.85rem;
           max-width: 28ch;
           font-size: 0.98rem;
@@ -458,7 +459,7 @@ function DemoFormModal({
           color: #6a6a6a;
         }
 
-        .demo-form__form {
+        .demoFormForm {
           display: grid;
           gap: 1rem;
           text-align: left;
@@ -466,74 +467,74 @@ function DemoFormModal({
           margin: 0 auto;
         }
 
-        .demo-form__row {
+        .demoFormRow {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0.75rem;
         }
 
-        .demo-form__field {
+        .demoFormField {
           display: grid;
           gap: 0.4rem;
         }
 
-        .demo-form__field span {
+        .demoFormField span {
           font-size: 0.88rem;
           font-weight: 650;
           color: #1f1f1f;
         }
 
-        .demo-form__field input,
-        .demo-form__field textarea {
+        .demoFormField input,
+        .demoFormField textarea {
           width: 100%;
           padding: 0.78rem 0.85rem;
           border: 1px solid #e0e0e2;
           border-radius: 0.55rem;
           background: #f3f3f4;
           color: #222;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.88rem;
           outline: none;
           resize: vertical;
         }
 
-        .demo-form__field input::placeholder,
-        .demo-form__field textarea::placeholder {
+        .demoFormField input::placeholder,
+        .demoFormField textarea::placeholder {
           color: #9aa3b2;
         }
 
-        .demo-form__field input:focus,
-        .demo-form__field textarea:focus {
+        .demoFormField input:focus,
+        .demoFormField textarea:focus {
           border-color: #b8b8be;
           background: #f7f7f8;
         }
 
-        .demo-form__input--locked {
+        .demoFormInputLocked {
           background: #e8e8ea !important;
           color: #555 !important;
           cursor: not-allowed;
         }
 
-        .demo-form__note {
+        .demoFormNote {
           font-size: 0.7rem;
           color: #8a8a8a;
         }
 
-        .demo-form__feedback {
+        .demoFormFeedback {
           margin: 0;
           font-size: 0.85rem;
           text-align: center;
         }
 
-        .demo-form__feedback--error {
+        .demoFormFeedbackError {
           color: #b42318;
         }
 
-        .demo-form__feedback--ok {
+        .demoFormFeedbackOk {
           color: #027a48;
         }
 
-        .demo-form__submit {
+        .demoFormSubmit {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -550,20 +551,20 @@ function DemoFormModal({
           cursor: pointer;
         }
 
-        .demo-form__submit:hover:not(:disabled) {
+        .demoFormSubmit:hover:not(:disabled) {
           background: #2a2a2a;
         }
 
-        .demo-form__submit:disabled {
+        .demoFormSubmit:disabled {
           opacity: 0.65;
           cursor: not-allowed;
         }
 
-        .demo-form__trust {
+        .demoFormTrust {
           margin-top: 2.4rem;
         }
 
-        .demo-form__trust-label {
+        .demoFormTrustLabel {
           margin: 0 0 1.1rem;
           font-size: 0.68rem;
           font-weight: 500;
@@ -571,7 +572,7 @@ function DemoFormModal({
           color: #9a9a9a;
         }
 
-        .demo-form__logos {
+        .demoFormLogos {
           list-style: none;
           margin: 0;
           padding: 0;
@@ -582,7 +583,7 @@ function DemoFormModal({
           gap: 1.1rem 1.35rem;
         }
 
-        .demo-form__logo {
+        .demoFormLogo {
           width: auto;
           height: 1.15rem;
           object-fit: contain;
@@ -590,7 +591,7 @@ function DemoFormModal({
         }
 
         @media (min-width: 640px) {
-          .demo-form__logo {
+          .demoFormLogo {
             height: 1.35rem;
           }
         }

@@ -1,0 +1,75 @@
+.fillBtn {
+  --fillBtnColor: #111111;
+  --fillBtnBg: rgba(255, 255, 255, 0.72);
+  --fillBtnHoverColor: #ffffff;
+  --fillBtnHoverBg: #121212;
+  --fillBtnBorder: transparent;
+  --fillBtnHoverBorder: #121212;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.55rem;
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--fillBtnBorder);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--fillBtnColor);
+  font-family: var(--fontGeistMono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.fillBtnBase,
+.fillBtnWash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.fillBtnBase {
+  background: var(--fillBtnBg);
+}
+
+.fillBtnWash {
+  background: var(--fillBtnHoverBg);
+  clip-path: inset(0 100% 0 0);
+  transition: none;
+}
+
+.fillBtn.isFillIn .fillBtnWash,
+.fillBtn:focus-visible .fillBtnWash {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fillBtn.isFillOut .fillBtnWash {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fillBtn.isFillIn,
+.fillBtn:focus-visible {
+  color: var(--fillBtnHoverColor);
+  border-color: var(--fillBtnHoverBorder);
+  outline: none;
+}
+
+.fillBtnLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}

@@ -16,14 +16,14 @@ export function ShelfSection() {
 
   return (
     <section className="shelf">
+      {/* Title */}
       <div className="shelfHeader">
-        <h2 className="shelfTitle">Real Results from Real Customers</h2>
-        <p className="shelfSubtitle">
-          Hear what it&apos;s like to deploy digital teammates that work in the
-          background
-        </p>
+        <h2 className="shelfTitle">Real Results from Real Bears</h2>
+
+        <p className="shelfSubtitle">Hear what it&apos;s like to deploy digital Bears that work in bareground</p>
       </div>
 
+      {/*  */}
       <div className="shelfRail" role="list">
         {ShelfItems.map((item) => {
           const isActive = item.id === activeId;
@@ -32,32 +32,25 @@ export function ShelfSection() {
           return (
             <div
               key={item.id}
-              className={`shelf__item${isActive ? " is-active" : ""}`}
+              className={`shelfItem${isActive ? " isActive" : ""}`}
               role="listitem"
             >
-              <ShelfCard
-                title={item.title}
-                logoLabel={item.logoLabel}
-                active={isActive}
-                playing={isPlaying}
-                imageSrc={item.imageSrc}
-                videoSrc={item.videoSrc}
+              <ShelfCard title={item.title} logoLabel={item.logoLabel} active={isActive}
+                playing={isPlaying} imageSrc={item.imageSrc} videoSrc={item.videoSrc}
                 onSelect={() => {
                   setActiveId(item.id);
                   setPlayingId(null);
                 }}
-                onPlay={() => {
-                  setPlayingId(item.id);
-                }}
+                onPlay={() => setPlayingId(item.id)}
               />
             </div>
           );
         })}
       </div>
 
-      <div key={active.id} className="shelf__quote">
-        <p className="shelf__quote-text">&ldquo;{active.quote}&rdquo;</p>
-        <p className="shelf__quote-by">{active.attribution}</p>
+      <div key={active.id} className="shelfQuote">
+        <p className="shelfQuoteText">&ldquo;{active.quote}&rdquo;</p>
+        <p className="shelfQuoteBy">{active.attribution}</p>
       </div>
     </section>
   );

@@ -41,13 +41,13 @@ export function HeroLogo({
 
   return (
     <li
-      className={`hero-logo${showQuote ? " hero-logo--has-quote" : ""}${open ? " is-open" : ""}${className ? ` ${className}` : ""}`}
+      className={`heroLogo${showQuote ? " heroLogoHasQuote" : ""}${open ? " isOpen" : ""}${className ? ` ${className}` : ""}`}
       style={
         {
-          "--hero-logo-color": color,
-          "--hero-logo-hover": hoverColor,
-          "--hero-logo-mask": `url(${src})`,
-          "--hero-logo-aspect": String(aspectRatio),
+          "--heroLogoColor": color,
+          "--heroLogoHover": hoverColor,
+          "--heroLogoMask": `url(${src})`,
+          "--heroLogoAspect": String(aspectRatio),
         } as CSSProperties
       }
       onMouseEnter={() => {
@@ -57,15 +57,15 @@ export function HeroLogo({
         if (showQuote) setOpen(false);
       }}
     >
-      <div className="hero-logo__wrap">
+      <div className="heroLogoWrap">
         {showQuote && (
-          <span className="hero-logo__plus" aria-hidden>
+          <span className="heroLogoPlus" aria-hidden>
             <IoAdd size={12} />
           </span>
         )}
 
         <div
-          className="hero-logo__media"
+          className="heroLogoMedia"
           role="img"
           aria-label={alt}
           title={alt}
@@ -85,7 +85,7 @@ export function HeroLogo({
       )}
 
       <style>{`
-        .hero-logo {
+        .heroLogo {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -93,17 +93,17 @@ export function HeroLogo({
           list-style: none;
         }
 
-        .hero-logo--has-quote {
+        .heroLogoHasQuote {
           cursor: pointer;
         }
 
-        .hero-logo__wrap {
+        .heroLogoWrap {
           position: relative;
           display: inline-block;
           line-height: 0;
         }
 
-        .hero-logo__plus {
+        .heroLogoPlus {
           position: absolute;
           top: 0;
           right: 0;
@@ -125,20 +125,20 @@ export function HeroLogo({
             border-color 0.25s ease;
         }
 
-        .hero-logo.is-open .hero-logo__plus {
+        .heroLogo.isOpen .heroLogoPlus {
           transform: translate(45%, calc(-85% - 4px)) scale(1.08);
           background: #6aa3d4;
           border-color: #6aa3d4;
         }
 
-        .hero-logo__media {
+        .heroLogoMedia {
           height: 1.45rem;
-          width: calc(1.45rem * var(--hero-logo-aspect));
+          width: calc(1.45rem * var(--heroLogoAspect));
           max-width: 9.5rem;
-          background-color: var(--hero-logo-color);
+          background-color: var(--heroLogoColor);
           opacity: 0.72;
-          -webkit-mask-image: var(--hero-logo-mask);
-          mask-image: var(--hero-logo-mask);
+          -webkit-mask-image: var(--heroLogoMask);
+          mask-image: var(--heroLogoMask);
           -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
           -webkit-mask-position: right center;
@@ -150,9 +150,9 @@ export function HeroLogo({
             opacity 0.25s ease;
         }
 
-        .hero-logo:hover .hero-logo__media,
-        .hero-logo.is-open .hero-logo__media {
-          background-color: var(--hero-logo-hover);
+        .heroLogo:hover .heroLogoMedia,
+        .heroLogo.isOpen .heroLogoMedia {
+          background-color: var(--heroLogoHover);
           opacity: 1;
         }
       `}</style>

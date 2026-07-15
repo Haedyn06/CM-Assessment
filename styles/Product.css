@@ -10,7 +10,7 @@
       transparent 60%
     ),
     #f3f3f1;
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
   color: #1f1f1f;
   text-align: center;
 }
@@ -21,7 +21,7 @@
   }
 }
 
-.product__dots {
+.productDots {
   pointer-events: none;
   position: absolute;
   top: 18%;
@@ -37,7 +37,7 @@
   background-size: 14px 14px;
 }
 
-.product__glow--left {
+.productGlowLeft {
   pointer-events: none;
   position: absolute;
   left: -8%;
@@ -52,14 +52,14 @@
   filter: blur(8px);
 }
 
-.product__inner {
+.productInner {
   position: relative;
   z-index: 1;
   max-width: 48rem;
   margin: 0 auto;
 }
 
-.product__title {
+.productTitle {
   margin: 0 0 1.25rem;
   font-size: clamp(1.65rem, 3.6vw, 2.75rem);
   font-weight: 450;
@@ -68,15 +68,26 @@
   color: #222;
 }
 
-.product__title strong {
+.productTitle strong {
   font-weight: 700;
 }
 
-.product__sub {
+.productSub {
   margin: 0 auto 2rem;
   max-width: 34rem;
   font-size: 1rem;
   line-height: 1.55;
   color: #8a8a8a;
 }
-      
+
+.productCta {
+  --fillBtnColor: #2a2a2a;
+  --fillBtnBg: rgba(255, 255, 255, 0.72);
+  --fillBtnHoverColor: #ffffff;
+  --fillBtnHoverBg: #121212;
+  --fillBtnBorder: #d0d0d0;
+  --fillBtnHoverBorder: #121212;
+  border-radius: 0.2rem;
+  font-weight: 500;
+}
+

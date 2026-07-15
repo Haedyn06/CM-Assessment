@@ -36,7 +36,7 @@ export function ShowcaseCWindowB({
 
   return (
     <div
-      className={`scwb${focused ? " is-focused" : ""}${className ? ` ${className}` : ""}`}
+      className={`scwb${focused ? " isFocused" : ""}${className ? ` ${className}` : ""}`}
       style={style}
       role="button"
       tabIndex={0}
@@ -44,37 +44,37 @@ export function ShowcaseCWindowB({
       onKeyDown={onKeyDown}
       aria-label="Manage Agent Identities window"
     >
-      <header className="scwb__header">
-        <span className="scwb__logo">convey.</span>
-        <span className="scwb__btn">Add Agent +</span>
+      <header className="scwbHeader">
+        <span className="scwbLogo">bear.</span>
+        <span className="scwbBtn">Add bear +</span>
       </header>
 
-      <div className="scwb__body">
-        <h3 className="scwb__title">Manage Agent Identities</h3>
-        <p className="scwb__desc">
-          Create and manage each Digital Teammate&apos;s identities.
+      <div className="scwbBody hideScrollbar">
+        <h3 className="scwbTitle">Manage bear Identities</h3>
+        <p className="scwbDesc">
+          Create and manage each Digital bear&apos;s identities.
         </p>
 
-        <div className="scwb__table-head">
+        <div className="scwbTableHead">
           <span>Agents</span>
           <span>Alias</span>
           <span>Team</span>
         </div>
 
-        <ul className="scwb__rows">
+        <ul className="scwbRows">
           {AGENTS.map((agent) => (
-            <li key={agent.id} className="scwb__row">
-              <div className="scwb__agent">
+            <li key={agent.id} className="scwbRow">
+              <div className="scwbAgent">
                 <span
-                  className="scwb__avatar"
+                  className="scwbAvatar"
                   style={{ background: agent.tone }}
                 >
                   {agent.initials}
                 </span>
-                <span className="scwb__name">{agent.name}</span>
+                <span className="scwbName">{agent.name}</span>
               </div>
-              <span className="scwb__cell">{agent.alias}</span>
-              <span className="scwb__cell">{agent.team}</span>
+              <span className="scwbCell">{agent.alias}</span>
+              <span className="scwbCell">{agent.team}</span>
             </li>
           ))}
         </ul>
@@ -91,17 +91,17 @@ export function ShowcaseCWindowB({
           background: #fff;
           overflow: hidden;
           box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.45);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1a1a1a;
           cursor: pointer;
           transition: box-shadow 0.3s ease;
         }
 
-        .scwb.is-focused {
+        .scwb.isFocused {
           box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.5);
         }
 
-        .scwb__header {
+        .scwbHeader {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -109,13 +109,13 @@ export function ShowcaseCWindowB({
           padding: 0.7rem 0.9rem 0.35rem;
         }
 
-        .scwb__logo {
+        .scwbLogo {
           font-size: 0.78rem;
           font-weight: 700;
           letter-spacing: -0.03em;
         }
 
-        .scwb__btn {
+        .scwbBtn {
           padding: 0.3rem 0.55rem;
           border: 1px solid #dadad8;
           border-radius: 0.35rem;
@@ -126,15 +126,16 @@ export function ShowcaseCWindowB({
           white-space: nowrap;
         }
 
-        .scwb__body {
+        .scwbBody {
           min-height: 0;
           flex: 1;
           overflow: auto;
           padding: 0.2rem 0.9rem 0.9rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .scwb__title {
+        .scwbTitle {
           margin: 0 0 0.3rem;
           font-size: 1.05rem;
           font-weight: 700;
@@ -142,14 +143,14 @@ export function ShowcaseCWindowB({
           color: #141414;
         }
 
-        .scwb__desc {
+        .scwbDesc {
           margin: 0 0 0.85rem;
           font-size: 0.62rem;
           line-height: 1.45;
           color: #7a7a78;
         }
 
-        .scwb__table-head {
+        .scwbTableHead {
           display: grid;
           grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
           gap: 0.5rem;
@@ -162,13 +163,13 @@ export function ShowcaseCWindowB({
           border-bottom: 1px solid #ececeb;
         }
 
-        .scwb__rows {
+        .scwbRows {
           list-style: none;
           margin: 0;
           padding: 0;
         }
 
-        .scwb__row {
+        .scwbRow {
           display: grid;
           grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
           gap: 0.5rem;
@@ -177,14 +178,14 @@ export function ShowcaseCWindowB({
           border-bottom: 1px solid #f0f0ee;
         }
 
-        .scwb__agent {
+        .scwbAgent {
           display: flex;
           align-items: center;
           gap: 0.45rem;
           min-width: 0;
         }
 
-        .scwb__avatar {
+        .scwbAvatar {
           display: grid;
           place-items: center;
           width: 1.35rem;
@@ -196,7 +197,7 @@ export function ShowcaseCWindowB({
           flex-shrink: 0;
         }
 
-        .scwb__name {
+        .scwbName {
           font-size: 0.62rem;
           font-weight: 650;
           color: #222;
@@ -205,7 +206,7 @@ export function ShowcaseCWindowB({
           text-overflow: ellipsis;
         }
 
-        .scwb__cell {
+        .scwbCell {
           font-size: 0.58rem;
           color: #666;
           white-space: nowrap;

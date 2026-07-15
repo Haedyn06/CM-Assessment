@@ -34,7 +34,7 @@ export function ShowcaseCWindowC({
 
   return (
     <div
-      className={`scwc${focused ? " is-focused" : ""}${className ? ` ${className}` : ""}`}
+      className={`scwc${focused ? " isFocused" : ""}${className ? ` ${className}` : ""}`}
       style={style}
       role="button"
       tabIndex={0}
@@ -42,29 +42,29 @@ export function ShowcaseCWindowC({
       onKeyDown={onKeyDown}
       aria-label="User Access Management window"
     >
-      <header className="scwc__header">
-        <span className="scwc__logo">convey.</span>
-        <span className="scwc__btn">Add Users +</span>
+      <header className="scwcHeader">
+        <span className="scwcLogo">bear.</span>
+        <span className="scwcBtn">Add Bears +</span>
       </header>
 
-      <div className="scwc__body">
-        <h3 className="scwc__title">User Access Management</h3>
-        <p className="scwc__desc">
-          Assign users to Digital Teammates and control access through
+      <div className="scwcBody hideScrollbar">
+        <h3 className="scwcTitle">Bear Access Management</h3>
+        <p className="scwcDesc">
+          Assign bears to Digital bears and control access through
           role-based permissions.
         </p>
 
-        <div className="scwc__table-head">
+        <div className="scwcTableHead">
           <span>Email</span>
           <span>Role</span>
           <span>Agents</span>
         </div>
 
-        <ul className="scwc__rows">
+        <ul className="scwcRows">
           {USERS.map((user) => (
-            <li key={user.id} className="scwc__row">
-              <span className="scwc__email">{user.email}</span>
-              <span className="scwc__role">
+            <li key={user.id} className="scwcRow">
+              <span className="scwcEmail">{user.email}</span>
+              <span className="scwcRole">
                 {user.role}
                 <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
                   <path
@@ -77,9 +77,9 @@ export function ShowcaseCWindowC({
                   />
                 </svg>
               </span>
-              <div className="scwc__tags">
+              <div className="scwcTags">
                 {user.agents.map((agent) => (
-                  <span key={agent} className="scwc__tag">
+                  <span key={agent} className="scwcTag">
                     {agent}
                   </span>
                 ))}
@@ -100,17 +100,17 @@ export function ShowcaseCWindowC({
           background: #fff;
           overflow: hidden;
           box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.45);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1a1a1a;
           cursor: pointer;
           transition: box-shadow 0.3s ease;
         }
 
-        .scwc.is-focused {
+        .scwc.isFocused {
           box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.5);
         }
 
-        .scwc__header {
+        .scwcHeader {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -118,13 +118,13 @@ export function ShowcaseCWindowC({
           padding: 0.7rem 0.9rem 0.35rem;
         }
 
-        .scwc__logo {
+        .scwcLogo {
           font-size: 0.78rem;
           font-weight: 700;
           letter-spacing: -0.03em;
         }
 
-        .scwc__btn {
+        .scwcBtn {
           padding: 0.3rem 0.55rem;
           border: 1px solid #dadad8;
           border-radius: 0.35rem;
@@ -135,15 +135,16 @@ export function ShowcaseCWindowC({
           white-space: nowrap;
         }
 
-        .scwc__body {
+        .scwcBody {
           min-height: 0;
           flex: 1;
           overflow: auto;
           padding: 0.2rem 0.9rem 0.9rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .scwc__title {
+        .scwcTitle {
           margin: 0 0 0.3rem;
           font-size: 1.05rem;
           font-weight: 700;
@@ -151,7 +152,7 @@ export function ShowcaseCWindowC({
           color: #141414;
         }
 
-        .scwc__desc {
+        .scwcDesc {
           margin: 0 0 0.85rem;
           max-width: 28rem;
           font-size: 0.62rem;
@@ -159,7 +160,7 @@ export function ShowcaseCWindowC({
           color: #7a7a78;
         }
 
-        .scwc__table-head {
+        .scwcTableHead {
           display: grid;
           grid-template-columns: minmax(0, 1.15fr) 5.2rem minmax(0, 1.25fr);
           gap: 0.5rem;
@@ -172,13 +173,13 @@ export function ShowcaseCWindowC({
           border-bottom: 1px solid #ececeb;
         }
 
-        .scwc__rows {
+        .scwcRows {
           list-style: none;
           margin: 0;
           padding: 0;
         }
 
-        .scwc__row {
+        .scwcRow {
           display: grid;
           grid-template-columns: minmax(0, 1.15fr) 5.2rem minmax(0, 1.25fr);
           gap: 0.5rem;
@@ -187,7 +188,7 @@ export function ShowcaseCWindowC({
           border-bottom: 1px solid #f0f0ee;
         }
 
-        .scwc__email {
+        .scwcEmail {
           font-size: 0.62rem;
           font-weight: 600;
           color: #222;
@@ -196,7 +197,7 @@ export function ShowcaseCWindowC({
           text-overflow: ellipsis;
         }
 
-        .scwc__role {
+        .scwcRole {
           display: inline-flex;
           align-items: center;
           justify-content: space-between;
@@ -211,14 +212,14 @@ export function ShowcaseCWindowC({
           color: #333;
         }
 
-        .scwc__tags {
+        .scwcTags {
           display: flex;
           flex-wrap: wrap;
           gap: 0.28rem;
           min-width: 0;
         }
 
-        .scwc__tag {
+        .scwcTag {
           padding: 0.18rem 0.4rem;
           border-radius: 0.28rem;
           background: #efefed;

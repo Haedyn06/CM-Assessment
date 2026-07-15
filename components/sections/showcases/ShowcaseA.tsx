@@ -5,7 +5,7 @@ import "@/styles/ShowcaseA.css";
 
 function CornerMarks() {
   return (
-    <span className="showcase-a__corners" aria-hidden>
+    <span className="showcaseACorners" aria-hidden>
       <span />
       <span />
       <span />
@@ -17,7 +17,7 @@ function CornerMarks() {
 function PmgLogo() {
   return (
     <svg
-      className="showcase-a__pmg"
+      className="showcaseAPmg"
       width="72"
       height="28"
       viewBox="0 0 72 28"
@@ -44,37 +44,37 @@ function PmgLogo() {
 
 export function ShowcaseASection() {
   return (
-    <section className="showcase-a">
-      <div className="showcase-a__dots" aria-hidden />
+    <section className="showcaseA">
+      <div className="showcaseADots" aria-hidden />
 
-      <div className="showcase-a__inner">
-        <div className="showcase-a__copy">
-          <p className="showcase-a__badge">
+      <div className="showcaseAInner">
+        <div className="showcaseACopy">
+          <p className="showcaseABadge">
             <CornerMarks />
             TRUST AND OVERSIGHT
           </p>
 
-          <h2 className="showcase-a__title">Operators Become Conductors</h2>
+          <h2 className="showcaseATitle">Old Bears Become New Bears</h2>
 
-          <p className="showcase-a__text">
+          <p className="showcaseAText">
             You give your AI teammate responsibilities. It takes the work fully
             off your plate. From summarizing emails, to complex multistep
             processes across your systems.
           </p>
 
-          <blockquote className="showcase-a__quote">
+          <blockquote className="showcaseAQuote">
             <CornerMarks />
             <PmgLogo />
             <p>
-              &ldquo;Convey enables our best operators to effectively clone
+              &ldquo;Bear enables our best operators to effectively clone
               themselves – scaling their best practices and creating more
               capacity for strategic and creative work.&rdquo;
             </p>
-            <footer>Sam Bloom • Head of Partnerships</footer>
+            <footer>Winnie Bear • Head of Partnerships</footer>
           </blockquote>
         </div>
 
-        <div className="showcase-a__window">
+        <div className="showcaseAWindow">
           <ShowcaseAWindow />
         </div>
       </div>

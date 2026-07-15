@@ -52,7 +52,7 @@ export function ShowcaseCWindowA({
 
   return (
     <div
-      className={`scwa${focused ? " is-focused" : ""}${className ? ` ${className}` : ""}`}
+      className={`scwa${focused ? " isFocused" : ""}${className ? ` ${className}` : ""}`}
       style={style}
       role="button"
       tabIndex={0}
@@ -60,73 +60,73 @@ export function ShowcaseCWindowA({
       onKeyDown={onKeyDown}
       aria-label="Apps window"
     >
-      <aside className="scwa__sidebar" aria-hidden>
-        <div className="scwa__sidebar-top">
-          <span className="scwa__avatar">LA</span>
-          <span className="scwa__nav-icon">
+      <aside className="scwaSidebar" aria-hidden>
+        <div className="scwaSidebarTop">
+          <span className="scwaAvatar">LA</span>
+          <span className="scwaNavIcon">
             <IoCreateOutline size={15} />
           </span>
-          <span className="scwa__nav-icon is-active">
+          <span className="scwaNavIcon isActive">
             <IoHomeOutline size={15} />
           </span>
-          <span className="scwa__nav-icon">
+          <span className="scwaNavIcon">
             <IoCalendarOutline size={15} />
           </span>
         </div>
-        <div className="scwa__sidebar-bottom">
+        <div className="scwaSidebarBottom">
           <IoPersonAddOutline size={15} />
           <IoSettingsOutline size={15} />
         </div>
       </aside>
 
-      <div className="scwa__main">
-        <header className="scwa__header">
-          <span className="scwa__logo">convey.</span>
+      <div className="scwaMain">
+        <header className="scwaHeader">
+          <span className="scwaLogo">bear.</span>
         </header>
 
-        <div className="scwa__content">
-          <h3 className="scwa__title">Apps</h3>
-          <p className="scwa__desc">
-            Set up your Digital Teammates like a new hire. Configure role based
+        <div className="scwaContent hideScrollbar">
+          <h3 className="scwaTitle">Apps</h3>
+          <p className="scwaDesc">
+            Set up your Digital Bears like a new hire. Configure role based
             access to apps and services they&apos;ll need to be productive in
             your org.
           </p>
 
-          <section className="scwa__block">
-            <div className="scwa__block-head">
+          <section className="scwaBlock">
+            <div className="scwaBlockHead">
               <h4>Connected Apps</h4>
-              <span className="scwa__btn">Add New</span>
+              <span className="scwaBtn">Add New</span>
             </div>
 
-            <div className="scwa__table-head scwa__table-head--connected">
+            <div className="scwaTableHead scwaTableHeadConnected">
               <span />
               <span>Credential Type</span>
               <span>Note</span>
             </div>
 
-            <ul className="scwa__rows">
+            <ul className="scwaRows">
               {CONNECTED.map((app) => (
-                <li key={app.id} className="scwa__row scwa__row--connected">
-                  <div className="scwa__app">
+                <li key={app.id} className="scwaRow scwaRowConnected">
+                  <div className="scwaApp">
                     <span
-                      className="scwa__app-icon"
+                      className="scwaAppIcon"
                       style={{ background: app.color }}
                     >
                       {app.letter}
                     </span>
-                    <span className="scwa__app-name">{app.name}</span>
+                    <span className="scwaAppName">{app.name}</span>
                   </div>
-                  <span className="scwa__cell">{app.credentials}</span>
-                  <span className="scwa__cell">{app.note}</span>
+                  <span className="scwaCell">{app.credentials}</span>
+                  <span className="scwaCell">{app.note}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="scwa__block scwa__block--rec">
-            <div className="scwa__block-head">
+          <section className="scwaBlock scwaBlockRec">
+            <div className="scwaBlockHead">
               <h4>Recommended Apps</h4>
-              <span className="scwa__btn scwa__btn--filter">
+              <span className="scwaBtn scwaBtnFilter">
                 Filter by Department
                 <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
                   <path
@@ -141,24 +141,24 @@ export function ShowcaseCWindowA({
               </span>
             </div>
 
-            <div className="scwa__table-head scwa__table-head--rec">
+            <div className="scwaTableHead scwaTableHeadRec">
               <span />
               <span>Use Cases</span>
             </div>
 
-            <ul className="scwa__rows">
+            <ul className="scwaRows">
               {RECOMMENDED.map((app) => (
-                <li key={app.id} className="scwa__row scwa__row--rec">
-                  <div className="scwa__app">
+                <li key={app.id} className="scwaRow scwaRowRec">
+                  <div className="scwaApp">
                     <span
-                      className="scwa__app-icon"
+                      className="scwaAppIcon"
                       style={{ background: app.color }}
                     >
                       {app.letter}
                     </span>
-                    <span className="scwa__app-name">{app.name}</span>
+                    <span className="scwaAppName">{app.name}</span>
                   </div>
-                  <span className="scwa__cell">{app.useCase}</span>
+                  <span className="scwaCell">{app.useCase}</span>
                 </li>
               ))}
             </ul>
@@ -177,17 +177,17 @@ export function ShowcaseCWindowA({
           background: #fff;
           overflow: hidden;
           box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.45);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1a1a1a;
           cursor: pointer;
           transition: box-shadow 0.3s ease;
         }
 
-        .scwa.is-focused {
+        .scwa.isFocused {
           box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.5);
         }
 
-        .scwa__sidebar {
+        .scwaSidebar {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -198,15 +198,15 @@ export function ShowcaseCWindowA({
           color: #5a5a5a;
         }
 
-        .scwa__sidebar-top,
-        .scwa__sidebar-bottom {
+        .scwaSidebarTop,
+        .scwaSidebarBottom {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 0.55rem;
         }
 
-        .scwa__avatar {
+        .scwaAvatar {
           display: grid;
           place-items: center;
           width: 1.45rem;
@@ -219,7 +219,7 @@ export function ShowcaseCWindowA({
           letter-spacing: 0.02em;
         }
 
-        .scwa__nav-icon {
+        .scwaNavIcon {
           display: grid;
           place-items: center;
           width: 1.55rem;
@@ -228,37 +228,38 @@ export function ShowcaseCWindowA({
           color: #666;
         }
 
-        .scwa__nav-icon.is-active {
+        .scwaNavIcon.isActive {
           background: rgba(0, 0, 0, 0.06);
           color: #222;
         }
 
-        .scwa__main {
+        .scwaMain {
           display: grid;
           grid-template-rows: auto minmax(0, 1fr);
           min-width: 0;
           background: #fafaf9;
         }
 
-        .scwa__header {
+        .scwaHeader {
           padding: 0.55rem 0.85rem 0.2rem;
         }
 
-        .scwa__logo {
+        .scwaLogo {
           font-size: 0.78rem;
           font-weight: 700;
           letter-spacing: -0.03em;
           color: #1a1a1a;
         }
 
-        .scwa__content {
+        .scwaContent {
           min-height: 0;
           overflow: auto;
           padding: 0.15rem 0.85rem 0.85rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .scwa__title {
+        .scwaTitle {
           margin: 0 0 0.35rem;
           font-size: 1.15rem;
           font-weight: 700;
@@ -266,7 +267,7 @@ export function ShowcaseCWindowA({
           color: #141414;
         }
 
-        .scwa__desc {
+        .scwaDesc {
           margin: 0 0 0.85rem;
           max-width: 34rem;
           font-size: 0.62rem;
@@ -274,15 +275,15 @@ export function ShowcaseCWindowA({
           color: #7a7a78;
         }
 
-        .scwa__block {
+        .scwaBlock {
           margin-bottom: 0.85rem;
         }
 
-        .scwa__block--rec {
+        .scwaBlockRec {
           margin-bottom: 0;
         }
 
-        .scwa__block-head {
+        .scwaBlockHead {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -290,14 +291,14 @@ export function ShowcaseCWindowA({
           margin-bottom: 0.45rem;
         }
 
-        .scwa__block-head h4 {
+        .scwaBlockHead h4 {
           margin: 0;
           font-size: 0.72rem;
           font-weight: 650;
           color: #222;
         }
 
-        .scwa__btn {
+        .scwaBtn {
           display: inline-flex;
           align-items: center;
           gap: 0.28rem;
@@ -311,7 +312,7 @@ export function ShowcaseCWindowA({
           white-space: nowrap;
         }
 
-        .scwa__table-head {
+        .scwaTableHead {
           display: grid;
           gap: 0.5rem;
           padding: 0 0.15rem 0.28rem;
@@ -323,21 +324,21 @@ export function ShowcaseCWindowA({
           border-bottom: 1px solid #ececeb;
         }
 
-        .scwa__table-head--connected {
+        .scwaTableHeadConnected {
           grid-template-columns: minmax(7rem, 1.1fr) minmax(0, 1.2fr) minmax(0, 1fr);
         }
 
-        .scwa__table-head--rec {
+        .scwaTableHeadRec {
           grid-template-columns: minmax(7rem, 0.9fr) minmax(0, 1.4fr);
         }
 
-        .scwa__rows {
+        .scwaRows {
           list-style: none;
           margin: 0;
           padding: 0;
         }
 
-        .scwa__row {
+        .scwaRow {
           display: grid;
           gap: 0.5rem;
           align-items: center;
@@ -345,22 +346,22 @@ export function ShowcaseCWindowA({
           border-bottom: 1px solid #f0f0ee;
         }
 
-        .scwa__row--connected {
+        .scwaRowConnected {
           grid-template-columns: minmax(7rem, 1.1fr) minmax(0, 1.2fr) minmax(0, 1fr);
         }
 
-        .scwa__row--rec {
+        .scwaRowRec {
           grid-template-columns: minmax(7rem, 0.9fr) minmax(0, 1.4fr);
         }
 
-        .scwa__app {
+        .scwaApp {
           display: flex;
           align-items: center;
           gap: 0.4rem;
           min-width: 0;
         }
 
-        .scwa__app-icon {
+        .scwaAppIcon {
           display: grid;
           place-items: center;
           width: 1.15rem;
@@ -372,7 +373,7 @@ export function ShowcaseCWindowA({
           flex-shrink: 0;
         }
 
-        .scwa__app-name {
+        .scwaAppName {
           font-size: 0.58rem;
           font-weight: 600;
           color: #222;
@@ -381,7 +382,7 @@ export function ShowcaseCWindowA({
           text-overflow: ellipsis;
         }
 
-        .scwa__cell {
+        .scwaCell {
           font-size: 0.55rem;
           color: #666;
           white-space: nowrap;

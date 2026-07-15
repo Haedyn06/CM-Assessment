@@ -129,7 +129,7 @@ export function ShowcaseBWindowA({
 
   return (
     <div
-      className={`sbwa${focused ? " is-focused" : ""}${className ? ` ${className}` : ""}`}
+      className={`sbwa${focused ? " isFocused" : ""}${className ? ` ${className}` : ""}`}
       style={style}
       role="button"
       tabIndex={0}
@@ -142,66 +142,66 @@ export function ShowcaseBWindowA({
       }}
       aria-label="Mail window"
     >
-      <div className="sbwa__titlebar">
-        <span className="sbwa__traffic" aria-hidden>
+      <div className="sbwaTitlebar">
+        <span className="sbwaTraffic" aria-hidden>
           <span />
           <span />
           <span />
         </span>
-        <span className="sbwa__app">Mail</span>
+        <span className="sbwaApp">Mail</span>
       </div>
 
-      <div className="sbwa__subject">
+      <div className="sbwaSubject">
         Re: Need your input, budget discrepancy across campaigns
       </div>
 
-      <div className="sbwa__thread" ref={listRef}>
+      <div className="sbwaThread hideScrollbar" ref={listRef}>
         {messages.map((msg) => (
           <div key={msg.id}>
             {msg.showBanner ? (
-              <div className="sbwa__sent">
-                <span className="sbwa__sent-check">✓</span>
+              <div className="sbwaSent">
+                <span className="sbwaSentCheck">✓</span>
                 Message sent
               </div>
             ) : null}
 
-            <article className="sbwa__msg">
-              <div className="sbwa__msg-top">
-                <span className={`sbwa__avatar sbwa__avatar--${msg.from}`}>
+            <article className="sbwaMsg">
+              <div className="sbwaMsgTop">
+                <span className={`sbwaAvatar sbwaAvatar${msg.from}`}>
                   {msg.from === "larry" ? "LA" : "M"}
                 </span>
-                <div className="sbwa__meta">
-                  <p className="sbwa__from">
+                <div className="sbwaMeta">
+                  <p className="sbwaFrom">
                     {msg.from === "larry" ? (
                       <>
                         AI Larry{" "}
-                        <span className="sbwa__email">&lt;larry@app.convey.dev&gt;</span>
+                        <span className="sbwaEmail">&lt;larry@app.bear.dev&gt;</span>
                       </>
                     ) : (
                       "Me"
                     )}
                   </p>
-                  <p className="sbwa__to">
+                  <p className="sbwaTo">
                     {msg.from === "larry" ? "to me" : "to AI Larry"}
                   </p>
                 </div>
-                <time className="sbwa__time">{msg.time}</time>
+                <time className="sbwaTime">{msg.time}</time>
               </div>
-              <p className="sbwa__body">
+              <p className="sbwaBody">
                 {msg.typed ?? ""}
-                {typingId === msg.id ? <span className="sbwa__caret" /> : null}
+                {typingId === msg.id ? <span className="sbwaCaret" /> : null}
               </p>
             </article>
           </div>
         ))}
       </div>
 
-      <div className="sbwa__footer" aria-hidden>
-        <button type="button" className="sbwa__send" tabIndex={-1}>
+      <div className="sbwaFooter" aria-hidden>
+        <button type="button" className="sbwaSend" tabIndex={-1}>
           Send
           <IoChevronDown size={12} />
         </button>
-        <div className="sbwa__tools">
+        <div className="sbwaTools">
           <IoAttachOutline size={15} />
           <IoLinkOutline size={15} />
           <IoHappyOutline size={15} />
@@ -209,6 +209,7 @@ export function ShowcaseBWindowA({
           <IoTrashOutline size={15} />
         </div>
       </div>
+
 
       <style>{`
         .sbwa {
@@ -222,20 +223,20 @@ export function ShowcaseBWindowA({
           box-shadow:
             0 22px 48px -24px rgba(20, 20, 30, 0.4),
             0 0 0 1px rgba(0, 0, 0, 0.06);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1d1d1d;
           cursor: pointer;
           transition: box-shadow 0.25s ease, transform 0.25s ease;
           outline: none;
         }
 
-        .sbwa.is-focused {
+        .sbwa.isFocused {
           box-shadow:
             0 28px 64px -22px rgba(20, 20, 30, 0.48),
             0 0 0 1px rgba(0, 0, 0, 0.08);
         }
 
-        .sbwa__titlebar {
+        .sbwaTitlebar {
           position: relative;
           display: grid;
           place-items: center;
@@ -244,31 +245,31 @@ export function ShowcaseBWindowA({
           border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        .sbwa__traffic {
+        .sbwaTraffic {
           position: absolute;
           left: 0.65rem;
           display: flex;
           gap: 0.3rem;
         }
 
-        .sbwa__traffic span {
+        .sbwaTraffic span {
           width: 0.48rem;
           height: 0.48rem;
           border-radius: 999px;
           background: #c6c6c4;
         }
 
-        .sbwa.is-focused .sbwa__traffic span:nth-child(1) { background: #ff5f57; }
-        .sbwa.is-focused .sbwa__traffic span:nth-child(2) { background: #febc2e; }
-        .sbwa.is-focused .sbwa__traffic span:nth-child(3) { background: #28c840; }
+        .sbwa.isFocused .sbwaTraffic span:nth-child(1) { background: #ff5f57; }
+        .sbwa.isFocused .sbwaTraffic span:nth-child(2) { background: #febc2e; }
+        .sbwa.isFocused .sbwaTraffic span:nth-child(3) { background: #28c840; }
 
-        .sbwa__app {
+        .sbwaApp {
           font-size: 0.72rem;
           font-weight: 550;
           color: #555;
         }
 
-        .sbwa__subject {
+        .sbwaSubject {
           padding: 0.55rem 0.8rem;
           background: #eceaf2;
           border-bottom: 1px solid #dddbe5;
@@ -280,16 +281,17 @@ export function ShowcaseBWindowA({
           text-overflow: ellipsis;
         }
 
-        .sbwa__thread {
+        .sbwaThread {
           min-height: 0;
           overflow-y: auto;
           overscroll-behavior: contain;
           padding: 0.35rem 0;
           background: #fafafa;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .sbwa__sent {
+        .sbwaSent {
           display: flex;
           align-items: center;
           gap: 0.4rem;
@@ -302,7 +304,7 @@ export function ShowcaseBWindowA({
           font-weight: 500;
         }
 
-        .sbwa__sent-check {
+        .sbwaSentCheck {
           display: grid;
           place-items: center;
           width: 1rem;
@@ -313,12 +315,12 @@ export function ShowcaseBWindowA({
           font-size: 0.58rem;
         }
 
-        .sbwa__msg {
+        .sbwaMsg {
           padding: 0.65rem 0.8rem 0.75rem;
           border-bottom: 1px solid #ececeb;
         }
 
-        .sbwa__msg-top {
+        .sbwaMsgTop {
           display: grid;
           grid-template-columns: auto 1fr auto;
           gap: 0.5rem;
@@ -326,7 +328,7 @@ export function ShowcaseBWindowA({
           margin-bottom: 0.4rem;
         }
 
-        .sbwa__avatar {
+        .sbwaAvatar {
           display: grid;
           place-items: center;
           width: 1.55rem;
@@ -338,47 +340,47 @@ export function ShowcaseBWindowA({
           font-weight: 650;
         }
 
-        .sbwa__from {
+        .sbwaFrom {
           margin: 0;
           font-size: 0.72rem;
           font-weight: 650;
           color: #222;
         }
 
-        .sbwa__email {
+        .sbwaEmail {
           font-weight: 450;
           color: #666;
         }
 
-        .sbwa__to {
+        .sbwaTo {
           margin: 0.1rem 0 0;
           font-size: 0.62rem;
           color: #888;
         }
 
-        .sbwa__time {
+        .sbwaTime {
           font-size: 0.62rem;
           color: #8a8a8a;
         }
 
-        .sbwa__body {
+        .sbwaBody {
           margin: 0 0 0 2.05rem;
           font-size: 0.74rem;
           line-height: 1.45;
           color: #2a2a2a;
         }
 
-        .sbwa__caret {
+        .sbwaCaret {
           display: inline-block;
           width: 0.4rem;
           height: 0.9em;
           margin-left: 1px;
           vertical-align: text-bottom;
           background: #2a2a2a;
-          animation: sbwa-blink 0.85s steps(1) infinite;
+          animation: sbwaBlink 0.85s steps(1) infinite;
         }
 
-        .sbwa__footer {
+        .sbwaFooter {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -388,7 +390,7 @@ export function ShowcaseBWindowA({
           border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .sbwa__send {
+        .sbwaSend {
           display: inline-flex;
           align-items: center;
           gap: 0.3rem;
@@ -403,14 +405,14 @@ export function ShowcaseBWindowA({
           pointer-events: none;
         }
 
-        .sbwa__tools {
+        .sbwaTools {
           display: flex;
           align-items: center;
           gap: 0.55rem;
           color: #8a8a88;
         }
 
-        @keyframes sbwa-blink {
+        @keyframes sbwaBlink {
           50% { opacity: 0; }
         }
       `}</style>

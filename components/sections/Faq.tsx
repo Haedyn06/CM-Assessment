@@ -40,11 +40,11 @@ export function FAQSection() {
                   onClick={() => setOpenId((current) => (current === item.id ? null : item.id))}>
                   
                   <span>{item.question}</span>
-                  <IoChevronDown className={`faqChevron${open ? " is-open" : ""}`} size={20}/>
+                  <IoChevronDown className={`faqChevron${open ? " isOpen" : ""}`} size={20}/>
                 
                 </button>
 
-                <div id={panelId} role="region" aria-labelledby={buttonId} className={`faqAnswer${open ? " is-open" : ""}`}>
+                <div id={panelId} role="region" aria-labelledby={buttonId} className={`faqAnswer${open ? " isOpen" : ""}`}>
                   <div className="faqAnsInner">
                     <p>{item.answer}</p>
                   </div>

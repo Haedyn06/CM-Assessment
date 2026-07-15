@@ -1,18 +1,18 @@
 [
   {
     "id": "data",
-    "question": "How does Convey use my data?",
-    "answer": "You retain all ownership over your data, and it is never used for training. Convey also maintains zero data retention agreements with all our model providers."
+    "question": "How does Bear use my data?",
+    "answer": "You retain all ownership over your data, and it is never used for training. Bear also maintains zero data retention agreements with all our model providers."
   },
   {
     "id": "security",
-    "question": "What security certifications does Convey have?",
-    "answer": "Convey is SOC 2 Type II certified, with regular penetration testing. Reports are available in our Trust Center."
+    "question": "What security certifications does Bear have?",
+    "answer": "Bear is SOC 2 Type II certified, with regular penetration testing. Reports are available in our Trust Center."
   },
   {
     "id": "systems",
     "question": "My company runs on a lot of different, sometimes older systems. Will that be a problem?",
-    "answer": "Certainly not! Convey teammates can connect to any and all systems, whether programmatically, or by clicking around their computers just like you would."
+    "answer": "Certainly not! Bear teammates can connect to any and all systems, whether programmatically, or by clicking around their computers just like you would."
   },
   {
     "id": "use-cases",

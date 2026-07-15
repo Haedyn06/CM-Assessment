@@ -19,6 +19,7 @@ import {
   IoSettingsOutline,
   IoTimeOutline,
 } from "react-icons/io5";
+import { CursorIcon } from "@/components/ui/CursorIcon";
 
 type ShowcaseBWindowBProps = {
   focused: boolean;
@@ -72,13 +73,13 @@ const COMING = [
 
 const IDEAS = [
   {
-    id: "pacing-resp",
+    id: "pacingResp",
     title: "Add pacing & recap as responsibilities",
     body: "These skills aren't tracked formally yet — I can report on them more clearly",
   },
   {
     id: "vendor",
-    title: "Auto-flag vendor discrepancies",
+    title: "auto-flag vendor discrepancies",
     body: "3 vendors had issues in 30 days — an automated rule could catch these earlier",
   },
   {
@@ -89,9 +90,9 @@ const IDEAS = [
 ];
 
 const HIGHLIGHTS = [
-  { label: "8/10", title: "ON PACE", note: "2 campaigns underpacing", meter: 80 },
-  { label: "14", title: "INVOICES", note: "2 flagged for review", meter: 55 },
-  { label: "$42k", title: "AT RISK", note: "Nike Spring underpacing", meter: 35 },
+  { label: "8/10", title: "ON PACE", note: "2 campaigns underpacing" },
+  { label: "14", title: "INVOICES", note: "2 flagged for review" },
+  { label: "$42k", title: "AT RISK", note: "Nike Spring underpacing" },
 ];
 
 const CHECKS = [
@@ -120,25 +121,29 @@ const HOUR_START = 6;
 const HOUR_END = 19;
 const HOUR_PX = 42;
 
-function CursorIcon() {
-  return (
-    <svg width="16" height="20" viewBox="0 0 18 22" fill="none" aria-hidden>
-      <path
-        d="M1 1L1 16.5L5.2 12.8L8.1 20.2L10.6 19.2L7.6 11.9H13.8L1 1Z"
-        fill="#2a2a2a"
-        stroke="#fff"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function formatHour(h: number) {
   const hour = Math.floor(h);
   const suffix = hour >= 12 ? "PM" : "AM";
   const display = hour % 12 === 0 ? 12 : hour % 12;
   return `${display} ${suffix}`;
+}
+
+function formatLongDate(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+
+function formatWeekday(date: Date) {
+  return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
+}
+
+function msUntilNextLocalMidnight(from = new Date()) {
+  const next = new Date(from);
+  next.setHours(24, 0, 0, 0);
+  return next.getTime() - from.getTime();
 }
 
 function sleep(ms: number) {
@@ -155,12 +160,29 @@ export function ShowcaseBWindowB({
 }: ShowcaseBWindowBProps) {
   const [view, setView] = useState<View>("home");
   const [expandedWork, setExpandedWork] = useState("pacing");
-  const [expandedIdea, setExpandedIdea] = useState<string | null>("pacing-resp");
+  const [expandedIdea, setExpandedIdea] = useState<string | null>("pacingResp");
   const [barWidth, setBarWidth] = useState(34);
   const [invoiceText, setInvoiceText] = useState("INV-2…");
   const [cursor, setCursor] = useState({ x: 70, y: 58, visible: false });
   const [wasFocused, setWasFocused] = useState(focused);
+  const [today, setToday] = useState<Date | null>(null);
   const cancelledRef = useRef(false);
+
+  useEffect(() => {
+    let timeoutId = 0;
+
+    const tick = () => {
+      setToday(new Date());
+      timeoutId = window.setTimeout(tick, msUntilNextLocalMidnight());
+    };
+
+    tick();
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  const activeDate = today ?? new Date();
+  const todayLabel = formatLongDate(activeDate);
+  const weekdayLabel = formatWeekday(activeDate);
 
   if (focused !== wasFocused) {
     setWasFocused(focused);
@@ -279,25 +301,25 @@ export function ShowcaseBWindowB({
 
   return (
     <div
-      className={`sbwb${focused ? " is-focused" : ""}${className ? ` ${className}` : ""}`}
+      className={`sbwb${focused ? " isFocused" : ""}${className ? ` ${className}` : ""}`}
       style={style}
       role="button"
       tabIndex={0}
       onClick={focusWindow}
       onKeyDown={onWindowKeyDown}
-      aria-label="Convey dashboard window"
+      aria-label="Bear dashboard window"
     >
-      <aside className="sbwb__sidebar">
-        <div className="sbwb__sidebar-top">
-          <span className="sbwb__avatar" aria-hidden>
+      <aside className="sbwbSidebar">
+        <div className="sbwbSidebarTop">
+          <span className="sbwbAvatar" aria-hidden>
             LA
           </span>
-          <span className="sbwb__nav-icon" aria-hidden>
+          <span className="sbwbNavIcon" aria-hidden>
             <IoCreateOutline size={16} />
           </span>
           <button
             type="button"
-            className={`sbwb__nav-btn${view === "home" ? " is-active" : ""}`}
+            className={`sbwbNavBtn${view === "home" ? " isActive" : ""}`}
             aria-label="Home"
             onClick={goHome}
           >
@@ -305,31 +327,35 @@ export function ShowcaseBWindowB({
           </button>
           <button
             type="button"
-            className={`sbwb__nav-btn${view === "calendar" ? " is-active" : ""}`}
+            className={`sbwbNavBtn${view === "calendar" ? " isActive" : ""}`}
             aria-label="Calendar"
             onClick={goCalendar}
           >
             <IoCalendarOutline size={16} />
           </button>
         </div>
-        <div className="sbwb__sidebar-bottom" aria-hidden>
+        <div className="sbwbSidebarBottom" aria-hidden>
           <IoPersonAddOutline size={16} />
           <IoSettingsOutline size={16} />
         </div>
       </aside>
 
-      <div className="sbwb__main">
-        <header className="sbwb__header">
-          <span className="sbwb__logo">convey.</span>
+      <div className="sbwbMain">
+        <header className="sbwbHeader">
+          <span className="sbwbLogo">bear.</span>
         </header>
 
         {view === "home" ? (
-          <div className="sbwb__content">
-            <div className="sbwb__center">
-              <p className="sbwb__date">Tuesday, July 14</p>
-              <div className="sbwb__headline">
-                <h3>Tuesday&apos;s in the books.</h3>
-                <div className="sbwb__stats">
+          <div className="sbwbContent">
+            <div className="sbwbCenter hideScrollbar">
+              <p className="sbwbDate" suppressHydrationWarning>
+                {todayLabel}
+              </p>
+              <div className="sbwbHeadline">
+                <h3 suppressHydrationWarning>
+                  {weekdayLabel}&apos;s in the books.
+                </h3>
+                <div className="sbwbStats">
                   <span>
                     <IoCheckmarkCircle size={14} /> 12 done
                   </span>
@@ -339,22 +365,22 @@ export function ShowcaseBWindowB({
                 </div>
               </div>
 
-              <p className="sbwb__summary">{SUMMARY}</p>
+              <p className="sbwbSummary">{SUMMARY}</p>
 
-              <section className="sbwb__section">
+              <section className="sbwbSection">
                 <h4>WHAT I&apos;M WORKING ON</h4>
-                <div className="sbwb__work" role="list">
+                <div className="sbwbWork" role="list">
                   {WORK.map((item) => {
                     const open = expandedWork === item.id;
                     return (
                       <div
                         key={item.id}
-                        className={`sbwb__work-item${open ? " is-active" : ""}`}
+                        className={`sbwbWorkItem${open ? " isActive" : ""}`}
                         role="listitem"
                       >
                         <button
                           type="button"
-                          className={`sbwb__work-card${open ? " is-open" : ""}`}
+                          className={`sbwbWorkCard${open ? " isOpen" : ""}`}
                           onClick={(e) => onWorkClick(e, item.id)}
                           aria-pressed={open}
                           aria-label={
@@ -363,24 +389,24 @@ export function ShowcaseBWindowB({
                               : `Focus ${item.label}`
                           }
                         >
-                          <div className="sbwb__mini">
-                            <div className="sbwb__mini-chrome" aria-hidden>
+                          <div className="sbwbMini">
+                            <div className="sbwbMiniChrome" aria-hidden>
                               <span />
                               <span />
                               <span />
                             </div>
 
-                            <div className="sbwb__mini-body">
+                            <div className="sbwbMiniBody">
                               {item.kind === "meter" ? (
                                 <>
-                                  <div className="sbwb__mini-head">
-                                    <div className="sbwb__mini-copy">
+                                  <div className="sbwbMiniHead">
+                                    <div className="sbwbMiniCopy">
                                       <strong>{item.title}</strong>
                                       <small>{item.detail}</small>
                                     </div>
-                                    <span className="sbwb__run">RUN</span>
+                                    <span className="sbwbRun">RUN</span>
                                   </div>
-                                  <div className="sbwb__meter">
+                                  <div className="sbwbMeter">
                                     <span
                                       style={{
                                         width: open ? `${barWidth}%` : "28%",
@@ -388,31 +414,31 @@ export function ShowcaseBWindowB({
                                     />
                                   </div>
                                   {open ? (
-                                    <p className="sbwb__hint">{item.hint}</p>
+                                    <p className="sbwbHint">{item.hint}</p>
                                   ) : null}
                                 </>
                               ) : null}
 
                               {item.kind === "search" ? (
                                 <>
-                                  <strong className="sbwb__mini-kicker">
+                                  <strong className="sbwbMiniKicker">
                                     {item.title}
                                   </strong>
-                                  <div className="sbwb__search">
+                                  <div className="sbwbSearch">
                                     <span>
                                       {open ? invoiceText : "INV-2…"}
                                       {open && focused ? (
-                                        <i className="sbwb__text-caret" />
+                                        <i className="sbwbTextCaret" />
                                       ) : null}
                                     </span>
                                   </div>
-                                  <span className="sbwb__apply">Apply</span>
+                                  <span className="sbwbApply">Apply</span>
                                 </>
                               ) : null}
 
                               {item.kind === "grid" ? (
                                 <>
-                                  <div className="sbwb__grid" aria-hidden>
+                                  <div className="sbwbGrid" aria-hidden>
                                     <span />
                                     <span />
                                     <span />
@@ -421,32 +447,32 @@ export function ShowcaseBWindowB({
                                     <span />
                                   </div>
                                   {open ? (
-                                    <p className="sbwb__hint">{item.hint}</p>
+                                    <p className="sbwbHint">{item.hint}</p>
                                   ) : null}
                                 </>
                               ) : null}
 
                               {open && focused && cursor.visible ? (
                                 <span
-                                  className="sbwb__cursor"
+                                  className="sbwbCursor"
                                   style={{
                                     left: `${cursor.x}%`,
                                     top: `${cursor.y}%`,
                                   }}
                                 >
-                                  <CursorIcon />
+                                  <CursorIcon size={16} />
                                 </span>
                               ) : null}
                             </div>
                           </div>
 
-                          <div className="sbwb__work-meta">
-                            <p className="sbwb__work-label">{item.label}</p>
-                            <div className="sbwb__work-foot">
-                              <span className="sbwb__dot" />
-                              <span className="sbwb__work-count">{item.count}</span>
+                          <div className="sbwbWorkMeta">
+                            <p className="sbwbWorkLabel">{item.label}</p>
+                            <div className="sbwbWorkFoot">
+                              <span className="sbwbDot" />
+                              <span className="sbwbWorkCount">{item.count}</span>
                               {item.status ? (
-                                <span className="sbwb__work-status">
+                                <span className="sbwbWorkStatus">
                                   {item.status}
                                 </span>
                               ) : null}
@@ -459,18 +485,18 @@ export function ShowcaseBWindowB({
                 </div>
               </section>
 
-              <section className="sbwb__section">
-                <div className="sbwb__section-head">
+              <section className="sbwbSection">
+                <div className="sbwbSectionHead">
                   <h4>COMING UP</h4>
                   <button
                     type="button"
-                    className="sbwb__link"
+                    className="sbwbLink"
                     onClick={goCalendar}
                   >
                     View calendar ›
                   </button>
                 </div>
-                <ul className="sbwb__coming">
+                <ul className="sbwbComing">
                   {COMING.map((item) => (
                     <li key={item.text}>
                       <span>{item.when}</span>
@@ -480,23 +506,23 @@ export function ShowcaseBWindowB({
                 </ul>
               </section>
 
-              <section className="sbwb__section">
+              <section className="sbwbSection">
                 <h4>SOMETHING I&apos;VE BEEN THINKING ABOUT</h4>
-                <ul className="sbwb__ideas">
+                <ul className="sbwbIdeas">
                   {IDEAS.map((item) => {
                     const open = expandedIdea === item.id;
                     return (
                       <li key={item.id}>
                         <button
                           type="button"
-                          className={`sbwb__idea${open ? " is-open" : ""}`}
+                          className={`sbwbIdea${open ? " isOpen" : ""}`}
                           onClick={(e) => onIdeaClick(e, item.id)}
                           aria-expanded={open}
                         >
-                          <div className="sbwb__idea-copy">
+                          <div className="sbwbIdeaCopy">
                             <strong>{item.title}</strong>
                             <div
-                              className={`sbwb__idea-body${open ? " is-open" : ""}`}
+                              className={`sbwbIdeaBody${open ? " isOpen" : ""}`}
                             >
                               <div>
                                 <p>{item.body}</p>
@@ -504,7 +530,7 @@ export function ShowcaseBWindowB({
                             </div>
                           </div>
                           <IoChevronForward
-                            className={`sbwb__chevron${open ? " is-open" : ""}`}
+                            className={`sbwbChevron${open ? " isOpen" : ""}`}
                             size={14}
                           />
                         </button>
@@ -515,26 +541,65 @@ export function ShowcaseBWindowB({
               </section>
             </div>
 
-            <aside className="sbwb__highlights">
+            <aside className="sbwbHighlights hideScrollbar">
+              <div className="sbwbHighlightsToolbar">
+                <button
+                  type="button"
+                  className="sbwbHighlightsCollapse"
+                  aria-hidden
+                  tabIndex={-1}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden
+                  >
+                    <rect
+                      x="0.75"
+                      y="0.75"
+                      width="12.5"
+                      height="12.5"
+                      rx="2"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                    <line
+                      x1="5.25"
+                      y1="2.25"
+                      x2="5.25"
+                      y2="11.75"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                    />
+                    <path
+                      d="M7.25 7H10.75M9.75 5.5L10.75 7L9.75 8.5"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
               <h4>TODAY&apos;S HIGHLIGHTS</h4>
-              <div className="sbwb__metric-list">
+              <div className="sbwbMetricList">
                 {HIGHLIGHTS.map((item) => (
-                  <div key={item.title} className="sbwb__metric">
-                    <p>
-                      <strong>{item.label}</strong> {item.title}
+                  <div key={item.title} className="sbwbMetric">
+                    <p className="sbwbMetricStat">
+                      <strong>{item.label}</strong>
+                      <span>{item.title}</span>
                     </p>
                     <small>{item.note}</small>
-                    <div className="sbwb__meter sbwb__meter--sm">
-                      <span style={{ width: `${item.meter}%` }} />
-                    </div>
                   </div>
                 ))}
               </div>
 
-              <ul className="sbwb__checks">
+              <ul className="sbwbChecks">
                 {CHECKS.map((item) => (
                   <li key={item}>
-                    <IoCheckmarkCircle size={14} />
+                    <IoCheckmarkCircle size={13} />
                     {item}
                   </li>
                 ))}
@@ -542,29 +607,29 @@ export function ShowcaseBWindowB({
             </aside>
           </div>
         ) : (
-          <div className="sbwb__calendar">
-            <div className="sbwb__cal-top">
+          <div className="sbwbCalendar">
+            <div className="sbwbCalTop">
               <button
                 type="button"
-                className="sbwb__back"
+                className="sbwbBack"
                 onClick={goHome}
                 aria-label="Back to home"
               >
                 <IoChevronBack size={16} />
               </button>
-              <h3>Monday, April 6</h3>
-              <span className="sbwb__cal-meta">9 of 13 hours scheduled</span>
+              <h3 suppressHydrationWarning>{todayLabel}</h3>
+              <span className="sbwbCalMeta">9 of 13 hours scheduled</span>
             </div>
 
-            <div className="sbwb__cal-scroll">
+            <div className="sbwbCalScroll hideScrollbar">
               <div
-                className="sbwb__cal-grid"
+                className="sbwbCalGrid"
                 style={{ height: (HOUR_END - HOUR_START) * HOUR_PX }}
               >
                 {hours.map((hour) => (
                   <div
                     key={hour}
-                    className="sbwb__cal-hour"
+                    className="sbwbCalHour"
                     style={{ top: (hour - HOUR_START) * HOUR_PX }}
                   >
                     <span>{formatHour(hour)}</span>
@@ -575,7 +640,7 @@ export function ShowcaseBWindowB({
                 {CALENDAR_EVENTS.map((event) => (
                   <div
                     key={`${event.start}-${event.title}`}
-                    className="sbwb__cal-event"
+                    className="sbwbCalEvent"
                     style={{
                       top: (event.start - HOUR_START) * HOUR_PX + 4,
                       height: Math.max((event.end - event.start) * HOUR_PX - 6, 22),
@@ -602,7 +667,7 @@ export function ShowcaseBWindowB({
           box-shadow:
             0 26px 60px -24px rgba(20, 20, 30, 0.42),
             0 0 0 1px rgba(0, 0, 0, 0.05);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1d1d1d;
           cursor: pointer;
           transition: box-shadow 0.25s ease;
@@ -610,13 +675,13 @@ export function ShowcaseBWindowB({
           text-align: left;
         }
 
-        .sbwb.is-focused {
+        .sbwb.isFocused {
           box-shadow:
             0 32px 70px -22px rgba(20, 20, 30, 0.5),
             0 0 0 1px rgba(0, 0, 0, 0.08);
         }
 
-        .sbwb__sidebar {
+        .sbwbSidebar {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -626,15 +691,15 @@ export function ShowcaseBWindowB({
           color: #6d6d6d;
         }
 
-        .sbwb__sidebar-top,
-        .sbwb__sidebar-bottom {
+        .sbwbSidebarTop,
+        .sbwbSidebarBottom {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 0.75rem;
         }
 
-        .sbwb__avatar {
+        .sbwbAvatar {
           display: grid;
           place-items: center;
           width: 1.55rem;
@@ -646,14 +711,14 @@ export function ShowcaseBWindowB({
           font-weight: 650;
         }
 
-        .sbwb__nav-icon {
+        .sbwbNavIcon {
           display: grid;
           place-items: center;
           width: 1.7rem;
           height: 1.7rem;
         }
 
-        .sbwb__nav-btn {
+        .sbwbNavBtn {
           display: grid;
           place-items: center;
           width: 1.7rem;
@@ -665,12 +730,12 @@ export function ShowcaseBWindowB({
           cursor: pointer;
         }
 
-        .sbwb__nav-btn.is-active {
+        .sbwbNavBtn.isActive {
           background: rgba(0, 0, 0, 0.08);
           color: #222;
         }
 
-        .sbwb__main {
+        .sbwbMain {
           display: grid;
           grid-template-rows: auto minmax(0, 1fr);
           min-width: 0;
@@ -678,38 +743,39 @@ export function ShowcaseBWindowB({
           background: #fafafa;
         }
 
-        .sbwb__header {
+        .sbwbHeader {
           padding: 0.7rem 1rem 0.35rem;
         }
 
-        .sbwb__logo {
+        .sbwbLogo {
           font-size: 1rem;
           font-weight: 700;
           letter-spacing: -0.04em;
         }
 
-        .sbwb__content {
+        .sbwbContent {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) 9.75rem;
+          grid-template-columns: minmax(0, 1fr) 10.75rem;
           min-height: 0;
           overflow: hidden;
         }
 
-        .sbwb__center {
+        .sbwbCenter {
           min-height: 0;
           overflow-y: auto;
           overscroll-behavior: contain;
           padding: 0.1rem 1rem 1rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .sbwb__date {
+        .sbwbDate {
           margin: 0 0 0.2rem;
           font-size: 0.68rem;
           color: #9a9a98;
         }
 
-        .sbwb__headline {
+        .sbwbHeadline {
           display: flex;
           align-items: baseline;
           justify-content: space-between;
@@ -717,14 +783,14 @@ export function ShowcaseBWindowB({
           margin-bottom: 0.5rem;
         }
 
-        .sbwb__headline h3 {
+        .sbwbHeadline h3 {
           margin: 0;
           font-size: 1.05rem;
           font-weight: 700;
           letter-spacing: -0.03em;
         }
 
-        .sbwb__stats {
+        .sbwbStats {
           display: inline-flex;
           gap: 0.65rem;
           font-size: 0.62rem;
@@ -732,17 +798,17 @@ export function ShowcaseBWindowB({
           white-space: nowrap;
         }
 
-        .sbwb__stats span {
+        .sbwbStats span {
           display: inline-flex;
           align-items: center;
           gap: 0.2rem;
         }
 
-        .sbwb__stats svg {
+        .sbwbStats svg {
           color: #2f9d5a;
         }
 
-        .sbwb__summary {
+        .sbwbSummary {
           margin: 0 0 1.05rem;
           max-width: 36rem;
           font-size: 0.72rem;
@@ -750,19 +816,18 @@ export function ShowcaseBWindowB({
           color: #555;
         }
 
-        .sbwb__section {
+        .sbwbSection {
           margin-bottom: 1rem;
           padding-top: 0.15rem;
           border-top: 1px solid #ececeb;
         }
 
-        .sbwb__section:first-of-type {
+        .sbwbSection:first-of-type {
           border-top: 0;
           padding-top: 0;
         }
 
-        .sbwb__section h4,
-        .sbwb__highlights h4 {
+        .sbwbSection h4 {
           margin: 0.65rem 0 0.5rem;
           font-size: 0.58rem;
           font-weight: 650;
@@ -771,18 +836,27 @@ export function ShowcaseBWindowB({
           text-align: left;
         }
 
-        .sbwb__section-head {
+        .sbwbHighlights h4 {
+          margin: 0 0 0.7rem;
+          font-size: 0.56rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          color: #a3a3a1;
+          text-align: left;
+        }
+
+        .sbwbSectionHead {
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 0.5rem;
         }
 
-        .sbwb__section-head h4 {
+        .sbwbSectionHead h4 {
           margin-bottom: 0.5rem;
         }
 
-        .sbwb__link {
+        .sbwbLink {
           border: 0;
           background: transparent;
           padding: 0;
@@ -793,7 +867,7 @@ export function ShowcaseBWindowB({
           cursor: pointer;
         }
 
-        .sbwb__work {
+        .sbwbWork {
           display: flex;
           gap: 0.5rem;
           align-items: stretch;
@@ -801,7 +875,7 @@ export function ShowcaseBWindowB({
           height: 10.25rem;
         }
 
-        .sbwb__work-item {
+        .sbwbWorkItem {
           flex: 0.62 1 0;
           min-width: 0;
           height: 100%;
@@ -810,11 +884,11 @@ export function ShowcaseBWindowB({
             flex-basis 0.55s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .sbwb__work-item.is-active {
+        .sbwbWorkItem.isActive {
           flex: 1.85 1 0;
         }
 
-        .sbwb__work-card {
+        .sbwbWorkCard {
           display: flex;
           flex-direction: column;
           gap: 0.35rem;
@@ -830,7 +904,7 @@ export function ShowcaseBWindowB({
           font: inherit;
         }
 
-        .sbwb__mini {
+        .sbwbMini {
           display: flex;
           flex-direction: column;
           flex: 1;
@@ -845,12 +919,12 @@ export function ShowcaseBWindowB({
             border-color 0.35s ease;
         }
 
-        .sbwb__work-card.is-open .sbwb__mini {
+        .sbwbWorkCard.isOpen .sbwbMini {
           border-color: #d8d8d6;
           box-shadow: 0 12px 24px -14px rgba(0, 0, 0, 0.32);
         }
 
-        .sbwb__mini-chrome {
+        .sbwbMiniChrome {
           display: flex;
           align-items: center;
           gap: 0.18rem;
@@ -860,14 +934,14 @@ export function ShowcaseBWindowB({
           border-bottom: 1px solid #ececeb;
         }
 
-        .sbwb__mini-chrome span {
+        .sbwbMiniChrome span {
           width: 0.28rem;
           height: 0.28rem;
           border-radius: 999px;
           background: #d0d0ce;
         }
 
-        .sbwb__mini-body {
+        .sbwbMiniBody {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -877,7 +951,7 @@ export function ShowcaseBWindowB({
           overflow: hidden;
         }
 
-        .sbwb__mini-head {
+        .sbwbMiniHead {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
@@ -885,12 +959,12 @@ export function ShowcaseBWindowB({
           margin-bottom: 0.45rem;
         }
 
-        .sbwb__mini-copy {
+        .sbwbMiniCopy {
           min-width: 0;
         }
 
-        .sbwb__mini-copy strong,
-        .sbwb__mini-body > strong {
+        .sbwbMiniCopy strong,
+        .sbwbMiniBody > strong {
           display: block;
           font-size: 0.62rem;
           font-weight: 650;
@@ -900,7 +974,7 @@ export function ShowcaseBWindowB({
           text-overflow: ellipsis;
         }
 
-        .sbwb__mini-kicker {
+        .sbwbMiniKicker {
           margin-bottom: 0.35rem;
           font-size: 0.5rem !important;
           font-weight: 600 !important;
@@ -908,7 +982,7 @@ export function ShowcaseBWindowB({
           color: #8a8a88 !important;
         }
 
-        .sbwb__mini-copy small {
+        .sbwbMiniCopy small {
           display: block;
           margin: 0.12rem 0 0;
           font-size: 0.5rem;
@@ -918,7 +992,7 @@ export function ShowcaseBWindowB({
           text-overflow: ellipsis;
         }
 
-        .sbwb__hint {
+        .sbwbHint {
           margin: 0.4rem 0 0;
           margin-top: auto;
           font-size: 0.48rem;
@@ -926,14 +1000,14 @@ export function ShowcaseBWindowB({
           color: #8a8a88;
         }
 
-        .sbwb__meter {
+        .sbwbMeter {
           height: 0.38rem;
           border-radius: 999px;
           background: #ebebeb;
           overflow: hidden;
         }
 
-        .sbwb__meter span {
+        .sbwbMeter span {
           display: block;
           height: 100%;
           border-radius: inherit;
@@ -942,12 +1016,12 @@ export function ShowcaseBWindowB({
           will-change: width;
         }
 
-        .sbwb__meter--sm {
+        .sbwbMeterSm {
           margin-top: 0.35rem;
           height: 0.22rem;
         }
 
-        .sbwb__run {
+        .sbwbRun {
           flex-shrink: 0;
           padding: 0.16rem 0.42rem;
           border-radius: 0.28rem;
@@ -958,7 +1032,7 @@ export function ShowcaseBWindowB({
           letter-spacing: 0.04em;
         }
 
-        .sbwb__apply {
+        .sbwbApply {
           align-self: flex-start;
           margin-top: 0.4rem;
           padding: 0.16rem 0.45rem;
@@ -969,7 +1043,7 @@ export function ShowcaseBWindowB({
           font-weight: 700;
         }
 
-        .sbwb__search {
+        .sbwbSearch {
           display: flex;
           align-items: center;
           padding: 0.32rem 0.42rem;
@@ -981,17 +1055,17 @@ export function ShowcaseBWindowB({
           min-height: 1.4rem;
         }
 
-        .sbwb__text-caret {
+        .sbwbTextCaret {
           display: inline-block;
           width: 1px;
           height: 0.85em;
           margin-left: 1px;
           vertical-align: text-bottom;
           background: #3b7ddd;
-          animation: sbwb-blink 0.85s steps(1) infinite;
+          animation: sbwbBlink 0.85s steps(1) infinite;
         }
 
-        .sbwb__grid {
+        .sbwbGrid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0.28rem;
@@ -1000,13 +1074,13 @@ export function ShowcaseBWindowB({
           max-width: 7rem;
         }
 
-        .sbwb__grid span {
+        .sbwbGrid span {
           aspect-ratio: 1.55;
           border-radius: 0.2rem;
           background: #ececeb;
         }
 
-        .sbwb__cursor {
+        .sbwbCursor {
           position: absolute;
           z-index: 2;
           pointer-events: none;
@@ -1018,14 +1092,14 @@ export function ShowcaseBWindowB({
           will-change: left, top;
         }
 
-        .sbwb__work-meta {
+        .sbwbWorkMeta {
           display: grid;
           gap: 0.2rem;
           min-width: 0;
           padding: 0 0.05rem;
         }
 
-        .sbwb__work-label {
+        .sbwbWorkLabel {
           margin: 0;
           font-size: 0.62rem;
           font-weight: 650;
@@ -1035,7 +1109,7 @@ export function ShowcaseBWindowB({
           text-overflow: ellipsis;
         }
 
-        .sbwb__work-foot {
+        .sbwbWorkFoot {
           display: flex;
           align-items: center;
           gap: 0.28rem;
@@ -1044,7 +1118,7 @@ export function ShowcaseBWindowB({
           color: #666;
         }
 
-        .sbwb__dot {
+        .sbwbDot {
           width: 0.35rem;
           height: 0.35rem;
           border-radius: 999px;
@@ -1052,18 +1126,18 @@ export function ShowcaseBWindowB({
           flex-shrink: 0;
         }
 
-        .sbwb__work-count {
+        .sbwbWorkCount {
           font-weight: 600;
           color: #444;
         }
 
-        .sbwb__work-status {
+        .sbwbWorkStatus {
           margin-left: auto;
           color: #8a8a88;
           white-space: nowrap;
         }
 
-        .sbwb__coming {
+        .sbwbComing {
           list-style: none;
           margin: 0;
           padding: 0;
@@ -1071,7 +1145,7 @@ export function ShowcaseBWindowB({
           gap: 0.4rem;
         }
 
-        .sbwb__coming li {
+        .sbwbComing li {
           display: grid;
           grid-template-columns: 3.2rem minmax(0, 1fr);
           gap: 0.5rem;
@@ -1081,12 +1155,12 @@ export function ShowcaseBWindowB({
           text-align: left;
         }
 
-        .sbwb__coming span {
+        .sbwbComing span {
           color: #8a8a88;
           font-weight: 500;
         }
 
-        .sbwb__ideas {
+        .sbwbIdeas {
           list-style: none;
           margin: 0;
           padding: 0;
@@ -1094,7 +1168,7 @@ export function ShowcaseBWindowB({
           gap: 0.4rem;
         }
 
-        .sbwb__idea {
+        .sbwbIdea {
           display: flex;
           width: 100%;
           align-items: flex-start;
@@ -1111,32 +1185,32 @@ export function ShowcaseBWindowB({
           cursor: pointer;
         }
 
-        .sbwb__idea-copy {
+        .sbwbIdeaCopy {
           min-width: 0;
           flex: 1;
         }
 
-        .sbwb__idea strong {
+        .sbwbIdea strong {
           display: block;
           font-size: 0.7rem;
           color: #222;
         }
 
-        .sbwb__idea-body {
+        .sbwbIdeaBody {
           display: grid;
           grid-template-rows: 0fr;
           transition: grid-template-rows 0.28s ease;
         }
 
-        .sbwb__idea-body > div {
+        .sbwbIdeaBody > div {
           overflow: hidden;
         }
 
-        .sbwb__idea-body.is-open {
+        .sbwbIdeaBody.isOpen {
           grid-template-rows: 1fr;
         }
 
-        .sbwb__idea-body p {
+        .sbwbIdeaBody p {
           margin: 0;
           padding-top: 0.35rem;
           font-size: 0.6rem;
@@ -1144,80 +1218,114 @@ export function ShowcaseBWindowB({
           color: #6a6a6a;
         }
 
-        .sbwb__chevron {
+        .sbwbChevron {
           flex-shrink: 0;
           margin-top: 0.1rem;
           color: #8a8a88;
           transition: transform 0.25s ease;
         }
 
-        .sbwb__chevron.is-open {
+        .sbwbChevron.isOpen {
           transform: rotate(90deg);
         }
 
-        .sbwb__highlights {
+        .sbwbHighlights {
           min-height: 0;
           overflow-y: auto;
-          padding: 0.35rem 0.75rem 0.85rem 0.55rem;
+          padding: 0.55rem 0.85rem 0.9rem;
+          background: #f9f9f8;
           border-left: 1px solid #ececeb;
-          scrollbar-width: thin;
+          box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.03);
+          scrollbar-width: none;
+          -ms-overflow-style: none;
           text-align: left;
         }
 
-        .sbwb__metric-list {
+        .sbwbHighlightsToolbar {
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 0.35rem;
+        }
+
+        .sbwbHighlightsCollapse {
           display: grid;
-          gap: 0.4rem;
-          margin-bottom: 0.75rem;
+          place-items: center;
+          width: 1.35rem;
+          height: 1.35rem;
+          padding: 0;
+          border: 0;
+          border-radius: 0.2rem;
+          background: transparent;
+          color: #b0b0ae;
+          cursor: default;
         }
 
-        .sbwb__metric {
-          padding: 0.5rem 0.55rem;
-          border-radius: 0.4rem;
-          background: #f1f1ef;
+        .sbwbMetricList {
+          display: grid;
+          gap: 0.5rem;
+          margin-bottom: 0.85rem;
         }
 
-        .sbwb__metric p {
+        .sbwbMetric {
+          padding: 0.62rem 0.68rem;
+          border-radius: 0.5rem;
+          background: #f0f0ee;
+        }
+
+        .sbwbMetricStat {
+          display: flex;
+          align-items: baseline;
+          gap: 0.35rem;
           margin: 0;
-          font-size: 0.62rem;
-          color: #444;
         }
 
-        .sbwb__metric strong {
-          font-size: 0.78rem;
-          color: #171717;
+        .sbwbMetricStat strong {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #1a1a1a;
+          letter-spacing: -0.02em;
         }
 
-        .sbwb__metric small {
+        .sbwbMetricStat span {
+          font-size: 0.56rem;
+          font-weight: 500;
+          letter-spacing: 0.05em;
+          color: #a3a3a1;
+          text-transform: uppercase;
+        }
+
+        .sbwbMetric small {
           display: block;
-          margin-top: 0.15rem;
-          font-size: 0.55rem;
+          margin-top: 0.22rem;
+          font-size: 0.58rem;
+          line-height: 1.35;
           color: #7a7a78;
         }
 
-        .sbwb__checks {
+        .sbwbChecks {
           list-style: none;
           margin: 0;
           padding: 0;
           display: grid;
-          gap: 0.45rem;
+          gap: 0.55rem;
         }
 
-        .sbwb__checks li {
+        .sbwbChecks li {
           display: flex;
           align-items: flex-start;
-          gap: 0.3rem;
-          font-size: 0.58rem;
-          line-height: 1.35;
-          color: #444;
+          gap: 0.38rem;
+          font-size: 0.6rem;
+          line-height: 1.4;
+          color: #5a5a58;
         }
 
-        .sbwb__checks svg {
+        .sbwbChecks svg {
           flex-shrink: 0;
-          margin-top: 0.05rem;
-          color: #2f9d5a;
+          margin-top: 0.08rem;
+          color: #22c55e;
         }
 
-        .sbwb__calendar {
+        .sbwbCalendar {
           display: grid;
           grid-template-rows: auto minmax(0, 1fr);
           min-height: 0;
@@ -1225,7 +1333,7 @@ export function ShowcaseBWindowB({
           background: #f7f7f6;
         }
 
-        .sbwb__cal-top {
+        .sbwbCalTop {
           display: grid;
           grid-template-columns: auto 1fr auto;
           align-items: center;
@@ -1233,7 +1341,7 @@ export function ShowcaseBWindowB({
           padding: 0.35rem 1rem 0.65rem;
         }
 
-        .sbwb__back {
+        .sbwbBack {
           display: grid;
           place-items: center;
           width: 1.6rem;
@@ -1245,37 +1353,38 @@ export function ShowcaseBWindowB({
           cursor: pointer;
         }
 
-        .sbwb__back:hover {
+        .sbwbBack:hover {
           background: rgba(0, 0, 0, 0.05);
         }
 
-        .sbwb__cal-top h3 {
+        .sbwbCalTop h3 {
           margin: 0;
           font-size: 0.98rem;
           font-weight: 700;
           letter-spacing: -0.02em;
         }
 
-        .sbwb__cal-meta {
+        .sbwbCalMeta {
           font-size: 0.68rem;
           color: #8a8a88;
           white-space: nowrap;
         }
 
-        .sbwb__cal-scroll {
+        .sbwbCalScroll {
           min-height: 0;
           overflow-y: auto;
           overscroll-behavior: contain;
           padding: 0 0.9rem 1rem 0.55rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .sbwb__cal-grid {
+        .sbwbCalGrid {
           position: relative;
           margin-left: 0.25rem;
         }
 
-        .sbwb__cal-hour {
+        .sbwbCalHour {
           position: absolute;
           left: 0;
           right: 0;
@@ -1286,20 +1395,20 @@ export function ShowcaseBWindowB({
           pointer-events: none;
         }
 
-        .sbwb__cal-hour span {
+        .sbwbCalHour span {
           transform: translateY(-0.35rem);
           font-size: 0.62rem;
           color: #9a9a98;
           text-align: right;
         }
 
-        .sbwb__cal-hour i {
+        .sbwbCalHour i {
           display: block;
           height: 1px;
           background: #e6e6e4;
         }
 
-        .sbwb__cal-event {
+        .sbwbCalEvent {
           position: absolute;
           left: 3.55rem;
           right: 0.25rem;
@@ -1314,31 +1423,31 @@ export function ShowcaseBWindowB({
           box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
         }
 
-        @keyframes sbwb-blink {
+        @keyframes sbwbBlink {
           50% { opacity: 0; }
         }
 
         @media (max-width: 720px) {
-          .sbwb__content {
+          .sbwbContent {
             grid-template-columns: 1fr;
           }
 
-          .sbwb__highlights {
+          .sbwbHighlights {
             border-left: 0;
             border-top: 1px solid #ececeb;
             padding: 0.75rem 0.85rem;
           }
 
-          .sbwb__work {
+          .sbwbWork {
             height: 9.5rem;
             gap: 0.4rem;
           }
 
-          .sbwb__work-item {
+          .sbwbWorkItem {
             flex: 0.7 1 0;
           }
 
-          .sbwb__work-item.is-active {
+          .sbwbWorkItem.isActive {
             flex: 1.65 1 0;
           }
         }

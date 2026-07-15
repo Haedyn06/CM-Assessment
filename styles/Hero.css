@@ -1,8 +1,14 @@
 .hero {
   position: relative;
   isolation: isolate;
-  overflow: visible;
-  padding: 4.5rem 1.25rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* Fill the screen under the sticky nav; no internal page scroll through hero */
+  height: calc(100dvh - var(--navHeight, 3.85rem));
+  max-height: calc(100dvh - var(--navHeight, 3.85rem));
+  overflow: hidden;
+  padding: 1.75rem 1.25rem 1.5rem;
   background:
     radial-gradient(
       ellipse 70% 55% at 72% 38%,
@@ -15,27 +21,28 @@
       transparent 52%
     ),
     #f3f3f1;
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
   color: #1f1f1f;
 }
 
 @media (min-width: 640px) {
   .hero {
-    padding: 5rem 2rem 4rem;
+    padding: 2rem 2rem 1.75rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero {
-    padding: 5.5rem 3rem 4.5rem;
+    padding: 2.25rem 3rem 2rem;
   }
 }
 
-.hero-grid {
+.heroGrid {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.4;
+  z-index: 0;
+  opacity: 0.22;
   background-image: radial-gradient(
     circle,
     rgba(120, 120, 120, 0.5) 0.7px,
@@ -49,36 +56,58 @@
   );
 }
 
-.hero-inner {
+.heroGlobe {
+  pointer-events: none;
+  position: absolute;
+  inset: -4% -8% -10% -8%;
+  z-index: 0;
+  opacity: 0.9;
+  mask-image: radial-gradient(
+    ellipse 68% 62% at 58% 44%,
+    #000 20%,
+    transparent 78%
+  );
+}
+
+.heroGlobeCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroInner {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 2.5rem;
+  gap: 1.5rem;
   align-items: center;
+  flex: 1 1 auto;
+  min-height: 0;
   max-width: 72rem;
+  width: 100%;
   margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
-  .hero-inner {
+  .heroInner {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 3rem;
+    gap: 2.5rem;
   }
 }
 
-.hero-copy {
+.heroCopy {
   max-width: 34rem;
 }
 
-.hero-badge {
+.heroBadge {
   margin: 0 0 1.15rem;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--fontGeistMono), ui-monospace, monospace;
   font-size: 0.8125rem;
   line-height: 1.55;
   color: #8a8a8a;
 }
 
-.hero-badge__count {
+.heroBadgeCount {
   display: inline-block;
   border-radius: 3px;
   background: #f0d8d4;
@@ -87,25 +116,25 @@
   font-weight: 600;
 }
 
-.hero-title {
-  margin: 0 0 1rem;
-  font-size: clamp(2rem, 4.2vw, 3.15rem);
+.heroTitle {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1.75rem, 3.6vw, 3rem);
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: #1f1f1f;
 }
 
-.hero-sub {
-  margin: 0 0 1.75rem;
+.heroSub {
+  margin: 0 0 1.35rem;
   max-width: 28rem;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--fontGeistMono), ui-monospace, monospace;
   font-size: 0.875rem;
   line-height: 1.55;
   color: #5c5c5c;
 }
 
-.hero-cta {
+.heroCta {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -117,22 +146,22 @@
   background: rgba(255, 255, 255, 0.55);
 }
 
-.hero-cta__input {
+.heroCtaInput {
   flex: 1;
   min-width: 0;
   border: 0;
   background: transparent;
   outline: none;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--fontGeistMono), ui-monospace, monospace;
   font-size: 0.8125rem;
   color: #222;
 }
 
-.hero-cta__input::placeholder {
+.heroCtaInput::placeholder {
   color: #a3a3a3;
 }
 
-.hero-cta__btn {
+.heroCtaBtn {
   position: relative;
   isolation: isolate;
   flex-shrink: 0;
@@ -148,7 +177,7 @@
   background: transparent;
 }
 
-.hero-cta__btn-bg {
+.heroCtaBtnBg {
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -162,7 +191,7 @@
   z-index: 0;
 }
 
-.hero-cta__btn-bg--hover {
+.heroCtaBtnBgHover {
   background: linear-gradient(
     135deg,
     #c9b6f0 0%,
@@ -172,12 +201,12 @@
   opacity: 0;
 }
 
-.hero-cta__btn:hover .hero-cta__btn-bg--hover,
-.hero-cta__btn:focus-visible .hero-cta__btn-bg--hover {
+.heroCtaBtn:hover .heroCtaBtnBgHover,
+.heroCtaBtn:focus-visible .heroCtaBtnBgHover {
   opacity: 1;
 }
 
-.hero-cta__btn-label {
+.heroCtaBtnLabel {
   position: relative;
   z-index: 2;
   font-size: 0.8125rem;
@@ -185,7 +214,7 @@
   color: #111;
 }
 
-.hero-dot {
+.heroDot {
   position: absolute;
   z-index: 3;
   width: 3px;
@@ -194,33 +223,44 @@
   pointer-events: none;
 }
 
-.hero-dot--tl { top: 5px; left: 5px; }
-.hero-dot--tr { top: 5px; right: 5px; }
-.hero-dot--bl { bottom: 5px; left: 5px; }
-.hero-dot--br { bottom: 5px; right: 5px; }
+.heroDotTl { top: 5px; left: 5px; }
+.heroDotTr { top: 5px; right: 5px; }
+.heroDotBl { bottom: 5px; left: 5px; }
+.heroDotBr { bottom: 5px; right: 5px; }
 
-.hero-logos {
+.heroMedia {
+  min-height: 0;
+  max-height: 100%;
+}
+
+.heroMedia .videoComp {
+  max-height: min(22rem, 42vh);
+}
+
+.heroLogos {
   position: relative;
   z-index: 5;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: flex-end;
   justify-content: center;
-  gap: 1.75rem 2rem;
+  gap: 1.25rem 1.75rem;
   list-style: none;
-  margin: 3.25rem auto 0;
+  flex: 0 0 auto;
+  margin: 1.5rem auto 0;
   padding: 0;
   max-width: 58rem;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
-  .hero-logos {
+  .heroLogos {
     justify-content: space-between;
     gap: 1rem;
   }
 }
 
-.sr-only {
+.srOnly {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -233,18 +273,18 @@
 }
 
 @media (max-width: 480px) {
-  .hero-cta {
+  .heroCta {
     flex-direction: column;
     align-items: stretch;
     padding: 0.55rem;
   }
 
-  .hero-cta__input {
+  .heroCtaInput {
     min-height: 2.4rem;
     padding: 0 0.35rem;
   }
 
-  .hero-cta__btn {
+  .heroCtaBtn {
     width: 100%;
   }
 }

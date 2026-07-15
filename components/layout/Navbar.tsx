@@ -3,8 +3,8 @@
 import { useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/Button";
 import { useDemoForm } from "@/components/ui/DemoForm";
+import { useFillHover } from "@/lib/useFillHover";
 
 type FillPhase = "idle" | "in" | "out";
 
@@ -88,8 +88,8 @@ function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <a
       href={href}
-      className={`nav__link${phase === "in" ? " is-fill-in" : ""}${
-        phase === "out" ? " is-fill-out" : ""
+      className={`navLink${phase === "in" ? " isFillIn" : ""}${
+        phase === "out" ? " isFillOut" : ""
       }`}
       onClick={onClick}
       onMouseEnter={startFill}
@@ -97,56 +97,50 @@ function NavLink({ href, label }: { href: string; label: string }) {
       onFocus={startFill}
       onBlur={startEmpty}
     >
-      <span className="nav__link-fill" aria-hidden />
-      <span className="nav__link-marks" aria-hidden>
+      <span className="navLinkFill" aria-hidden />
+      <span className="navLinkMarks" aria-hidden>
         <span />
         <span />
         <span />
         <span />
       </span>
-      <span className="nav__link-label">{label}</span>
+      <span className="navLinkLabel">{label}</span>
     </a>
   );
 }
 
 export function Navbar() {
   const { openDemoForm } = useDemoForm();
+  const contactFill = useFillHover();
 
   return (
     <header className="nav">
-      <div className="nav__inner">
-        <Link href="/" className="nav__logo" aria-label="Convey home">
-          convey.
+      <div className="navInner">
+        <Link href="/" className="navLogo" aria-label="Bear home">
+          bear.
         </Link>
 
-        <nav className="nav__links" aria-label="Primary">
+        <nav className="navLinks" aria-label="Primary">
           {LINKS.map((link) => (
             <NavLink key={link.href} href={link.href} label={link.label} />
           ))}
         </nav>
 
-        <div className="nav__cta">
-          <Button
-            background="linear-gradient(90deg, #9fd9d4 0%, #e6d88a 100%)"
-            hoverBackground="linear-gradient(105deg, #b7c6ec 0%, #a8d4cf 45%, #d4b8e4 100%)"
-            borderColor="rgba(0,0,0,0.12)"
-            hoverBorderColor="rgba(0,0,0,0.18)"
-            hoverColor="#111111"
-            className="nav__contact"
+        <div className="navCta">
+          <button
+            type="button"
+            className={`fillBtn navContact ${contactFill.fillClass}`}
             onClick={openDemoForm}
-            style={{
-              minHeight: "2.15rem",
-              padding: "0.55rem 0.95rem",
-              fontSize: "0.78rem",
-              borderRadius: "0.35rem",
-            }}
+            {...contactFill.fillHandlers}
           >
-            Contact sales
-          </Button>
+            <span className="fillBtnBase" aria-hidden />
+            <span className="fillBtnWash" aria-hidden />
+            <span className="fillBtnLabel">Contact sales</span>
+          </button>
           <UserButton
             appearance={{
               elements: {
-                avatarBox: "nav__user",
+                avatarBox: "navUser",
               },
             }}
           />
@@ -155,18 +149,21 @@ export function Navbar() {
 
       <style>{`
         .nav {
-          position: sticky;
+          position: fixed;
           top: 0;
-          z-index: 40;
+          left: 0;
+          right: 0;
+          z-index: 50;
           border-top: 1px solid #1f1f1f;
           border-bottom: 1px solid #1f1f1f;
           background: rgba(243, 243, 241, 0.92);
           backdrop-filter: blur(8px);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          -webkit-backdrop-filter: blur(8px);
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #111;
         }
 
-        .nav__inner {
+        .navInner {
           display: grid;
           grid-template-columns: 1fr auto 1fr;
           align-items: center;
@@ -177,18 +174,18 @@ export function Navbar() {
         }
 
         @media (min-width: 640px) {
-          .nav__inner {
+          .navInner {
             padding: 0.75rem 2rem;
           }
         }
 
         @media (min-width: 1100px) {
-          .nav__inner {
+          .navInner {
             padding: 0.8rem 3rem;
           }
         }
 
-        .nav__logo {
+        .navLogo {
           justify-self: start;
           font-size: 1.35rem;
           font-weight: 750;
@@ -198,7 +195,7 @@ export function Navbar() {
           line-height: 1;
         }
 
-        .nav__links {
+        .navLinks {
           display: none;
           justify-content: center;
           align-items: center;
@@ -207,12 +204,12 @@ export function Navbar() {
         }
 
         @media (min-width: 720px) {
-          .nav__links {
+          .navLinks {
             display: flex;
           }
         }
 
-        .nav__link {
+        .navLink {
           position: relative;
           isolation: isolate;
           display: inline-flex;
@@ -224,13 +221,13 @@ export function Navbar() {
           overflow: hidden;
           text-decoration: none;
           color: #1a1a1a;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.78rem;
           font-weight: 500;
           line-height: 1;
         }
 
-        .nav__link-fill {
+        .navLinkFill {
           position: absolute;
           inset: 0;
           z-index: 0;
@@ -239,17 +236,17 @@ export function Navbar() {
           transition: none;
         }
 
-        .nav__link.is-fill-in .nav__link-fill {
+        .navLink.isFillIn .navLinkFill {
           clip-path: inset(0 0 0 0);
           transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .nav__link.is-fill-out .nav__link-fill {
+        .navLink.isFillOut .navLinkFill {
           clip-path: inset(0 0 0 100%);
           transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .nav__link-marks {
+        .navLinkMarks {
           position: absolute;
           inset: 0;
           z-index: 2;
@@ -258,39 +255,54 @@ export function Navbar() {
           transition: opacity 0.25s ease;
         }
 
-        .nav__link.is-fill-in .nav__link-marks {
+        .navLink.isFillIn .navLinkMarks {
           opacity: 1;
         }
 
-        .nav__link-marks span {
+        .navLinkMarks span {
           position: absolute;
           width: 3px;
           height: 3px;
           background: #1a1a1a;
         }
 
-        .nav__link-marks span:nth-child(1) { top: 4px; left: 4px; }
-        .nav__link-marks span:nth-child(2) { top: 4px; right: 4px; }
-        .nav__link-marks span:nth-child(3) { bottom: 4px; left: 4px; }
-        .nav__link-marks span:nth-child(4) { bottom: 4px; right: 4px; }
+        .navLinkMarks span:nth-child(1) { top: 4px; left: 4px; }
+        .navLinkMarks span:nth-child(2) { top: 4px; right: 4px; }
+        .navLinkMarks span:nth-child(3) { bottom: 4px; left: 4px; }
+        .navLinkMarks span:nth-child(4) { bottom: 4px; right: 4px; }
 
-        .nav__link-label {
+        .navLinkLabel {
           position: relative;
           z-index: 1;
         }
 
-        .nav__cta {
+        .navCta {
           justify-self: end;
           display: flex;
           align-items: center;
           gap: 0.75rem;
         }
 
-        .nav__contact {
-          font-weight: 500 !important;
+        .navContact {
+          --fillBtnColor: #111111;
+          --fillBtnBg: linear-gradient(90deg, #9fd9d4 0%, #e6d88a 100%);
+          --fillBtnHoverColor: #111111;
+          --fillBtnHoverBg: linear-gradient(
+            105deg,
+            #b7c6ec 0%,
+            #a8d4cf 45%,
+            #d4b8e4 100%
+          );
+          --fillBtnBorder: rgba(0, 0, 0, 0.12);
+          --fillBtnHoverBorder: rgba(0, 0, 0, 0.18);
+          min-height: 2.15rem;
+          padding: 0.55rem 0.95rem;
+          border-radius: 0.35rem;
+          font-size: 0.78rem;
+          font-weight: 500;
         }
 
-        .nav__user {
+        .navUser {
           width: 2rem !important;
           height: 2rem !important;
         }

@@ -14,10 +14,10 @@
     "aspectRatio": 4.168141592920354,
     "hasQuote": true,
     "quote": {
-      "quote": "Convey helps me free up my staff and create leverage for them to go work on higher value parts of the business... we're all in on Convey.",
-      "name": "Scott Hume",
+      "quote": "Bear helps me free up my staff and create leverage for them to go work on higher value parts of the business... we're all in on Bear.",
+      "name": "Scott Bear",
       "title": "Assistant Controller, Samsara",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face"
+      "avatar": "/shelf/BlackImg.jpg"
     }
   },
   {
@@ -36,9 +36,9 @@
     "hasQuote": true,
     "quote": {
       "quote": "I haven't had this much fun with work in a long time. The ability to think of an idea and create a solution without convincing an engineer is amazing.",
-      "name": "Jeremy Varner",
+      "name": "Bearemy Barmer",
       "title": "SVP Programmatic Operations, TelevisaUnivision",
-      "avatar": "https://convey.dev/headshots/jeremyvarner.jpeg"
+      "avatar": "/mountain.jpg"
     }
   },
   {
@@ -49,10 +49,10 @@
     "aspectRatio": 7.946745562130178,
     "hasQuote": true,
     "quote": {
-      "quote": "We had team members spending hours each week pulling invoices from multiple shipping portals. With Convey, one of our team members was able to set up an automated workflow on their own ... no engineering support required.",
-      "name": "Kunal Bajaj",
+      "quote": "We had team members spending hours each week pulling invoices from multiple shipping portals. With Bear, one of our team members was able to set up an automated workflow on their own ... no engineering support required.",
+      "name": "Grizz Lee",
       "title": "Chief Accounting Officer, Faire",
-      "avatar": "https://convey.dev/headshots/kunalbajaj.png"
+      "avatar": "/shelf/GrizzlyImg.jpg"
     }
   },
   {
@@ -64,9 +64,9 @@
     "hasQuote": true,
     "quote": {
       "quote": "We deployed digital teammates across finance workflows and saw capacity open up within the first month.",
-      "name": "Jordan Lee",
+      "name": "Pan Da",
       "title": "Finance Director, ChargePoint",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face"
+      "avatar": "/shelf/PandaImg.jpg"
     }
   }
 ]

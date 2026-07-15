@@ -33,7 +33,7 @@ export function TestimonialSection() {
     const viewport = viewportRef.current;
     if (!viewport) return;
 
-    const slide = viewport.querySelector<HTMLElement>(".testimonials__slide");
+    const slide = viewport.querySelector<HTMLElement>(".testimonialsSlide");
     slideWidthRef.current = slide?.offsetWidth ?? 0;
   }, []);
 
@@ -105,64 +105,39 @@ export function TestimonialSection() {
 
   return (
     <section className="testimonials">
-      <div className="testimonials__top">
-        <h2 className="testimonials__title">Built for World-Class Operators</h2>
+      <div className="testimonialsTop">
+        <h2 className="testimonialsTitle">Built for world-class Bears</h2>
 
-        <div className="testimonials__nav" aria-label="Testimonial controls">
-          <button
-            type="button"
-            className="testimonials__arrow"
-            onClick={goPrev}
-            disabled={index === 0}
-            aria-label="Previous testimonial"
-          >
+        <div className="testimonialsNav" aria-label="Testimonial controls">
+          <button type="button" className="testimonialsArrow" onClick={goPrev}
+            disabled={index === 0} aria-label="Previous testimonial">
             <IoChevronBack size={18} aria-hidden />
           </button>
 
-          <div className="testimonials__segments" role="tablist" aria-label="Jump to testimonial">
+          <div className="testimonialsSegments" role="tablist" aria-label="Jump to testimonial">
             {TestimonialItems.map((item, i) => (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={i === index}
+              <button key={item.id} type="button" role="tab" aria-selected={i === index}
                 aria-label={`Go to testimonial ${i + 1}`}
-                className={`testimonials__segment${i === index ? " is-active" : ""}`}
+                className={`testimonialsSegment${i === index ? " isActive" : ""}`}
                 onClick={() => setIndex(i)}
               />
             ))}
           </div>
 
-          <button
-            type="button"
-            className="testimonials__arrow"
-            onClick={goNext}
-            disabled={index === maxIndex}
-            aria-label="Next testimonial"
-          >
+          <button type="button" className="testimonialsArrow" disabled={index === maxIndex}
+            aria-label="Next testimonial" onClick={goNext}>
             <IoChevronForward size={18} aria-hidden />
           </button>
         </div>
       </div>
 
-      <div
-        ref={viewportRef}
-        className={`testimonials__viewport${isDragging ? " is-dragging" : ""}`}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-      >
-        <div className="testimonials__track" style={trackStyle}>
+      <div ref={viewportRef} className={`testimonialsViewport${isDragging ? " isDragging" : ""}`}
+        onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag}>
+        <div className="testimonialsTrack" style={trackStyle}>
           {TestimonialItems.map((item) => (
-            <div key={item.id} className="testimonials__slide">
-              <TestimonialCard
-                quote={item.quote}
-                name={item.name}
-                title={item.title}
-                avatar={item.avatar}
-                background={item.background}
-              />
+            <div key={item.id} className="testimonialsSlide">
+              <TestimonialCard quote={item.quote} name={item.name} title={item.title}
+                avatar={item.avatar} background={item.background} />
             </div>
           ))}
         </div>

@@ -3,19 +3,20 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DemoFormProvider } from "@/components/ui/DemoForm";
 import "./globals.css";
+import "@/styles/FillButton.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--fontGeistSans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--fontGeistMono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Convey",
+  title: "Bear",
   description: "Digital teammates for enterprise operators",
 };
 

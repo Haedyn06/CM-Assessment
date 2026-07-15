@@ -20,26 +20,24 @@ export function LogoQuotes({
   avatar,
 }: LogoQuotesProps) {
   return (
-    <div className={`logo-quotes${open ? " is-open" : ""}`} role="tooltip">
-      <div className="logo-quotes__logo">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+    <div className={`logoQuotes${open ? " isOpen" : ""}`} role="tooltip">
+      <div className="logoQuotesLogo">
         <img src={logoSrc} alt={logoAlt} />
       </div>
-      <div className="logo-quotes__mark" aria-hidden>
+      <div className="logoQuotesMark" aria-hidden>
         “
       </div>
-      <p className="logo-quotes__quote">{quote}</p>
-      <div className="logo-quotes__author">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={avatar} alt="" className="logo-quotes__avatar" />
+      <p className="logoQuotesQuote">{quote}</p>
+      <div className="logoQuotesAuthor">
+        <img src={avatar} alt="" className="logoQuotesAvatar" />
         <div>
-          <div className="logo-quotes__name">{name}</div>
-          <div className="logo-quotes__title">{title}</div>
+          <div className="logoQuotesName">{name}</div>
+          <div className="logoQuotesTitle">{title}</div>
         </div>
       </div>
 
       <style>{`
-        .logo-quotes {
+        .logoQuotes {
           position: absolute;
           left: 50%;
           bottom: calc(100% + 0.85rem);
@@ -63,20 +61,20 @@ export function LogoQuotes({
           text-align: left;
         }
 
-        .logo-quotes.is-open {
+        .logoQuotes.isOpen {
           opacity: 1;
           visibility: visible;
           pointer-events: auto;
           transform: translate(-50%, 0) scale(1);
         }
 
-        .logo-quotes__logo {
+        .logoQuotesLogo {
           display: flex;
           justify-content: center;
           margin-bottom: 0.85rem;
         }
 
-        .logo-quotes__logo img {
+        .logoQuotesLogo img {
           display: block;
           height: 1.35rem;
           width: auto;
@@ -86,41 +84,41 @@ export function LogoQuotes({
           opacity: 0.85;
         }
 
-        .logo-quotes__mark {
+        .logoQuotesMark {
           margin-bottom: 0.2rem;
           font-size: 1.5rem;
           line-height: 1;
           color: #7fb3e0;
         }
 
-        .logo-quotes__quote {
+        .logoQuotesQuote {
           margin: 0 0 1.1rem;
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.8125rem;
           line-height: 1.55;
           color: #333;
         }
 
-        .logo-quotes__author {
+        .logoQuotesAuthor {
           display: flex;
           align-items: center;
           gap: 0.7rem;
         }
 
-        .logo-quotes__avatar {
+        .logoQuotesAvatar {
           width: 2.15rem;
           height: 2.15rem;
           border-radius: 999px;
           object-fit: cover;
         }
 
-        .logo-quotes__name {
+        .logoQuotesName {
           font-size: 0.8125rem;
           font-weight: 650;
           color: #1a1a1a;
         }
 
-        .logo-quotes__title {
+        .logoQuotesTitle {
           font-size: 0.75rem;
           color: #8a8a8a;
         }

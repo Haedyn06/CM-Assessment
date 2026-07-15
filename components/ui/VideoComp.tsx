@@ -22,10 +22,10 @@ export type VideoCompProps = {
 function CornerDots() {
   return (
     <>
-      <span aria-hidden className="video-comp-dot video-comp-dot--tl" />
-      <span aria-hidden className="video-comp-dot video-comp-dot--tr" />
-      <span aria-hidden className="video-comp-dot video-comp-dot--bl" />
-      <span aria-hidden className="video-comp-dot video-comp-dot--br" />
+      <span aria-hidden className="videoCompDot videoCompDotTl" />
+      <span aria-hidden className="videoCompDot videoCompDotTr" />
+      <span aria-hidden className="videoCompDot videoCompDotBl" />
+      <span aria-hidden className="videoCompDot videoCompDotBr" />
     </>
   );
 }
@@ -92,12 +92,12 @@ export function VideoComp({
 
   return (
     <div
-      className={`video-comp${playing ? " is-playing" : ""}${className ? ` ${className}` : ""}`}
-      style={{ "--video-comp-aspect": aspectRatio } as CSSProperties}
+      className={`videoComp${playing ? " isPlaying" : ""}${className ? ` ${className}` : ""}`}
+      style={{ "--videoCompAspect": aspectRatio } as CSSProperties}
     >
       <video
         ref={videoRef}
-        className="video-comp__player"
+        className="videoCompPlayer"
         src={src}
         poster={poster}
         playsInline
@@ -109,10 +109,10 @@ export function VideoComp({
 
       {!playing && (
         <>
-          <div className="video-comp__shade" aria-hidden />
+          <div className="videoCompShade" aria-hidden />
           <button
             type="button"
-            className="video-comp__play"
+            className="videoCompPlay"
             aria-label={label}
             onClick={startPlayback}
           >
@@ -124,16 +124,16 @@ export function VideoComp({
       )}
 
       <style>{`
-        .video-comp {
+        .videoComp {
           position: relative;
-          aspect-ratio: var(--video-comp-aspect, 16 / 10);
+          aspect-ratio: var(--videoCompAspect, 16 / 10);
           overflow: hidden;
           border-radius: 0.65rem;
           background: #111;
           box-shadow: 0 20px 60px -28px rgba(0, 0, 0, 0.28);
         }
 
-        .video-comp__player {
+        .videoCompPlayer {
           position: absolute;
           inset: 0;
           width: 100%;
@@ -143,16 +143,16 @@ export function VideoComp({
           z-index: 1;
         }
 
-        .video-comp.is-playing .video-comp__player {
+        .videoComp.isPlaying .videoCompPlayer {
           z-index: 2;
           pointer-events: auto;
         }
 
-        .video-comp:not(.is-playing) .video-comp__player {
+        .videoComp:not(.isPlaying) .videoCompPlayer {
           pointer-events: none;
         }
 
-        .video-comp__shade {
+        .videoCompShade {
           position: absolute;
           inset: 0;
           z-index: 1;
@@ -165,7 +165,7 @@ export function VideoComp({
           );
         }
 
-        .video-comp__play {
+        .videoCompPlay {
           position: absolute;
           top: 50%;
           left: 50%;
@@ -181,7 +181,7 @@ export function VideoComp({
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-          font-family: var(--font-geist-mono), ui-monospace, monospace;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
           font-size: 0.8125rem;
           font-weight: 500;
           color: #111;
@@ -189,11 +189,11 @@ export function VideoComp({
           transition: background 0.25s ease;
         }
 
-        .video-comp__play:hover {
+        .videoCompPlay:hover {
           background: rgba(255, 255, 255, 0.72);
         }
 
-        .video-comp-dot {
+        .videoCompDot {
           position: absolute;
           width: 3px;
           height: 3px;
@@ -201,10 +201,10 @@ export function VideoComp({
           pointer-events: none;
         }
 
-        .video-comp-dot--tl { top: 5px; left: 5px; }
-        .video-comp-dot--tr { top: 5px; right: 5px; }
-        .video-comp-dot--bl { bottom: 5px; left: 5px; }
-        .video-comp-dot--br { bottom: 5px; right: 5px; }
+        .videoCompDotTl { top: 5px; left: 5px; }
+        .videoCompDotTr { top: 5px; right: 5px; }
+        .videoCompDotBl { bottom: 5px; left: 5px; }
+        .videoCompDotBr { bottom: 5px; right: 5px; }
       `}</style>
     </div>
   );

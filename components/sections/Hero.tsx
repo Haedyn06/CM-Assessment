@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { HeroLogo } from "@/components/ui/HeroLogo";
+import { HeroGlobe } from "@/components/ui/HeroGlobe";
 import { VideoComp } from "@/components/ui/VideoComp";
 import { useDemoForm } from "@/components/ui/DemoForm";
 
@@ -14,10 +15,10 @@ const LogoItems = LogoItemsData as LogoItem[];
 function CornerDots() {
   return (
     <>
-      <span aria-hidden className="hero-dot hero-dot--tl" />
-      <span aria-hidden className="hero-dot hero-dot--tr" />
-      <span aria-hidden className="hero-dot hero-dot--bl" />
-      <span aria-hidden className="hero-dot hero-dot--br" />
+      <span aria-hidden className="heroDot heroDotTl" />
+      <span aria-hidden className="heroDot heroDotTr" />
+      <span aria-hidden className="heroDot heroDotBl" />
+      <span aria-hidden className="heroDot heroDotBr" />
     </>
   );
 }
@@ -28,52 +29,56 @@ export function HeroSection() {
 
   return (
     <section className="hero">
-      <div className="hero-grid" aria-hidden />
+      <div className="heroGrid" aria-hidden />
+      <HeroGlobe />
 
-      <div className="hero-inner">
+      <div className="heroInner">
         {/* Details */}
-        <div className="hero-copy">
-          <p className="hero-badge">
-            <span className="hero-badge__count">1,199,889 hours of work</span>
-            <span className="hero-badge__rest">{" "} executed in the background since Q3&apos;25</span>
+        <div className="heroCopy">
+          <p className="heroBadge">
+            <span className="heroBadgeCount">1,199,889 hours of bear</span>
+            <span className="heroBadgeRest">{" "} executed in the background since Q3&apos;25</span>
           </p>
 
-          <h1 className="hero-title">
-            The World&apos;s Most<br />Experienced Digital<br />Teammate
+          <h1 className="heroTitle">
+            The World&apos;s Most
+            <br />
+            Experienced Digital
+            <br />
+            Bear
           </h1>
 
-          <p className="hero-sub">
-            Join leading enterprises and create your own digital teammates to 100x your output.
+          <p className="heroSub">
+            Join leading Bears and create your own digital Bears to 100x your output.
           </p>
 
-          <form
-            className="hero-cta"
+          <form className="heroCta"
             onSubmit={(e) => {
               e.preventDefault();
               openDemoForm();
             }}
           >
-            <label className="sr-only" htmlFor="hero-email">Work email</label>
+            <label className="srOnly" htmlFor="heroEmail">Work email</label>
             
-            <input className="hero-cta__input" id="hero-email" type="email" value={email}
+            <input className="heroCtaInput" id="heroEmail" type="email" value={email}
               onChange={(e) => setEmail(e.target.value)} placeholder="What's your work email?" />
             
-            <button type="submit" className="hero-cta__btn">
-              <span className="hero-cta__btn-bg" aria-hidden />
-              <span className="hero-cta__btn-bg hero-cta__btn-bg--hover" aria-hidden />
+            <button type="submit" className="heroCtaBtn">
+              <span className="heroCtaBtnBg" aria-hidden />
+              <span className="heroCtaBtnBg heroCtaBtnBgHover" aria-hidden />
               <CornerDots />
-              <span className="hero-cta__btn-label">Get started</span>
+              <span className="heroCtaBtnLabel">Get started</span>
             </button>
           </form>
         </div>
 
         {/* Video */}
-        <div className="hero-media">
-          <VideoComp src="/grass.mp4" label="Play hero video" />
+        <div className="heroMedia">
+          <VideoComp src="/grass.mp4" label="Play video" />
         </div>
       </div>
 
-      <ul className="hero-logos">
+      <ul className="heroLogos">
         {LogoItems.map((logo) => (
           <HeroLogo key={logo.id} src={logo.src} alt={logo.alt}
             hoverColor={logo.hoverColor} aspectRatio={logo.aspectRatio}

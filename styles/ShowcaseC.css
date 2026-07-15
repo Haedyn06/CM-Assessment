@@ -1,26 +1,26 @@
-.showcase-c {
+.showcaseC {
   position: relative;
   isolation: isolate;
   padding: 4.25rem 1.25rem 4.75rem;
   background: #f3f3f1;
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
   color: #1a1a1a;
   overflow: hidden;
 }
 
 @media (min-width: 640px) {
-  .showcase-c {
+  .showcaseC {
     padding: 5.25rem 2rem 5.75rem;
   }
 }
 
 @media (min-width: 1100px) {
-  .showcase-c {
+  .showcaseC {
     padding: 5.75rem 3rem 6.25rem;
   }
 }
 
-.showcase-c__dots {
+.showcaseCDots {
   pointer-events: none;
   position: absolute;
   inset: 8% 0 8% 38%;
@@ -39,7 +39,7 @@
   );
 }
 
-.showcase-c__inner {
+.showcaseCInner {
   position: relative;
   z-index: 1;
   display: grid;
@@ -50,17 +50,17 @@
 }
 
 @media (min-width: 980px) {
-  .showcase-c__inner {
+  .showcaseCInner {
     grid-template-columns: minmax(16rem, 0.92fr) minmax(0, 1.2fr);
     gap: 2rem 2.5rem;
   }
 }
 
-.showcase-c__copy {
+.showcaseCCopy {
   max-width: 28rem;
 }
 
-.showcase-c__badge {
+.showcaseCBadge {
   position: relative;
   display: inline-block;
   margin: 0 0 1.35rem;
@@ -68,36 +68,36 @@
   border-radius: 0.15rem;
   background: #121212;
   color: #f6f6f6;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--fontGeistMono), ui-monospace, monospace;
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   line-height: 1;
 }
 
-.showcase-c__corners {
+.showcaseCCorners {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.showcase-c__corners span {
+.showcaseCCorners span {
   position: absolute;
   width: 3px;
   height: 3px;
   background: currentColor;
 }
 
-.showcase-c__badge .showcase-c__corners span {
+.showcaseCBadge .showcaseCCorners span {
   background: #f6f6f6;
 }
 
-.showcase-c__corners span:nth-child(1) { top: 3px; left: 3px; }
-.showcase-c__corners span:nth-child(2) { top: 3px; right: 3px; }
-.showcase-c__corners span:nth-child(3) { bottom: 3px; left: 3px; }
-.showcase-c__corners span:nth-child(4) { bottom: 3px; right: 3px; }
+.showcaseCCorners span:nth-child(1) { top: 3px; left: 3px; }
+.showcaseCCorners span:nth-child(2) { top: 3px; right: 3px; }
+.showcaseCCorners span:nth-child(3) { bottom: 3px; left: 3px; }
+.showcaseCCorners span:nth-child(4) { bottom: 3px; right: 3px; }
 
-.showcase-c__title {
+.showcaseCTitle {
   margin: 0 0 1.05rem;
   max-width: 12ch;
   font-size: clamp(2.25rem, 4.4vw, 3.4rem);
@@ -107,7 +107,7 @@
   color: #141414;
 }
 
-.showcase-c__text {
+.showcaseCText {
   margin: 0 0 1.5rem;
   max-width: 30rem;
   font-size: 1.02rem;
@@ -115,14 +115,36 @@
   color: #5a5a5a;
 }
 
-.showcase-c__actions {
+.showcaseCActions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
   margin-bottom: 1.5rem;
 }
 
-.showcase-c__features {
+.showcaseCBtn {
+  border-radius: 0.4rem;
+}
+
+.showcaseCBtnPrimary {
+  --fillBtnColor: #111111;
+  --fillBtnBg: linear-gradient(90deg, #f3ecc0 0%, #c8e8e2 100%);
+  --fillBtnHoverColor: #111111;
+  --fillBtnHoverBg: linear-gradient(90deg, #ebe2a8 0%, #b5ddd5 100%);
+  --fillBtnBorder: #d8d8d6;
+  --fillBtnHoverBorder: #c8c8c6;
+}
+
+.showcaseCBtnSecondary {
+  --fillBtnColor: #111111;
+  --fillBtnBg: #ffffff;
+  --fillBtnHoverColor: #ffffff;
+  --fillBtnHoverBg: #121212;
+  --fillBtnBorder: #d0d0ce;
+  --fillBtnHoverBorder: #121212;
+}
+
+.showcaseCFeatures {
   position: relative;
   margin: 0;
   padding: 1.1rem 1.15rem 1.05rem;
@@ -130,16 +152,16 @@
   background: transparent;
 }
 
-.showcase-c__features .showcase-c__corners span {
+.showcaseCFeatures .showcaseCCorners span {
   background: #2a2a2a;
 }
 
-.showcase-c__features .showcase-c__corners span:nth-child(1) { top: 4px; left: 4px; }
-.showcase-c__features .showcase-c__corners span:nth-child(2) { top: 4px; right: 4px; }
-.showcase-c__features .showcase-c__corners span:nth-child(3) { bottom: 4px; left: 4px; }
-.showcase-c__features .showcase-c__corners span:nth-child(4) { bottom: 4px; right: 4px; }
+.showcaseCFeatures .showcaseCCorners span:nth-child(1) { top: 4px; left: 4px; }
+.showcaseCFeatures .showcaseCCorners span:nth-child(2) { top: 4px; right: 4px; }
+.showcaseCFeatures .showcaseCCorners span:nth-child(3) { bottom: 4px; left: 4px; }
+.showcaseCFeatures .showcaseCCorners span:nth-child(4) { bottom: 4px; right: 4px; }
 
-.showcase-c__features ul {
+.showcaseCFeatures ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -147,7 +169,7 @@
   gap: 0.7rem;
 }
 
-.showcase-c__features li {
+.showcaseCFeatures li {
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
@@ -156,20 +178,20 @@
   color: #333;
 }
 
-.showcase-c__features svg {
+.showcaseCFeatures svg {
   flex-shrink: 0;
   margin-top: 0.12rem;
   color: #6a6a6a;
 }
 
-.showcase-c__stage {
+.showcaseCStage {
   position: relative;
   width: 100%;
   min-height: 28rem;
   height: min(36rem, 72vh);
 }
 
-.showcase-c__layer {
+.showcaseCLayer {
   position: absolute;
   transition:
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -177,11 +199,11 @@
   filter: saturate(0.96);
 }
 
-.showcase-c__layer.is-front {
+.showcaseCLayer.isFront {
   filter: none;
 }
 
-.showcase-c__layer--apps {
+.showcaseCLayerApps {
   left: 0;
   top: 4%;
   width: min(78%, 28rem);
@@ -189,11 +211,11 @@
   transform: translate(0, 0);
 }
 
-.showcase-c__layer--apps.is-front {
+.showcaseCLayerApps.isFront {
   transform: translate(-0.15rem, -0.25rem) scale(1.015);
 }
 
-.showcase-c__layer--agents {
+.showcaseCLayerAgents {
   right: 2%;
   bottom: 2%;
   width: min(62%, 22rem);
@@ -201,11 +223,11 @@
   transform: translate(0, 0);
 }
 
-.showcase-c__layer--agents.is-front {
+.showcaseCLayerAgents.isFront {
   transform: translate(0.1rem, -0.35rem) scale(1.03);
 }
 
-.showcase-c__layer--users {
+.showcaseCLayerUsers {
   right: 0;
   top: 0;
   width: min(60%, 21.5rem);
@@ -213,27 +235,27 @@
   transform: translate(0, 0);
 }
 
-.showcase-c__layer--users.is-front {
+.showcaseCLayerUsers.isFront {
   transform: translate(0.15rem, -0.3rem) scale(1.03);
 }
 
 @media (max-width: 979px) {
-  .showcase-c__stage {
+  .showcaseCStage {
     min-height: 24rem;
     height: min(32rem, 70vh);
   }
 
-  .showcase-c__layer--apps {
+  .showcaseCLayerApps {
     width: min(86%, 100%);
     height: 88%;
   }
 
-  .showcase-c__layer--agents {
+  .showcaseCLayerAgents {
     width: min(70%, 19rem);
     height: 58%;
   }
 
-  .showcase-c__layer--users {
+  .showcaseCLayerUsers {
     width: min(68%, 18rem);
     height: 54%;
   }

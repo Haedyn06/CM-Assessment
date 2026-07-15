@@ -17,7 +17,6 @@ import {
   IoPlay,
   IoSettingsOutline,
 } from "react-icons/io5";
-import { Button } from "@/components/ui/Button";
 import { ShowcaseAPage } from "@/components/ui/ShowcaseAPage";
 import chatLogData from "@/data/ShowcaseAChat.json";
 import type { ShowcaseAChatItem } from "@/types/ShowcaseAChatItem";
@@ -51,11 +50,11 @@ function MessageView({
 
   if (message.role === "user") {
     return (
-      <div className="saw__row saw__row--user">
-        {text ? <div className="saw__bubble">{text}</div> : null}
+      <div className="sawRow sawRowUser">
+        {text ? <div className="sawBubble">{text}</div> : null}
         {message.attachment ? (
-          <div className="saw__attachment">
-            <span className="saw__attachment-icon">
+          <div className="sawAttachment">
+            <span className="sawAttachmentIcon">
               <IoPlay size={11} />
             </span>
             {message.attachment.label}
@@ -66,28 +65,28 @@ function MessageView({
   }
 
   return (
-    <div className="saw__msg saw__msg--ai">
+    <div className="sawMsg sawMsgAi">
       {text || message.link || isTyping ? (
         <p>
           {text}
           {message.link && !isTyping ? (
-            <a className="saw__msg-link" href={message.link.href}>
+            <a className="sawMsgLink" href={message.link.href}>
               {message.link.label}
             </a>
           ) : null}
-          {isTyping && !showSteps ? <span className="saw__caret" /> : null}
+          {isTyping && !showSteps ? <span className="sawCaret" /> : null}
         </p>
       ) : null}
 
       {showSteps ? (
-        <ol className="saw__plan">
+        <ol className="sawPlan">
           {steps.map((step, i) => (
             <li key={`${message.id}-step-${i}`}>
               {i + 1}. {step}
               {isTyping &&
               message.stepsComplete === false &&
               i === steps.length - 1 ? (
-                <span className="saw__caret" />
+                <span className="sawCaret" />
               ) : null}
             </li>
           ))}
@@ -252,7 +251,6 @@ export function ShowcaseAWindow() {
     ]);
     setDraft("");
 
-    // Mock reply matching convey.dev
     window.setTimeout(() => {
       if (cancelledRef.current) return;
       setMessages((prev) => [
@@ -260,8 +258,8 @@ export function ShowcaseAWindow() {
         {
           id: `ai-${Date.now()}`,
           role: "ai",
-          text: "To try Convey, please ",
-          typedText: "To try Convey, please ",
+          text: "To try Bear, please ",
+          typedText: "To try Bear, please ",
           link: {
             label: "contact us",
             href: "#contact",
@@ -285,41 +283,28 @@ export function ShowcaseAWindow() {
 
   return (
     <div className="saw">
-      <aside className="saw__sidebar" aria-hidden>
-        <div className="saw__sidebar-top">
-          <span className="saw__avatar">LA</span>
+      <aside className="sawSidebar" aria-hidden>
+        <div className="sawSidebarTop">
+          <span className="sawAvatar">LA</span>
           <IoCreateOutline size={18} />
           <IoHomeOutline size={18} />
           <IoCalendarOutline size={18} />
         </div>
-        <div className="saw__sidebar-bottom">
+        <div className="sawSidebarBottom">
           <IoPersonAddOutline size={18} />
           <IoSettingsOutline size={18} />
         </div>
       </aside>
 
-      <div className="saw__body">
-        <header className="saw__header">
-          <span className="saw__logo">convey.</span>
-          <Button
-            decorative
-            color="#1a1a1a"
-            background="linear-gradient(90deg, #efe48a 0%, #b7eb9a 48%, #8fdfe0 100%)"
-            borderColor="transparent"
-            hoverBackground="linear-gradient(90deg, #efe48a 0%, #b7eb9a 48%, #8fdfe0 100%)"
-            style={{
-              borderRadius: "0.4rem",
-              minHeight: "2rem",
-              padding: "0.4rem 0.85rem",
-              fontSize: "0.78rem",
-              fontWeight: 500,
-            }}
-          >
+      <div className="sawBody">
+        <header className="sawHeader">
+          <span className="sawLogo">bear.</span>
+          <span className="sawDemo" aria-hidden>
             Schedule demo
-          </Button>
+          </span>
         </header>
 
-        <div className="saw__chat" ref={chatRef} role="log" aria-live="polite">
+        <div className="sawChat hideScrollbar" ref={chatRef} role="log" aria-live="polite">
           {messages.map((message) => (
             <MessageView
               key={message.id}
@@ -329,24 +314,19 @@ export function ShowcaseAWindow() {
           ))}
         </div>
 
-        <form className="saw__composer" onSubmit={onSubmit}>
-          <label className="sr-only" htmlFor="saw-input">
+        <form className="sawComposer" onSubmit={onSubmit}>
+          <label className="srOnly" htmlFor="sawInput">
             Message
           </label>
-          <div className="saw__input-wrap">
-            <input
-              id="saw-input"
-              className="saw__input"
-              type="text"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={onKeyDown}
-              placeholder="Tell me what you need..."
+          <div className="sawInputWrap">
+            <input id="sawInput" className="sawInput" type="text"
+              value={draft} onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={onKeyDown} placeholder="Tell me what you need..."
               autoComplete="off"
             />
             <button
               type="button"
-              className="saw__add"
+              className="sawAdd"
               aria-label="Add attachment"
               tabIndex={-1}
             >
@@ -355,7 +335,7 @@ export function ShowcaseAWindow() {
           </div>
           <button
             type="submit"
-            className="saw__send"
+            className="sawSend"
             aria-label="Send message"
             disabled={!draft.trim()}
           >
@@ -363,7 +343,7 @@ export function ShowcaseAWindow() {
           </button>
         </form>
         {!scriptDone ? (
-          <span className="sr-only">Demo conversation is still writing…</span>
+          <span className="srOnly">Demo conversation is still writing…</span>
         ) : null}
       </div>
 
@@ -380,11 +360,11 @@ export function ShowcaseAWindow() {
           box-shadow:
             0 28px 70px -28px rgba(20, 20, 30, 0.35),
             0 0 0 1px rgba(0, 0, 0, 0.04);
-          font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+          font-family: var(--fontGeistSans), ui-sans-serif, system-ui, sans-serif;
           color: #1d1d1d;
         }
 
-        .saw__sidebar {
+        .sawSidebar {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -394,15 +374,15 @@ export function ShowcaseAWindow() {
           color: #6d6d6d;
         }
 
-        .saw__sidebar-top,
-        .saw__sidebar-bottom {
+        .sawSidebarTop,
+        .sawSidebarBottom {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 1rem;
         }
 
-        .saw__avatar {
+        .sawAvatar {
           display: grid;
           place-items: center;
           width: 1.7rem;
@@ -415,7 +395,7 @@ export function ShowcaseAWindow() {
           letter-spacing: 0.02em;
         }
 
-        .saw__body {
+        .sawBody {
           display: grid;
           grid-template-rows: auto minmax(0, 1fr) auto;
           min-width: 0;
@@ -423,7 +403,7 @@ export function ShowcaseAWindow() {
           background: #f7f7f6;
         }
 
-        .saw__header {
+        .sawHeader {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -431,14 +411,30 @@ export function ShowcaseAWindow() {
           padding: 0.85rem 1rem 0.65rem;
         }
 
-        .saw__logo {
+        .sawDemo {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 2rem;
+          padding: 0.4rem 0.85rem;
+          border-radius: 0.4rem;
+          background: linear-gradient(90deg, #efe48a 0%, #b7eb9a 48%, #8fdfe0 100%);
+          color: #1a1a1a;
+          font-family: var(--fontGeistMono), ui-monospace, monospace;
+          font-size: 0.78rem;
+          font-weight: 500;
+          line-height: 1;
+          pointer-events: none;
+        }
+
+        .sawLogo {
           font-size: 1.15rem;
           font-weight: 700;
           letter-spacing: -0.04em;
           color: #141414;
         }
 
-        .saw__chat {
+        .sawChat {
           min-height: 0;
           overflow-x: hidden;
           overflow-y: auto;
@@ -447,10 +443,11 @@ export function ShowcaseAWindow() {
           display: flex;
           flex-direction: column;
           gap: 0.85rem;
-          scrollbar-width: thin;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
 
-        .saw__msg {
+        .sawMsg {
           margin: 0;
           max-width: 94%;
           font-size: 0.82rem;
@@ -458,28 +455,28 @@ export function ShowcaseAWindow() {
           color: #222;
         }
 
-        .saw__msg--ai p {
+        .sawMsgAi p {
           margin: 0 0 0.45rem;
         }
 
-        .saw__msg-link {
+        .sawMsgLink {
           color: inherit;
           text-decoration: underline;
           text-underline-offset: 0.15em;
         }
 
-        .saw__msg-link:hover {
+        .sawMsgLink:hover {
           color: #111;
         }
 
-        .saw__row {
+        .sawRow {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
           gap: 0.45rem;
         }
 
-        .saw__bubble {
+        .sawBubble {
           max-width: 88%;
           padding: 0.7rem 0.85rem;
           border-radius: 0.85rem;
@@ -490,7 +487,7 @@ export function ShowcaseAWindow() {
           white-space: pre-wrap;
         }
 
-        .saw__attachment {
+        .sawAttachment {
           display: inline-flex;
           align-items: center;
           gap: 0.55rem;
@@ -502,7 +499,7 @@ export function ShowcaseAWindow() {
           color: #2f2f2f;
         }
 
-        .saw__attachment-icon {
+        .sawAttachmentIcon {
           display: grid;
           place-items: center;
           width: 1.35rem;
@@ -513,7 +510,7 @@ export function ShowcaseAWindow() {
           color: #333;
         }
 
-        .saw__plan {
+        .sawPlan {
           margin: 0;
           padding: 0;
           list-style: none;
@@ -522,17 +519,17 @@ export function ShowcaseAWindow() {
           color: #2a2a2a;
         }
 
-        .saw__caret {
+        .sawCaret {
           display: inline-block;
           width: 0.45rem;
           height: 0.95em;
           margin-left: 0.1rem;
           vertical-align: text-bottom;
           background: #2a2a2a;
-          animation: saw-blink 0.85s steps(1) infinite;
+          animation: sawBlink 0.85s steps(1) infinite;
         }
 
-        .saw__composer {
+        .sawComposer {
           display: flex;
           align-items: center;
           gap: 0.55rem;
@@ -541,7 +538,7 @@ export function ShowcaseAWindow() {
           border-top: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        .saw__input-wrap {
+        .sawInputWrap {
           position: relative;
           display: flex;
           align-items: center;
@@ -549,7 +546,7 @@ export function ShowcaseAWindow() {
           min-width: 0;
         }
 
-        .saw__input {
+        .sawInput {
           width: 100%;
           min-height: 2.4rem;
           padding: 0.45rem 2.4rem 0.45rem 0.9rem;
@@ -562,15 +559,15 @@ export function ShowcaseAWindow() {
           outline: none;
         }
 
-        .saw__input::placeholder {
+        .sawInput::placeholder {
           color: #9a9a98;
         }
 
-        .saw__input:focus {
+        .sawInput:focus {
           border-color: #c5c5c3;
         }
 
-        .saw__add {
+        .sawAdd {
           position: absolute;
           right: 0.55rem;
           display: grid;
@@ -583,7 +580,7 @@ export function ShowcaseAWindow() {
           cursor: default;
         }
 
-        .saw__send {
+        .sawSend {
           display: grid;
           place-items: center;
           width: 2.15rem;
@@ -597,12 +594,12 @@ export function ShowcaseAWindow() {
           transition: opacity 0.15s ease;
         }
 
-        .saw__send:disabled {
+        .sawSend:disabled {
           opacity: 0.4;
           cursor: default;
         }
 
-        .sr-only {
+        .srOnly {
           position: absolute;
           width: 1px;
           height: 1px;
@@ -614,7 +611,7 @@ export function ShowcaseAWindow() {
           border: 0;
         }
 
-        @keyframes saw-blink {
+        @keyframes sawBlink {
           50% { opacity: 0; }
         }
 
@@ -623,7 +620,7 @@ export function ShowcaseAWindow() {
             height: min(36rem, 72vh);
           }
 
-          .saw__bubble {
+          .sawBubble {
             max-width: 94%;
           }
         }

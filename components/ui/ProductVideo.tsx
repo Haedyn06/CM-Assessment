@@ -86,31 +86,31 @@ export function ProductVideo({
 
   return createPortal(
     <div
-      className={`product-video product-video--${phase}`}
+      className={`productVideo productVideo${phase[0]!.toUpperCase()}${phase.slice(1)}`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
       <button
         type="button"
-        className="product-video__backdrop"
+        className="productVideoBackdrop"
         aria-label="Close video"
         onClick={onClose}
       />
 
       <button
         type="button"
-        className="product-video__close"
+        className="productVideoClose"
         aria-label="Close"
         onClick={onClose}
       >
         <IoClose size={22} aria-hidden />
       </button>
 
-      <div className="product-video__frame">
+      <div className="productVideoFrame">
         <video
           ref={videoRef}
-          className="product-video__player"
+          className="productVideoPlayer"
           src={src}
           controls
           playsInline
@@ -120,7 +120,7 @@ export function ProductVideo({
       </div>
 
       <style>{`
-        .product-video {
+        .productVideo {
           position: fixed;
           inset: 0;
           z-index: 1000;
@@ -129,16 +129,16 @@ export function ProductVideo({
           padding: 1.5rem;
         }
 
-        .product-video--enter {
-          animation: product-video-fade-in ${EXIT_MS}ms ease forwards;
+        .productVideoEnter {
+          animation: productVideoFadeIn ${EXIT_MS}ms ease forwards;
         }
 
-        .product-video--exit {
-          animation: product-video-fade-out ${EXIT_MS}ms ease forwards;
+        .productVideoExit {
+          animation: productVideoFadeOut ${EXIT_MS}ms ease forwards;
           pointer-events: none;
         }
 
-        .product-video__backdrop {
+        .productVideoBackdrop {
           position: absolute;
           inset: 0;
           border: 0;
@@ -149,7 +149,7 @@ export function ProductVideo({
           -webkit-backdrop-filter: blur(10px);
         }
 
-        .product-video__close {
+        .productVideoClose {
           position: absolute;
           top: 1.15rem;
           right: 1.25rem;
@@ -170,20 +170,20 @@ export function ProductVideo({
             transform 0.2s ease;
         }
 
-        .product-video--enter .product-video__close {
-          animation: product-video-close-in ${EXIT_MS}ms ease forwards;
+        .productVideoEnter .productVideoClose {
+          animation: productVideoCloseIn ${EXIT_MS}ms ease forwards;
         }
 
-        .product-video--exit .product-video__close {
-          animation: product-video-close-out ${EXIT_MS}ms ease forwards;
+        .productVideoExit .productVideoClose {
+          animation: productVideoCloseOut ${EXIT_MS}ms ease forwards;
         }
 
-        .product-video__close:hover {
+        .productVideoClose:hover {
           background: rgba(255, 255, 255, 0.12);
           color: #fff;
         }
 
-        .product-video__frame {
+        .productVideoFrame {
           position: relative;
           z-index: 1;
           width: min(920px, 100%);
@@ -195,15 +195,15 @@ export function ProductVideo({
           transform-origin: center center;
         }
 
-        .product-video--enter .product-video__frame {
-          animation: product-video-pop-in ${EXIT_MS}ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        .productVideoEnter .productVideoFrame {
+          animation: productVideoPopIn ${EXIT_MS}ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        .product-video--exit .product-video__frame {
-          animation: product-video-pop-out ${EXIT_MS}ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        .productVideoExit .productVideoFrame {
+          animation: productVideoPopOut ${EXIT_MS}ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .product-video__player {
+        .productVideoPlayer {
           display: block;
           width: 100%;
           height: 100%;
@@ -211,17 +211,17 @@ export function ProductVideo({
           background: #000;
         }
 
-        @keyframes product-video-fade-in {
+        @keyframes productVideoFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
 
-        @keyframes product-video-fade-out {
+        @keyframes productVideoFadeOut {
           from { opacity: 1; }
           to { opacity: 0; }
         }
 
-        @keyframes product-video-pop-in {
+        @keyframes productVideoPopIn {
           from {
             opacity: 0;
             transform: translateY(22px) scale(0.92);
@@ -232,7 +232,7 @@ export function ProductVideo({
           }
         }
 
-        @keyframes product-video-pop-out {
+        @keyframes productVideoPopOut {
           from {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -243,7 +243,7 @@ export function ProductVideo({
           }
         }
 
-        @keyframes product-video-close-in {
+        @keyframes productVideoCloseIn {
           from {
             opacity: 0;
             transform: scale(0.85);
@@ -254,7 +254,7 @@ export function ProductVideo({
           }
         }
 
-        @keyframes product-video-close-out {
+        @keyframes productVideoCloseOut {
           from {
             opacity: 1;
             transform: scale(1);
