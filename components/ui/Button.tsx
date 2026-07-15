@@ -1,10 +1,14 @@
 "use client";
 
-import type {
-  ButtonHTMLAttributes,
-  CSSProperties,
-  ReactNode,
+import {
+  useRef,
+  useState,
+  type ButtonHTMLAttributes,
+  type CSSProperties,
+  type ReactNode,
 } from "react";
+
+type FillPhase = "idle" | "in" | "out";
 
 type DotButtonProps = {
   children: ReactNode;
@@ -14,7 +18,7 @@ type DotButtonProps = {
   background?: string;
   /** Hover text color */
   hoverColor?: string;
-  /** Hover background (solid or CSS gradient) — animates in on hover */
+  /** Hover background (solid or CSS gradient) — fills L→R on hover */
   hoverBackground?: string;
   borderColor?: string;
   hoverBorderColor?: string;
@@ -24,6 +28,8 @@ type DotButtonProps = {
   midMarks?: boolean;
   /** Render as a non-interactive span (visual-only) */
   decorative?: boolean;
+  /** Soften corners (nav CTA style) */
+  rounded?: boolean;
   className?: string;
   style?: CSSProperties;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "style" | "className">;
@@ -40,16 +46,47 @@ export function Button({
   hoverDotColor,
   midMarks = false,
   decorative = false,
+  rounded = true,
   className = "",
   style,
   type = "button",
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   ...rest
 }: DotButtonProps) {
-  const resolvedHoverColor = hoverColor ?? (hoverBackground === "#121212" ? "#ffffff" : color);
+  const [phase, setPhase] = useState<FillPhase>("idle");
+  const leaveTimer = useRef<number | null>(null);
+
+  const resolvedHoverColor =
+    hoverColor ?? (hoverBackground === "#121212" ? "#ffffff" : color);
   const resolvedHoverBorder =
-    hoverBorderColor ?? (hoverBackground === "#121212" ? hoverBackground : borderColor);
+    hoverBorderColor ??
+    (hoverBackground === "#121212" ? hoverBackground : borderColor);
   const resolvedDotColor = dotColor ?? color;
   const resolvedHoverDotColor = hoverDotColor ?? resolvedHoverColor;
+
+  const clearLeaveTimer = () => {
+    if (leaveTimer.current != null) {
+      window.clearTimeout(leaveTimer.current);
+      leaveTimer.current = null;
+    }
+  };
+
+  const startFill = () => {
+    clearLeaveTimer();
+    setPhase("in");
+  };
+
+  const startEmpty = () => {
+    clearLeaveTimer();
+    setPhase("out");
+    leaveTimer.current = window.setTimeout(() => {
+      setPhase("idle");
+      leaveTimer.current = null;
+    }, 420);
+  };
 
   const vars = {
     "--dot-btn-color": color,
@@ -62,7 +99,16 @@ export function Button({
     "--dot-btn-hover-dot": resolvedHoverDotColor,
   } as CSSProperties;
 
-  const classes = `dot-btn${midMarks ? " dot-btn--mid" : ""}${className ? ` ${className}` : ""}`;
+  const classes = [
+    "dot-btn",
+    midMarks ? "dot-btn--mid" : "",
+    rounded ? "" : "dot-btn--square",
+    phase === "in" ? "is-fill-in" : "",
+    phase === "out" ? "is-fill-out" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const content = (
     <>
@@ -107,30 +153,49 @@ export function Button({
             border-color 0.3s ease;
         }
 
+        .dot-btn--square {
+          border-radius: 0.2rem;
+        }
+
         .dot-btn__bg {
           position: absolute;
           inset: 0;
           z-index: 0;
           border-radius: inherit;
           background: var(--dot-btn-bg);
-          transition: opacity 0.35s ease;
         }
 
         .dot-btn__bg--hover {
           background: var(--dot-btn-hover-bg);
-          opacity: 0;
+          clip-path: inset(0 100% 0 0);
+          transition: none;
         }
 
-        .dot-btn:hover,
+        .dot-btn.is-fill-in .dot-btn__bg--hover {
+          clip-path: inset(0 0 0 0);
+          transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .dot-btn.is-fill-out .dot-btn__bg--hover {
+          clip-path: inset(0 0 0 100%);
+          transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .dot-btn.is-fill-in,
         .dot-btn:focus-visible {
           color: var(--dot-btn-hover-color);
           border-color: var(--dot-btn-hover-border);
           outline: none;
         }
 
-        .dot-btn:hover .dot-btn__bg--hover,
         .dot-btn:focus-visible .dot-btn__bg--hover {
-          opacity: 1;
+          clip-path: inset(0 0 0 0);
+          transition: clip-path 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .dot-btn.is-fill-in .dot-btn__dot,
+        .dot-btn:focus-visible .dot-btn__dot {
+          background: var(--dot-btn-hover-dot);
         }
 
         .dot-btn__marks {
@@ -146,11 +211,6 @@ export function Button({
           height: 3px;
           background: var(--dot-btn-dot);
           transition: background 0.3s ease;
-        }
-
-        .dot-btn:hover .dot-btn__dot,
-        .dot-btn:focus-visible .dot-btn__dot {
-          background: var(--dot-btn-hover-dot);
         }
 
         .dot-btn__dot--tl { top: 5px; left: 5px; }
@@ -192,6 +252,22 @@ export function Button({
       type={type}
       className={classes}
       style={{ ...vars, ...style }}
+      onMouseEnter={(e) => {
+        startFill();
+        onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        startEmpty();
+        onMouseLeave?.(e);
+      }}
+      onFocus={(e) => {
+        startFill();
+        onFocus?.(e);
+      }}
+      onBlur={(e) => {
+        startEmpty();
+        onBlur?.(e);
+      }}
       {...rest}
     >
       {content}

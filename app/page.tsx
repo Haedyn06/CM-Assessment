@@ -1,4 +1,4 @@
-
+import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/sections/Hero";
 import { ShelfSection } from "@/components/sections/Shelf";
 import { ProductSection } from "@/components/sections/Product";
@@ -10,6 +10,7 @@ import { FAQSection } from "@/components/sections/Faq";
 export default function Home() {
   return (
     <div className="">
+      <Navbar />
       <main className="">
         <HeroSection />
         <ShelfSection />
