@@ -4,18 +4,12 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { IoPlay } from "react-icons/io5";
 
 export type VideoCompProps = {
-  /** Video media source — swap freely per usage */
   src: string;
-  /** Optional poster / thumbnail image */
   poster?: string;
-  /** Accessible label for the play control */
   label?: string;
-  /** Aspect ratio CSS value, e.g. "16 / 10" */
   aspectRatio?: string;
   className?: string;
-  /** Called when playback starts */
   onPlay?: () => void;
-  /** Called when playback is paused or reset */
   onPause?: () => void;
 };
 
@@ -60,7 +54,6 @@ export function VideoComp({
     }
   }, [playing, onPause]);
 
-  // Reload media element when the source changes (DOM only — no setState)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;

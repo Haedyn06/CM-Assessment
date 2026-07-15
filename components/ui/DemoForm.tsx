@@ -305,12 +305,7 @@ function DemoFormModal({
             <ul className="demoFormLogos">
               {LogoItems.map((logo) => (
                 <li key={logo.id}>
-                  {/* eslint-disable-next-line @next/next/noImgElement */}
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="demoFormLogo"
-                  />
+                  <img src={logo.src} alt={logo.alt} className="demoFormLogo" />
                 </li>
               ))}
             </ul>
